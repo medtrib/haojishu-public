@@ -58,10 +58,6 @@ message AddRoleRep{
 	uint64 roleId = 1;
 	// 角色名称
 	string roleName = 2;
-	// 创建时间
-	string created_at = 4;
-	// 更新时间
-	string updated_at = 5;
 }
 // 编辑角色
 message EditRoleReq{

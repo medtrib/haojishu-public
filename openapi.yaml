@@ -113,16 +113,10 @@ components:
                 roleId:
                     type: integer
                     description: 角色Id
-                    format: int64
+                    format: uint64
                 roleName:
                     type: string
                     description: 角色名称
-                createdAt:
-                    type: string
-                    description: 创建时间
-                updatedAt:
-                    type: string
-                    description: 更新时间
             description: 添加角色回复
         api.auth.v1.AddRoleReq:
             type: object
