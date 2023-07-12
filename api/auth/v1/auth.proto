@@ -55,7 +55,7 @@ message AddRoleReq {
 // 添加角色回复
 message AddRoleRep{
 	// 角色Id
-	int64 roleId = 1;
+	uint64 roleId = 1;
 	// 角色名称
 	string roleName = 2;
 	// 创建时间
