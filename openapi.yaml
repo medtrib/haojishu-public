@@ -1,0 +1,149 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: Auth API
+    description: 权限认证服务
+    version: 0.0.1
+paths:
+    /auth/v1/AddRole:
+        post:
+            tags:
+                - Auth
+            description: 添加角色
+            operationId: Auth_AddRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.AddRoleReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.AddRoleRep'
+    /auth/v1/DelRole:
+        delete:
+            tags:
+                - Auth
+            description: 删除角色
+            operationId: Auth_DelRole
+            parameters:
+                - name: roleId
+                  in: query
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /auth/v1/EditRole:
+        put:
+            tags:
+                - Auth
+            description: 编辑角色
+            operationId: Auth_EditRole
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.EditRoleReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /auth/v1/FullRoleList:
+        get:
+            tags:
+                - Auth
+            description: 获取角色列表(完整)
+            operationId: Auth_FullRoleList
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.FullRoleListRep'
+components:
+    schemas:
+        api.auth.v1.AddRoleRep:
+            type: object
+            properties:
+                roleId:
+                    type: integer
+                    description: 角色Id
+                    format: int64
+                roleName:
+                    type: string
+                    description: 角色名称
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 更新时间
+            description: 添加角色回复
+        api.auth.v1.AddRoleReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 名称
+            description: 添加角色
+        api.auth.v1.EditRoleReq:
+            type: object
+            properties:
+                roleId:
+                    type: integer
+                    description: 角色Id
+                    format: uint64
+                roleName:
+                    type: string
+                    description: 角色名称
+            description: 编辑角色
+        api.auth.v1.FullRoleListRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.Role'
+            description: 完整角色列表回复
+        api.auth.v1.Role:
+            type: object
+            properties:
+                roleId:
+                    type: integer
+                    description: 角色Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 角色名称
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 更新时间
+            description: 角色
+        api.auth.v1.RoleStatus:
+            type: object
+            properties:
+                success:
+                    type: boolean
+            description: 角色状态回复
+tags:
+    - name: Auth

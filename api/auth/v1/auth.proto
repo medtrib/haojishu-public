@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package api.auth.v1;
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "google/protobuf/empty.proto";
+option go_package = "haojishu-public/api/auth/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.auth.v1";
+
+// 权限认证服务
+service Auth {
+	// 添加角色
+	rpc AddRole(AddRoleReq) returns(AddRoleRep){
+		option (google.api.http) = {
+			post:"/auth/v1/AddRole"
+			body:"*"
+		};
+	};
+	// 编辑角色
+	rpc EditRole(EditRoleReq) returns(RoleStatus){
+		option (google.api.http) = {
+			put:"/auth/v1/EditRole"
+			body:"*"
+		};
+	}
+	// 删除角色
+	rpc DelRole(DelRoleReq) returns (RoleStatus){
+		option (google.api.http) = {
+			delete:"/auth/v1/DelRole"
+		};
+	}
+	// 获取角色列表(完整)
+	rpc FullRoleList(google.protobuf.Empty) returns (FullRoleListRep){
+		option (google.api.http) = {
+			get:"/auth/v1/FullRoleList"
+		};
+	}
+	// 获取角色列表(分页)
+	rpc PageRoleList(PageRoleListReq) returns (PageRoleListRep){
+		option (google.api.http) = {
+			get:"/auth/v1/PageRoleList"
+		};
+	}
+
+}
+
+// 添加角色
+message AddRoleReq {
+	// 名称
+	string name = 1 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 添加角色回复
+message AddRoleRep{
+	// 角色Id
+	int64 roleId = 1;
+	// 角色名称
+	string roleName = 2;
+	// 创建时间
+	string created_at = 4;
+	// 更新时间
+	string updated_at = 5;
+}
+// 编辑角色
+message EditRoleReq{
+	// 角色Id
+	uint64 roleId = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 角色名称
+	string roleName = 2 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+// 角色状态回复
+message RoleStatus{
+	bool success = 1;
+}
+// 删除角色
+message DelRoleReq{
+	uint64 roleId = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+// 完整角色列表回复
+message FullRoleListRep{
+	repeated Role list = 1;
+}
+// 请求 分页角色列表
+message PageRoleListReq{
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	uint64 pageSize = 2 [
+		(validate.rules).uint64.gt = 0,
+		(validate.rules).uint64.lt = 50
+	];
+	string roleName = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+// 分页角色列表
+message PageRoleListRep{
+	uint64 total = 1;
+	repeated Role list =2;
+}
+// 角色
+message Role {
+	// 角色Id
+	uint64 roleId = 1;
+	// 角色名称
+	string name = 2;
+	// 创建时间
+	string created_at = 4;
+	// 更新时间
+	string updated_at = 5;
+}
