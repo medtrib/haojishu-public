@@ -1,8 +1,9 @@
-module haojishu-public
+module github.com/medtrib/haojishu-public
 
 go 1.18
 
 require (
+	github.com/envoyproxy/protoc-gen-validate v0.1.0
 	github.com/go-kratos/kratos/v2 v2.6.2
 	github.com/google/wire v0.5.0
 	go.uber.org/automaxprocs v1.5.1
