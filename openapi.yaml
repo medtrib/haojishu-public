@@ -77,6 +77,34 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.FullRoleListRep'
+    /auth/v1/PageRoleList:
+        get:
+            tags:
+                - Auth
+            description: 获取角色列表(分页)
+            operationId: Auth_PageRoleList
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: roleName
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.PageRoleListRep'
 components:
     schemas:
         api.auth.v1.AddRoleRep:
@@ -122,6 +150,17 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 完整角色列表回复
+        api.auth.v1.PageRoleListRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.Role'
+            description: 分页角色列表
         api.auth.v1.Role:
             type: object
             properties:

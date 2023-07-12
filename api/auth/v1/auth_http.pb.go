@@ -24,6 +24,7 @@ const OperationAuthAddRole = "/api.auth.v1.Auth/AddRole"
 const OperationAuthDelRole = "/api.auth.v1.Auth/DelRole"
 const OperationAuthEditRole = "/api.auth.v1.Auth/EditRole"
 const OperationAuthFullRoleList = "/api.auth.v1.Auth/FullRoleList"
+const OperationAuthPageRoleList = "/api.auth.v1.Auth/PageRoleList"
 
 type AuthHTTPServer interface {
 	// AddRole 添加角色
@@ -34,6 +35,8 @@ type AuthHTTPServer interface {
 	EditRole(context.Context, *EditRoleReq) (*RoleStatus, error)
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
+	// PageRoleList 获取角色列表(分页)
+	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 }
 
 func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
@@ -42,6 +45,7 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.PUT("/auth/v1/EditRole", _Auth_EditRole0_HTTP_Handler(srv))
 	r.DELETE("/auth/v1/DelRole", _Auth_DelRole0_HTTP_Handler(srv))
 	r.GET("/auth/v1/FullRoleList", _Auth_FullRoleList0_HTTP_Handler(srv))
+	r.GET("/auth/v1/PageRoleList", _Auth_PageRoleList0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -120,11 +124,31 @@ func _Auth_FullRoleList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 	}
 }
 
+func _Auth_PageRoleList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageRoleListReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthPageRoleList)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageRoleList(ctx, req.(*PageRoleListReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageRoleListRep)
+		return ctx.Result(200, reply)
+	}
+}
+
 type AuthHTTPClient interface {
 	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
 	DelRole(ctx context.Context, req *DelRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
 	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
+	PageRoleList(ctx context.Context, req *PageRoleListReq, opts ...http.CallOption) (rsp *PageRoleListRep, err error)
 }
 
 type AuthHTTPClientImpl struct {
@@ -179,6 +203,19 @@ func (c *AuthHTTPClientImpl) FullRoleList(ctx context.Context, in *emptypb.Empty
 	pattern := "/auth/v1/FullRoleList"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthFullRoleList))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) PageRoleList(ctx context.Context, in *PageRoleListReq, opts ...http.CallOption) (*PageRoleListRep, error) {
+	var out PageRoleListRep
+	pattern := "/auth/v1/PageRoleList"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthPageRoleList))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
