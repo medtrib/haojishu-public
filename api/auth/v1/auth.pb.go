@@ -984,61 +984,6 @@ func (x *GetRolePoliciesRep) GetPolicyRules() []*PolicyRules {
 	return nil
 }
 
-type PolicyRules struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Path   string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
-	Method string `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
-}
-
-func (x *PolicyRules) Reset() {
-	*x = PolicyRules{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_api_auth_v1_auth_proto_msgTypes[18]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *PolicyRules) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PolicyRules) ProtoMessage() {}
-
-func (x *PolicyRules) ProtoReflect() protoreflect.Message {
-	mi := &file_api_auth_v1_auth_proto_msgTypes[18]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PolicyRules.ProtoReflect.Descriptor instead.
-func (*PolicyRules) Descriptor() ([]byte, []int) {
-	return file_api_auth_v1_auth_proto_rawDescGZIP(), []int{18}
-}
-
-func (x *PolicyRules) GetPath() string {
-	if x != nil {
-		return x.Path
-	}
-	return ""
-}
-
-func (x *PolicyRules) GetMethod() string {
-	if x != nil {
-		return x.Method
-	}
-	return ""
-}
-
 // 设置角色权限
 type SetRolePoliciesReq struct {
 	state         protoimpl.MessageState
@@ -1054,7 +999,7 @@ type SetRolePoliciesReq struct {
 func (x *SetRolePoliciesReq) Reset() {
 	*x = SetRolePoliciesReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_api_auth_v1_auth_proto_msgTypes[19]
+		mi := &file_api_auth_v1_auth_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1067,7 +1012,7 @@ func (x *SetRolePoliciesReq) String() string {
 func (*SetRolePoliciesReq) ProtoMessage() {}
 
 func (x *SetRolePoliciesReq) ProtoReflect() protoreflect.Message {
-	mi := &file_api_auth_v1_auth_proto_msgTypes[19]
+	mi := &file_api_auth_v1_auth_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1080,7 +1025,7 @@ func (x *SetRolePoliciesReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SetRolePoliciesReq.ProtoReflect.Descriptor instead.
 func (*SetRolePoliciesReq) Descriptor() ([]byte, []int) {
-	return file_api_auth_v1_auth_proto_rawDescGZIP(), []int{19}
+	return file_api_auth_v1_auth_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *SetRolePoliciesReq) GetRole() string {
@@ -1095,6 +1040,61 @@ func (x *SetRolePoliciesReq) GetPolicyRules() []*PolicyRules {
 		return x.PolicyRules
 	}
 	return nil
+}
+
+type PolicyRules struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Path   string `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Method string `protobuf:"bytes,2,opt,name=method,proto3" json:"method,omitempty"`
+}
+
+func (x *PolicyRules) Reset() {
+	*x = PolicyRules{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_api_auth_v1_auth_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *PolicyRules) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*PolicyRules) ProtoMessage() {}
+
+func (x *PolicyRules) ProtoReflect() protoreflect.Message {
+	mi := &file_api_auth_v1_auth_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use PolicyRules.ProtoReflect.Descriptor instead.
+func (*PolicyRules) Descriptor() ([]byte, []int) {
+	return file_api_auth_v1_auth_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *PolicyRules) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *PolicyRules) GetMethod() string {
+	if x != nil {
+		return x.Method
+	}
+	return ""
 }
 
 var File_api_auth_v1_auth_proto protoreflect.FileDescriptor
@@ -1186,18 +1186,18 @@ var file_api_auth_v1_auth_proto_rawDesc = []byte{
 	0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18,
 	0x2e, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6c,
 	0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73, 0x52, 0x0b, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79,
-	0x52, 0x75, 0x6c, 0x65, 0x73, 0x22, 0x39, 0x0a, 0x0b, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52,
-	0x75, 0x6c, 0x65, 0x73, 0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x04, 0x70, 0x61, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68,
-	0x6f, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64,
-	0x22, 0x7a, 0x0a, 0x12, 0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65, 0x50, 0x6f, 0x6c, 0x69, 0x63,
-	0x69, 0x65, 0x73, 0x52, 0x65, 0x71, 0x12, 0x1e, 0x0a, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x18, 0x01,
-	0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05, 0x10, 0x01, 0x18, 0xff, 0x01,
-	0x52, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x12, 0x44, 0x0a, 0x0b, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79,
-	0x52, 0x75, 0x6c, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79,
-	0x52, 0x75, 0x6c, 0x65, 0x73, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x92, 0x01, 0x02, 0x08, 0x01, 0x52,
-	0x0b, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73, 0x32, 0x96, 0x0a, 0x0a,
+	0x52, 0x75, 0x6c, 0x65, 0x73, 0x22, 0x7a, 0x0a, 0x12, 0x53, 0x65, 0x74, 0x52, 0x6f, 0x6c, 0x65,
+	0x50, 0x6f, 0x6c, 0x69, 0x63, 0x69, 0x65, 0x73, 0x52, 0x65, 0x71, 0x12, 0x1e, 0x0a, 0x04, 0x72,
+	0x6f, 0x6c, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x0a, 0xfa, 0x42, 0x07, 0x72, 0x05,
+	0x10, 0x01, 0x18, 0xff, 0x01, 0x52, 0x04, 0x72, 0x6f, 0x6c, 0x65, 0x12, 0x44, 0x0a, 0x0b, 0x70,
+	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28, 0x0b,
+	0x32, 0x18, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x50,
+	0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x92,
+	0x01, 0x02, 0x08, 0x01, 0x52, 0x0b, 0x70, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65,
+	0x73, 0x22, 0x39, 0x0a, 0x0b, 0x50, 0x6f, 0x6c, 0x69, 0x63, 0x79, 0x52, 0x75, 0x6c, 0x65, 0x73,
+	0x12, 0x12, 0x0a, 0x04, 0x70, 0x61, 0x74, 0x68, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x70, 0x61, 0x74, 0x68, 0x12, 0x16, 0x0a, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x6d, 0x65, 0x74, 0x68, 0x6f, 0x64, 0x32, 0x96, 0x0a, 0x0a,
 	0x04, 0x41, 0x75, 0x74, 0x68, 0x12, 0x58, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x52, 0x6f, 0x6c, 0x65,
 	0x12, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x61, 0x75, 0x74, 0x68, 0x2e, 0x76, 0x31, 0x2e, 0x41,
 	0x64, 0x64, 0x52, 0x6f, 0x6c, 0x65, 0x52, 0x65, 0x71, 0x1a, 0x17, 0x2e, 0x61, 0x70, 0x69, 0x2e,
@@ -1317,15 +1317,15 @@ var file_api_auth_v1_auth_proto_goTypes = []interface{}{
 	(*DeleteRolesForUserReq)(nil), // 15: api.auth.v1.DeleteRolesForUserReq
 	(*GetRolePoliciesReq)(nil),    // 16: api.auth.v1.GetRolePoliciesReq
 	(*GetRolePoliciesRep)(nil),    // 17: api.auth.v1.GetRolePoliciesRep
-	(*PolicyRules)(nil),           // 18: api.auth.v1.PolicyRules
-	(*SetRolePoliciesReq)(nil),    // 19: api.auth.v1.SetRolePoliciesReq
+	(*SetRolePoliciesReq)(nil),    // 18: api.auth.v1.SetRolePoliciesReq
+	(*PolicyRules)(nil),           // 19: api.auth.v1.PolicyRules
 	(*emptypb.Empty)(nil),         // 20: google.protobuf.Empty
 }
 var file_api_auth_v1_auth_proto_depIdxs = []int32{
 	8,  // 0: api.auth.v1.FullRoleListRep.list:type_name -> api.auth.v1.Role
 	8,  // 1: api.auth.v1.PageRoleListRep.list:type_name -> api.auth.v1.Role
-	18, // 2: api.auth.v1.GetRolePoliciesRep.policyRules:type_name -> api.auth.v1.PolicyRules
-	18, // 3: api.auth.v1.SetRolePoliciesReq.policyRules:type_name -> api.auth.v1.PolicyRules
+	19, // 2: api.auth.v1.GetRolePoliciesRep.policyRules:type_name -> api.auth.v1.PolicyRules
+	19, // 3: api.auth.v1.SetRolePoliciesReq.policyRules:type_name -> api.auth.v1.PolicyRules
 	0,  // 4: api.auth.v1.Auth.AddRole:input_type -> api.auth.v1.AddRoleReq
 	2,  // 5: api.auth.v1.Auth.EditRole:input_type -> api.auth.v1.EditRoleReq
 	4,  // 6: api.auth.v1.Auth.DelRole:input_type -> api.auth.v1.DelRoleReq
@@ -1337,7 +1337,7 @@ var file_api_auth_v1_auth_proto_depIdxs = []int32{
 	14, // 12: api.auth.v1.Auth.DeleteRoleForUser:input_type -> api.auth.v1.DeleteRoleForUserReq
 	15, // 13: api.auth.v1.Auth.DeleteRolesForUser:input_type -> api.auth.v1.DeleteRolesForUserReq
 	16, // 14: api.auth.v1.Auth.GetRolePolicies:input_type -> api.auth.v1.GetRolePoliciesReq
-	19, // 15: api.auth.v1.Auth.SetRolePolicies:input_type -> api.auth.v1.SetRolePoliciesReq
+	18, // 15: api.auth.v1.Auth.SetRolePolicies:input_type -> api.auth.v1.SetRolePoliciesReq
 	1,  // 16: api.auth.v1.Auth.AddRole:output_type -> api.auth.v1.AddRoleRep
 	3,  // 17: api.auth.v1.Auth.EditRole:output_type -> api.auth.v1.RoleStatus
 	3,  // 18: api.auth.v1.Auth.DelRole:output_type -> api.auth.v1.RoleStatus
@@ -1580,7 +1580,7 @@ func file_api_auth_v1_auth_proto_init() {
 			}
 		}
 		file_api_auth_v1_auth_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PolicyRules); i {
+			switch v := v.(*SetRolePoliciesReq); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1592,7 +1592,7 @@ func file_api_auth_v1_auth_proto_init() {
 			}
 		}
 		file_api_auth_v1_auth_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SetRolePoliciesReq); i {
+			switch v := v.(*PolicyRules); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -217,10 +217,6 @@ message GetRolePoliciesReq {
 message GetRolePoliciesRep{
 	repeated PolicyRules policyRules = 1;
 }
-message PolicyRules {
-	string path = 1;
-	string method = 2;
-}
 // 设置角色权限
 message SetRolePoliciesReq {
 	// 角色名
@@ -231,4 +227,8 @@ message SetRolePoliciesReq {
 	repeated PolicyRules policyRules = 2[
 		(validate.rules).repeated.min_items = 1
 	];
+}
+message PolicyRules {
+	string path = 1;
+	string method = 2;
 }
