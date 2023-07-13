@@ -95,6 +95,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /auth/v1/DeleteRolesForUser:
+        delete:
+            tags:
+                - Auth
+            description: 删除多个用户角色(删除传递用户的所有角色)
+            operationId: Auth_DeleteRolesForUser
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
     /auth/v1/EditRole:
         put:
             tags:
@@ -127,6 +146,24 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.FullRoleListRep'
+    /auth/v1/GetRolePolicies:
+        get:
+            tags:
+                - Auth
+            description: 获取角色有那些权限
+            operationId: Auth_GetRolePolicies
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRolePoliciesRep'
     /auth/v1/GetRolesForUser:
         get:
             tags:
@@ -192,48 +229,11 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.PageRoleListRep'
-    /deleteRolesForUser:
-        delete:
-            tags:
-                - Auth
-            description: 删除多个用户角色(删除传递用户的所有角色)
-            operationId: Auth_DeleteRolesForUser
-            parameters:
-                - name: username
-                  in: query
-                  description: 用户名
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
-    /getPolicies:
-        get:
-            tags:
-                - Auth
-            description: 获取角色有那些权限 - 列表
-            operationId: Auth_GetRolePolicies
-            parameters:
-                - name: role
-                  in: query
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.auth.v1.GetRolePoliciesRep'
-    /updatePolicies:
+    /auth/v1/SetRolePolicies:
         post:
             tags:
                 - Auth
-            description: 设置角色权限 - 设置
+            description: 设置角色权限
             operationId: Auth_SetRolePolicies
             requestBody:
                 content:

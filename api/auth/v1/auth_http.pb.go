@@ -48,7 +48,7 @@ type AuthHTTPServer interface {
 	EditRole(context.Context, *EditRoleReq) (*RoleStatus, error)
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
-	// GetRolePolicies 获取角色有那些权限 - 列表
+	// GetRolePolicies 获取角色有那些权限
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
 	// GetRolesForUser 获取用户角色
 	GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error)
@@ -56,7 +56,7 @@ type AuthHTTPServer interface {
 	GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error)
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
-	// SetRolePolicies 设置角色权限 - 设置
+	// SetRolePolicies 设置角色权限
 	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
 }
 
@@ -71,9 +71,9 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.GET("/auth/v1/GetRolesForUser", _Auth_GetRolesForUser0_HTTP_Handler(srv))
 	r.GET("/auth/v1/GetUsersForRole", _Auth_GetUsersForRole0_HTTP_Handler(srv))
 	r.DELETE("/auth/v1/DeleteRoleForUser", _Auth_DeleteRoleForUser0_HTTP_Handler(srv))
-	r.DELETE("/deleteRolesForUser", _Auth_DeleteRolesForUser0_HTTP_Handler(srv))
-	r.GET("/getPolicies", _Auth_GetRolePolicies0_HTTP_Handler(srv))
-	r.POST("/updatePolicies", _Auth_SetRolePolicies0_HTTP_Handler(srv))
+	r.DELETE("/auth/v1/DeleteRolesForUser", _Auth_DeleteRolesForUser0_HTTP_Handler(srv))
+	r.GET("/auth/v1/GetRolePolicies", _Auth_GetRolePolicies0_HTTP_Handler(srv))
+	r.POST("/auth/v1/SetRolePolicies", _Auth_SetRolePolicies0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -381,7 +381,7 @@ func (c *AuthHTTPClientImpl) DeleteRoleForUser(ctx context.Context, in *DeleteRo
 
 func (c *AuthHTTPClientImpl) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...http.CallOption) (*RoleStatus, error) {
 	var out RoleStatus
-	pattern := "/deleteRolesForUser"
+	pattern := "/auth/v1/DeleteRolesForUser"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthDeleteRolesForUser))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -420,7 +420,7 @@ func (c *AuthHTTPClientImpl) FullRoleList(ctx context.Context, in *emptypb.Empty
 
 func (c *AuthHTTPClientImpl) GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...http.CallOption) (*GetRolePoliciesRep, error) {
 	var out GetRolePoliciesRep
-	pattern := "/getPolicies"
+	pattern := "/auth/v1/GetRolePolicies"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthGetRolePolicies))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -472,7 +472,7 @@ func (c *AuthHTTPClientImpl) PageRoleList(ctx context.Context, in *PageRoleListR
 
 func (c *AuthHTTPClientImpl) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...http.CallOption) (*RoleStatus, error) {
 	var out RoleStatus
-	pattern := "/updatePolicies"
+	pattern := "/auth/v1/SetRolePolicies"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthSetRolePolicies))
 	opts = append(opts, http.PathTemplate(pattern))

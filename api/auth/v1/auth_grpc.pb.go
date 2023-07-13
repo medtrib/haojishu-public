@@ -58,9 +58,9 @@ type AuthClient interface {
 	DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
 	// 删除多个用户角色(删除传递用户的所有角色)
 	DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
-	// 获取角色有那些权限 - 列表
+	// 获取角色有那些权限
 	GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...grpc.CallOption) (*GetRolePoliciesRep, error)
-	// 设置角色权限 - 设置
+	// 设置角色权限
 	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error)
 }
 
@@ -204,9 +204,9 @@ type AuthServer interface {
 	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error)
 	// 删除多个用户角色(删除传递用户的所有角色)
 	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error)
-	// 获取角色有那些权限 - 列表
+	// 获取角色有那些权限
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
-	// 设置角色权限 - 设置
+	// 设置角色权限
 	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
 	mustEmbedUnimplementedAuthServer()
 }
