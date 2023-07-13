@@ -242,5 +242,5 @@ message PolicyRules {
 message CheckAuthReq {
 	string role = 1;
 	string url = 2;
-	string act = 3;
+	string mod = 3;
 }

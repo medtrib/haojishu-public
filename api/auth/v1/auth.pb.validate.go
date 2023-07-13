@@ -2416,7 +2416,7 @@ func (m *CheckAuthReq) validate(all bool) error {
 
 	// no validation rules for Url
 
-	// no validation rules for Act
+	// no validation rules for Mod
 
 	if len(errors) > 0 {
 		return CheckAuthReqMultiError(errors)

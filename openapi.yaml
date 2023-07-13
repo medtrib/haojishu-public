@@ -67,7 +67,7 @@ paths:
                   in: query
                   schema:
                     type: string
-                - name: act
+                - name: mod
                   in: query
                   schema:
                     type: string
