@@ -1088,3 +1088,1304 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RoleValidationError{}
+
+// Validate checks the field values on SetUserForRoleReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *SetUserForRoleReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetUserForRoleReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetUserForRoleReqMultiError, or nil if none found.
+func (m *SetUserForRoleReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetUserForRoleReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 1 || l > 255 {
+		err := SetUserForRoleReqValidationError{
+			field:  "Username",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetRoles()) < 1 {
+		err := SetUserForRoleReqValidationError{
+			field:  "Roles",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return SetUserForRoleReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetUserForRoleReqMultiError is an error wrapping multiple validation errors
+// returned by SetUserForRoleReq.ValidateAll() if the designated constraints
+// aren't met.
+type SetUserForRoleReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetUserForRoleReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetUserForRoleReqMultiError) AllErrors() []error { return m }
+
+// SetUserForRoleReqValidationError is the validation error returned by
+// SetUserForRoleReq.Validate if the designated constraints aren't met.
+type SetUserForRoleReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetUserForRoleReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetUserForRoleReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetUserForRoleReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetUserForRoleReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetUserForRoleReqValidationError) ErrorName() string {
+	return "SetUserForRoleReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetUserForRoleReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetUserForRoleReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetUserForRoleReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetUserForRoleReqValidationError{}
+
+// Validate checks the field values on GetRolesForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetRolesForUserReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRolesForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRolesForUserReqMultiError, or nil if none found.
+func (m *GetRolesForUserReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRolesForUserReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 1 || l > 255 {
+		err := GetRolesForUserReqValidationError{
+			field:  "Username",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetRolesForUserReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRolesForUserReqMultiError is an error wrapping multiple validation errors
+// returned by GetRolesForUserReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetRolesForUserReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRolesForUserReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRolesForUserReqMultiError) AllErrors() []error { return m }
+
+// GetRolesForUserReqValidationError is the validation error returned by
+// GetRolesForUserReq.Validate if the designated constraints aren't met.
+type GetRolesForUserReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRolesForUserReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRolesForUserReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRolesForUserReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRolesForUserReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRolesForUserReqValidationError) ErrorName() string {
+	return "GetRolesForUserReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRolesForUserReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRolesForUserReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRolesForUserReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRolesForUserReqValidationError{}
+
+// Validate checks the field values on GetRolesForUserRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetRolesForUserRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRolesForUserRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRolesForUserRepMultiError, or nil if none found.
+func (m *GetRolesForUserRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRolesForUserRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetRolesForUserRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRolesForUserRepMultiError is an error wrapping multiple validation errors
+// returned by GetRolesForUserRep.ValidateAll() if the designated constraints
+// aren't met.
+type GetRolesForUserRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRolesForUserRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRolesForUserRepMultiError) AllErrors() []error { return m }
+
+// GetRolesForUserRepValidationError is the validation error returned by
+// GetRolesForUserRep.Validate if the designated constraints aren't met.
+type GetRolesForUserRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRolesForUserRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRolesForUserRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRolesForUserRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRolesForUserRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRolesForUserRepValidationError) ErrorName() string {
+	return "GetRolesForUserRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRolesForUserRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRolesForUserRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRolesForUserRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRolesForUserRepValidationError{}
+
+// Validate checks the field values on GetUsersForRoleReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetUsersForRoleReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUsersForRoleReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetUsersForRoleReqMultiError, or nil if none found.
+func (m *GetUsersForRoleReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUsersForRoleReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetRole()); l < 1 || l > 255 {
+		err := GetUsersForRoleReqValidationError{
+			field:  "Role",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetUsersForRoleReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUsersForRoleReqMultiError is an error wrapping multiple validation errors
+// returned by GetUsersForRoleReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetUsersForRoleReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUsersForRoleReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUsersForRoleReqMultiError) AllErrors() []error { return m }
+
+// GetUsersForRoleReqValidationError is the validation error returned by
+// GetUsersForRoleReq.Validate if the designated constraints aren't met.
+type GetUsersForRoleReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUsersForRoleReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUsersForRoleReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUsersForRoleReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUsersForRoleReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUsersForRoleReqValidationError) ErrorName() string {
+	return "GetUsersForRoleReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUsersForRoleReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUsersForRoleReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUsersForRoleReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUsersForRoleReqValidationError{}
+
+// Validate checks the field values on GetUsersForRoleRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetUsersForRoleRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetUsersForRoleRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetUsersForRoleRepMultiError, or nil if none found.
+func (m *GetUsersForRoleRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetUsersForRoleRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return GetUsersForRoleRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetUsersForRoleRepMultiError is an error wrapping multiple validation errors
+// returned by GetUsersForRoleRep.ValidateAll() if the designated constraints
+// aren't met.
+type GetUsersForRoleRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetUsersForRoleRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetUsersForRoleRepMultiError) AllErrors() []error { return m }
+
+// GetUsersForRoleRepValidationError is the validation error returned by
+// GetUsersForRoleRep.Validate if the designated constraints aren't met.
+type GetUsersForRoleRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetUsersForRoleRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetUsersForRoleRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetUsersForRoleRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetUsersForRoleRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetUsersForRoleRepValidationError) ErrorName() string {
+	return "GetUsersForRoleRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetUsersForRoleRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetUsersForRoleRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetUsersForRoleRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetUsersForRoleRepValidationError{}
+
+// Validate checks the field values on DeleteRoleForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteRoleForUserReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteRoleForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteRoleForUserReqMultiError, or nil if none found.
+func (m *DeleteRoleForUserReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteRoleForUserReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 1 || l > 255 {
+		err := DeleteRoleForUserReqValidationError{
+			field:  "Username",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetRole()); l < 1 || l > 255 {
+		err := DeleteRoleForUserReqValidationError{
+			field:  "Role",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteRoleForUserReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteRoleForUserReqMultiError is an error wrapping multiple validation
+// errors returned by DeleteRoleForUserReq.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteRoleForUserReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteRoleForUserReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteRoleForUserReqMultiError) AllErrors() []error { return m }
+
+// DeleteRoleForUserReqValidationError is the validation error returned by
+// DeleteRoleForUserReq.Validate if the designated constraints aren't met.
+type DeleteRoleForUserReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRoleForUserReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRoleForUserReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRoleForUserReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRoleForUserReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRoleForUserReqValidationError) ErrorName() string {
+	return "DeleteRoleForUserReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRoleForUserReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRoleForUserReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRoleForUserReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRoleForUserReqValidationError{}
+
+// Validate checks the field values on DeleteRolesForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *DeleteRolesForUserReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteRolesForUserReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// DeleteRolesForUserReqMultiError, or nil if none found.
+func (m *DeleteRolesForUserReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteRolesForUserReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetUsername()); l < 1 || l > 255 {
+		err := DeleteRolesForUserReqValidationError{
+			field:  "Username",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return DeleteRolesForUserReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteRolesForUserReqMultiError is an error wrapping multiple validation
+// errors returned by DeleteRolesForUserReq.ValidateAll() if the designated
+// constraints aren't met.
+type DeleteRolesForUserReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteRolesForUserReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteRolesForUserReqMultiError) AllErrors() []error { return m }
+
+// DeleteRolesForUserReqValidationError is the validation error returned by
+// DeleteRolesForUserReq.Validate if the designated constraints aren't met.
+type DeleteRolesForUserReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteRolesForUserReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteRolesForUserReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteRolesForUserReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteRolesForUserReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteRolesForUserReqValidationError) ErrorName() string {
+	return "DeleteRolesForUserReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e DeleteRolesForUserReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteRolesForUserReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteRolesForUserReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteRolesForUserReqValidationError{}
+
+// Validate checks the field values on GetRolePoliciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetRolePoliciesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRolePoliciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRolePoliciesReqMultiError, or nil if none found.
+func (m *GetRolePoliciesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRolePoliciesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetRole()); l < 1 || l > 255 {
+		err := GetRolePoliciesReqValidationError{
+			field:  "Role",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return GetRolePoliciesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRolePoliciesReqMultiError is an error wrapping multiple validation errors
+// returned by GetRolePoliciesReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetRolePoliciesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRolePoliciesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRolePoliciesReqMultiError) AllErrors() []error { return m }
+
+// GetRolePoliciesReqValidationError is the validation error returned by
+// GetRolePoliciesReq.Validate if the designated constraints aren't met.
+type GetRolePoliciesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRolePoliciesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRolePoliciesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRolePoliciesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRolePoliciesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRolePoliciesReqValidationError) ErrorName() string {
+	return "GetRolePoliciesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRolePoliciesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRolePoliciesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRolePoliciesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRolePoliciesReqValidationError{}
+
+// Validate checks the field values on GetRolePoliciesRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *GetRolePoliciesRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRolePoliciesRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRolePoliciesRepMultiError, or nil if none found.
+func (m *GetRolePoliciesRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRolePoliciesRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetPolicyRules() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetRolePoliciesRepValidationError{
+						field:  fmt.Sprintf("PolicyRules[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetRolePoliciesRepValidationError{
+						field:  fmt.Sprintf("PolicyRules[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetRolePoliciesRepValidationError{
+					field:  fmt.Sprintf("PolicyRules[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetRolePoliciesRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRolePoliciesRepMultiError is an error wrapping multiple validation errors
+// returned by GetRolePoliciesRep.ValidateAll() if the designated constraints
+// aren't met.
+type GetRolePoliciesRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRolePoliciesRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRolePoliciesRepMultiError) AllErrors() []error { return m }
+
+// GetRolePoliciesRepValidationError is the validation error returned by
+// GetRolePoliciesRep.Validate if the designated constraints aren't met.
+type GetRolePoliciesRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRolePoliciesRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRolePoliciesRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRolePoliciesRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRolePoliciesRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRolePoliciesRepValidationError) ErrorName() string {
+	return "GetRolePoliciesRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRolePoliciesRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRolePoliciesRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRolePoliciesRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRolePoliciesRepValidationError{}
+
+// Validate checks the field values on PolicyRules with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *PolicyRules) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PolicyRules with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PolicyRulesMultiError, or
+// nil if none found.
+func (m *PolicyRules) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PolicyRules) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Path
+
+	// no validation rules for Method
+
+	if len(errors) > 0 {
+		return PolicyRulesMultiError(errors)
+	}
+
+	return nil
+}
+
+// PolicyRulesMultiError is an error wrapping multiple validation errors
+// returned by PolicyRules.ValidateAll() if the designated constraints aren't met.
+type PolicyRulesMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PolicyRulesMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PolicyRulesMultiError) AllErrors() []error { return m }
+
+// PolicyRulesValidationError is the validation error returned by
+// PolicyRules.Validate if the designated constraints aren't met.
+type PolicyRulesValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PolicyRulesValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PolicyRulesValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PolicyRulesValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PolicyRulesValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PolicyRulesValidationError) ErrorName() string { return "PolicyRulesValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PolicyRulesValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPolicyRules.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PolicyRulesValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PolicyRulesValidationError{}
+
+// Validate checks the field values on SetRolePoliciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SetRolePoliciesReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SetRolePoliciesReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SetRolePoliciesReqMultiError, or nil if none found.
+func (m *SetRolePoliciesReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SetRolePoliciesReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetRole()); l < 1 || l > 255 {
+		err := SetRolePoliciesReqValidationError{
+			field:  "Role",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetPolicyRules()) < 1 {
+		err := SetRolePoliciesReqValidationError{
+			field:  "PolicyRules",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetPolicyRules() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SetRolePoliciesReqValidationError{
+						field:  fmt.Sprintf("PolicyRules[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SetRolePoliciesReqValidationError{
+						field:  fmt.Sprintf("PolicyRules[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SetRolePoliciesReqValidationError{
+					field:  fmt.Sprintf("PolicyRules[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SetRolePoliciesReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// SetRolePoliciesReqMultiError is an error wrapping multiple validation errors
+// returned by SetRolePoliciesReq.ValidateAll() if the designated constraints
+// aren't met.
+type SetRolePoliciesReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SetRolePoliciesReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SetRolePoliciesReqMultiError) AllErrors() []error { return m }
+
+// SetRolePoliciesReqValidationError is the validation error returned by
+// SetRolePoliciesReq.Validate if the designated constraints aren't met.
+type SetRolePoliciesReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SetRolePoliciesReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SetRolePoliciesReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SetRolePoliciesReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SetRolePoliciesReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SetRolePoliciesReqValidationError) ErrorName() string {
+	return "SetRolePoliciesReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SetRolePoliciesReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSetRolePoliciesReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SetRolePoliciesReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SetRolePoliciesReqValidationError{}

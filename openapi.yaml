@@ -26,6 +26,32 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.AddRoleRep'
+    /auth/v1/AddRolesForUser:
+        get:
+            tags:
+                - Auth
+            description: 给用户设置角色
+            operationId: Auth_AddRolesForUser
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+                - name: roles
+                  in: query
+                  description: 角色数组
+                  schema:
+                    type: array
+                    items:
+                        type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
     /auth/v1/DelRole:
         delete:
             tags:
@@ -38,6 +64,30 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /auth/v1/DeleteRoleForUser:
+        delete:
+            tags:
+                - Auth
+            description: 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
+            operationId: Auth_DeleteRoleForUser
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+                - name: role
+                  in: query
+                  description: 角色名
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -77,6 +127,43 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.FullRoleListRep'
+    /auth/v1/GetRolesForUser:
+        get:
+            tags:
+                - Auth
+            description: 获取用户角色
+            operationId: Auth_GetRolesForUser
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRolesForUserRep'
+    /auth/v1/GetUsersForRole:
+        get:
+            tags:
+                - Auth
+            description: 获取角色有那些用户
+            operationId: Auth_GetUsersForRole
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetUsersForRoleRep'
     /auth/v1/PageRoleList:
         get:
             tags:
@@ -105,6 +192,62 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.PageRoleListRep'
+    /deleteRolesForUser:
+        delete:
+            tags:
+                - Auth
+            description: 删除多个用户角色(删除传递用户的所有角色)
+            operationId: Auth_DeleteRolesForUser
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /getPolicies:
+        get:
+            tags:
+                - Auth
+            description: 获取角色有那些权限 - 列表
+            operationId: Auth_GetRolePolicies
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRolePoliciesRep'
+    /updatePolicies:
+        post:
+            tags:
+                - Auth
+            description: 设置角色权限 - 设置
+            operationId: Auth_SetRolePolicies
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.SetRolePoliciesReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
 components:
     schemas:
         api.auth.v1.AddRoleRep:
@@ -144,6 +287,32 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 完整角色列表回复
+        api.auth.v1.GetRolePoliciesRep:
+            type: object
+            properties:
+                policyRules:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.PolicyRules'
+            description: 获取角色有那些权限 回复
+        api.auth.v1.GetRolesForUserRep:
+            type: object
+            properties:
+                roles:
+                    type: array
+                    items:
+                        type: string
+                    description: 角色列表
+            description: 获取用户角色回复
+        api.auth.v1.GetUsersForRoleRep:
+            type: object
+            properties:
+                users:
+                    type: array
+                    items:
+                        type: string
+                    description: 用户列表
+            description: 获取角色有那些用户 回复
         api.auth.v1.PageRoleListRep:
             type: object
             properties:
@@ -155,6 +324,13 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 分页角色列表
+        api.auth.v1.PolicyRules:
+            type: object
+            properties:
+                path:
+                    type: string
+                method:
+                    type: string
         api.auth.v1.Role:
             type: object
             properties:
@@ -178,5 +354,17 @@ components:
                 success:
                     type: boolean
             description: 角色状态回复
+        api.auth.v1.SetRolePoliciesReq:
+            type: object
+            properties:
+                role:
+                    type: string
+                    description: 角色名
+                policyRules:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.PolicyRules'
+                    description: 权限
+            description: 设置角色权限
 tags:
     - name: Auth

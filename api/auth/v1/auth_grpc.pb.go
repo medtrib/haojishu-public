@@ -20,11 +20,18 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Auth_AddRole_FullMethodName      = "/api.auth.v1.Auth/AddRole"
-	Auth_EditRole_FullMethodName     = "/api.auth.v1.Auth/EditRole"
-	Auth_DelRole_FullMethodName      = "/api.auth.v1.Auth/DelRole"
-	Auth_FullRoleList_FullMethodName = "/api.auth.v1.Auth/FullRoleList"
-	Auth_PageRoleList_FullMethodName = "/api.auth.v1.Auth/PageRoleList"
+	Auth_AddRole_FullMethodName            = "/api.auth.v1.Auth/AddRole"
+	Auth_EditRole_FullMethodName           = "/api.auth.v1.Auth/EditRole"
+	Auth_DelRole_FullMethodName            = "/api.auth.v1.Auth/DelRole"
+	Auth_FullRoleList_FullMethodName       = "/api.auth.v1.Auth/FullRoleList"
+	Auth_PageRoleList_FullMethodName       = "/api.auth.v1.Auth/PageRoleList"
+	Auth_AddRolesForUser_FullMethodName    = "/api.auth.v1.Auth/AddRolesForUser"
+	Auth_GetRolesForUser_FullMethodName    = "/api.auth.v1.Auth/GetRolesForUser"
+	Auth_GetUsersForRole_FullMethodName    = "/api.auth.v1.Auth/GetUsersForRole"
+	Auth_DeleteRoleForUser_FullMethodName  = "/api.auth.v1.Auth/DeleteRoleForUser"
+	Auth_DeleteRolesForUser_FullMethodName = "/api.auth.v1.Auth/DeleteRolesForUser"
+	Auth_GetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/GetRolePolicies"
+	Auth_SetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/SetRolePolicies"
 )
 
 // AuthClient is the client API for Auth service.
@@ -41,6 +48,20 @@ type AuthClient interface {
 	FullRoleList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FullRoleListRep, error)
 	// 获取角色列表(分页)
 	PageRoleList(ctx context.Context, in *PageRoleListReq, opts ...grpc.CallOption) (*PageRoleListRep, error)
+	// 给用户设置角色
+	AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	// 获取用户角色
+	GetRolesForUser(ctx context.Context, in *GetRolesForUserReq, opts ...grpc.CallOption) (*GetRolesForUserRep, error)
+	// 获取角色有那些用户
+	GetUsersForRole(ctx context.Context, in *GetUsersForRoleReq, opts ...grpc.CallOption) (*GetUsersForRoleRep, error)
+	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
+	DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	// 删除多个用户角色(删除传递用户的所有角色)
+	DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	// 获取角色有那些权限 - 列表
+	GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...grpc.CallOption) (*GetRolePoliciesRep, error)
+	// 设置角色权限 - 设置
+	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error)
 }
 
 type authClient struct {
@@ -96,6 +117,69 @@ func (c *authClient) PageRoleList(ctx context.Context, in *PageRoleListReq, opts
 	return out, nil
 }
 
+func (c *authClient) AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RoleStatus, error) {
+	out := new(RoleStatus)
+	err := c.cc.Invoke(ctx, Auth_AddRolesForUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) GetRolesForUser(ctx context.Context, in *GetRolesForUserReq, opts ...grpc.CallOption) (*GetRolesForUserRep, error) {
+	out := new(GetRolesForUserRep)
+	err := c.cc.Invoke(ctx, Auth_GetRolesForUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) GetUsersForRole(ctx context.Context, in *GetUsersForRoleReq, opts ...grpc.CallOption) (*GetUsersForRoleRep, error) {
+	out := new(GetUsersForRoleRep)
+	err := c.cc.Invoke(ctx, Auth_GetUsersForRole_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RoleStatus, error) {
+	out := new(RoleStatus)
+	err := c.cc.Invoke(ctx, Auth_DeleteRoleForUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RoleStatus, error) {
+	out := new(RoleStatus)
+	err := c.cc.Invoke(ctx, Auth_DeleteRolesForUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...grpc.CallOption) (*GetRolePoliciesRep, error) {
+	out := new(GetRolePoliciesRep)
+	err := c.cc.Invoke(ctx, Auth_GetRolePolicies_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error) {
+	out := new(RoleStatus)
+	err := c.cc.Invoke(ctx, Auth_SetRolePolicies_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
@@ -110,6 +194,20 @@ type AuthServer interface {
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
+	// 给用户设置角色
+	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error)
+	// 获取用户角色
+	GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error)
+	// 获取角色有那些用户
+	GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error)
+	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
+	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error)
+	// 删除多个用户角色(删除传递用户的所有角色)
+	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error)
+	// 获取角色有那些权限 - 列表
+	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
+	// 设置角色权限 - 设置
+	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -131,6 +229,27 @@ func (UnimplementedAuthServer) FullRoleList(context.Context, *emptypb.Empty) (*F
 }
 func (UnimplementedAuthServer) PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageRoleList not implemented")
+}
+func (UnimplementedAuthServer) AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddRolesForUser not implemented")
+}
+func (UnimplementedAuthServer) GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRolesForUser not implemented")
+}
+func (UnimplementedAuthServer) GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUsersForRole not implemented")
+}
+func (UnimplementedAuthServer) DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoleForUser not implemented")
+}
+func (UnimplementedAuthServer) DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteRolesForUser not implemented")
+}
+func (UnimplementedAuthServer) GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRolePolicies not implemented")
+}
+func (UnimplementedAuthServer) SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetRolePolicies not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -235,6 +354,132 @@ func _Auth_PageRoleList_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_AddRolesForUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetUserForRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).AddRolesForUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_AddRolesForUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).AddRolesForUser(ctx, req.(*SetUserForRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_GetRolesForUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRolesForUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GetRolesForUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GetRolesForUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GetRolesForUser(ctx, req.(*GetRolesForUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_GetUsersForRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUsersForRoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GetUsersForRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GetUsersForRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GetUsersForRole(ctx, req.(*GetUsersForRoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_DeleteRoleForUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRoleForUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).DeleteRoleForUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_DeleteRoleForUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).DeleteRoleForUser(ctx, req.(*DeleteRoleForUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_DeleteRolesForUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteRolesForUserReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).DeleteRolesForUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_DeleteRolesForUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).DeleteRolesForUser(ctx, req.(*DeleteRolesForUserReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_GetRolePolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRolePoliciesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GetRolePolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GetRolePolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GetRolePolicies(ctx, req.(*GetRolePoliciesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_SetRolePolicies_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetRolePoliciesReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).SetRolePolicies(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_SetRolePolicies_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).SetRolePolicies(ctx, req.(*SetRolePoliciesReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -261,6 +506,34 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PageRoleList",
 			Handler:    _Auth_PageRoleList_Handler,
+		},
+		{
+			MethodName: "AddRolesForUser",
+			Handler:    _Auth_AddRolesForUser_Handler,
+		},
+		{
+			MethodName: "GetRolesForUser",
+			Handler:    _Auth_GetRolesForUser_Handler,
+		},
+		{
+			MethodName: "GetUsersForRole",
+			Handler:    _Auth_GetUsersForRole_Handler,
+		},
+		{
+			MethodName: "DeleteRoleForUser",
+			Handler:    _Auth_DeleteRoleForUser_Handler,
+		},
+		{
+			MethodName: "DeleteRolesForUser",
+			Handler:    _Auth_DeleteRolesForUser_Handler,
+		},
+		{
+			MethodName: "GetRolePolicies",
+			Handler:    _Auth_GetRolePolicies_Handler,
+		},
+		{
+			MethodName: "SetRolePolicies",
+			Handler:    _Auth_SetRolePolicies_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

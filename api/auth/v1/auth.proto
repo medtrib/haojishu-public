@@ -42,6 +42,50 @@ service Auth {
 			get:"/auth/v1/PageRoleList"
 		};
 	}
+	// 给用户设置角色
+	rpc AddRolesForUser(SetUserForRoleReq) returns (RoleStatus){
+		option (google.api.http) = {
+			get:"/auth/v1/AddRolesForUser"
+		};
+	};
+	// 获取用户角色
+	rpc GetRolesForUser (GetRolesForUserReq) returns (GetRolesForUserRep){
+		option (google.api.http) = {
+			get:"/auth/v1/GetRolesForUser"
+		};
+	};
+	// 获取角色有那些用户
+	rpc GetUsersForRole (GetUsersForRoleReq) returns (GetUsersForRoleRep){
+		option (google.api.http) = {
+			get:"/auth/v1/GetUsersForRole"
+		};
+	};
+	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
+	rpc DeleteRoleForUser (DeleteRoleForUserReq) returns (RoleStatus){
+		option (google.api.http) = {
+			delete:"/auth/v1/DeleteRoleForUser"
+		};
+	};
+	// 删除多个用户角色(删除传递用户的所有角色)
+	rpc DeleteRolesForUser (DeleteRolesForUserReq) returns (RoleStatus){
+		option (google.api.http) = {
+			delete:"/deleteRolesForUser"
+		};
+	};
+	// 获取角色有那些权限
+	rpc GetRolePolicies (GetRolePoliciesReq) returns (GetRolePoliciesRep){
+		option (google.api.http) = {
+			get:"/getPolicies"
+		};
+	};
+	// 设置角色权限 - 设置
+	rpc SetRolePolicies (SetRolePoliciesReq) returns (RoleStatus){
+		option (google.api.http) = {
+			post:"/updatePolicies"
+			body:"*"
+		};
+	};
+
 
 }
 
@@ -112,4 +156,81 @@ message Role {
 	string created_at = 4;
 	// 更新时间
 	string updated_at = 5;
+}
+// 给用户设置角色
+message SetUserForRoleReq{
+	// 用户名
+	string username = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 角色数组
+	repeated string roles = 2[
+		(validate.rules).repeated.min_items = 1
+	];
+}
+// 获取用户角色
+message GetRolesForUserReq {
+	// 用户名
+	string username = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 获取用户角色回复
+message GetRolesForUserRep{
+	// 角色列表
+	repeated string roles = 1;
+}
+// 获取角色有那些用户
+message GetUsersForRoleReq {
+	string role = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 获取角色有那些用户 回复
+message GetUsersForRoleRep {
+	// 用户列表
+	repeated string users = 1;
+}
+// 删除单个用户角色
+message DeleteRoleForUserReq{
+	// 用户名
+	string username = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 角色名
+	string role = 2[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 删除多个用户角色
+message DeleteRolesForUserReq{
+	// 用户名
+	string username = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 获取角色有那些权限
+message GetRolePoliciesReq {
+	string role = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 获取角色有那些权限 回复
+message GetRolePoliciesRep{
+	repeated PolicyRules policyRules = 1;
+}
+message PolicyRules {
+	string path = 1;
+	string method = 2;
+}
+// 设置角色权限
+message SetRolePoliciesReq {
+	// 角色名
+	string role = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 权限
+	repeated PolicyRules policyRules = 2[
+		(validate.rules).repeated.min_items = 1
+	];
 }
