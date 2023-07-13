@@ -52,6 +52,32 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RoleStatus'
+    /auth/v1/CheckAuth:
+        get:
+            tags:
+                - Auth
+            description: 检查权限
+            operationId: Auth_CheckAuth
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+                - name: url
+                  in: query
+                  schema:
+                    type: string
+                - name: act
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RoleStatus'
     /auth/v1/DelRole:
         delete:
             tags:

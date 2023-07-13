@@ -85,6 +85,12 @@ service Auth {
 			body:"*"
 		};
 	};
+	// 检查权限
+	rpc CheckAuth (CheckAuthReq) returns (RoleStatus){
+		option (google.api.http) = {
+			get:"/auth/v1/CheckAuth"
+		};
+	};
 }
 
 // 添加角色
@@ -231,4 +237,10 @@ message SetRolePoliciesReq {
 message PolicyRules {
 	string path = 1;
 	string method = 2;
+}
+// 权限检查
+message CheckAuthReq {
+	string role = 1;
+	string url = 2;
+	string act = 3;
 }

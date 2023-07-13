@@ -32,6 +32,7 @@ const (
 	Auth_DeleteRolesForUser_FullMethodName = "/api.auth.v1.Auth/DeleteRolesForUser"
 	Auth_GetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/GetRolePolicies"
 	Auth_SetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/SetRolePolicies"
+	Auth_CheckAuth_FullMethodName          = "/api.auth.v1.Auth/CheckAuth"
 )
 
 // AuthClient is the client API for Auth service.
@@ -62,6 +63,8 @@ type AuthClient interface {
 	GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...grpc.CallOption) (*GetRolePoliciesRep, error)
 	// 设置角色权限
 	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	// 检查权限
+	CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RoleStatus, error)
 }
 
 type authClient struct {
@@ -180,6 +183,15 @@ func (c *authClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq
 	return out, nil
 }
 
+func (c *authClient) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RoleStatus, error) {
+	out := new(RoleStatus)
+	err := c.cc.Invoke(ctx, Auth_CheckAuth_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
@@ -208,6 +220,8 @@ type AuthServer interface {
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
 	// 设置角色权限
 	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
+	// 检查权限
+	CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -250,6 +264,9 @@ func (UnimplementedAuthServer) GetRolePolicies(context.Context, *GetRolePolicies
 }
 func (UnimplementedAuthServer) SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRolePolicies not implemented")
+}
+func (UnimplementedAuthServer) CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckAuth not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -480,6 +497,24 @@ func _Auth_SetRolePolicies_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_CheckAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CheckAuthReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CheckAuth(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CheckAuth_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CheckAuth(ctx, req.(*CheckAuthReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -534,6 +569,10 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetRolePolicies",
 			Handler:    _Auth_SetRolePolicies_Handler,
+		},
+		{
+			MethodName: "CheckAuth",
+			Handler:    _Auth_CheckAuth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

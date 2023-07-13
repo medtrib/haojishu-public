@@ -22,6 +22,7 @@ const _ = http.SupportPackageIsVersion1
 
 const OperationAuthAddRole = "/api.auth.v1.Auth/AddRole"
 const OperationAuthAddRolesForUser = "/api.auth.v1.Auth/AddRolesForUser"
+const OperationAuthCheckAuth = "/api.auth.v1.Auth/CheckAuth"
 const OperationAuthDelRole = "/api.auth.v1.Auth/DelRole"
 const OperationAuthDeleteRoleForUser = "/api.auth.v1.Auth/DeleteRoleForUser"
 const OperationAuthDeleteRolesForUser = "/api.auth.v1.Auth/DeleteRolesForUser"
@@ -38,6 +39,8 @@ type AuthHTTPServer interface {
 	AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error)
 	// AddRolesForUser 给用户设置角色
 	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error)
+	// CheckAuth 检查权限
+	CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error)
 	// DelRole 删除角色
 	DelRole(context.Context, *DelRoleReq) (*RoleStatus, error)
 	// DeleteRoleForUser 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
@@ -74,6 +77,7 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.DELETE("/auth/v1/DeleteRolesForUser", _Auth_DeleteRolesForUser0_HTTP_Handler(srv))
 	r.GET("/auth/v1/GetRolePolicies", _Auth_GetRolePolicies0_HTTP_Handler(srv))
 	r.POST("/auth/v1/SetRolePolicies", _Auth_SetRolePolicies0_HTTP_Handler(srv))
+	r.GET("/auth/v1/CheckAuth", _Auth_CheckAuth0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -304,9 +308,29 @@ func _Auth_SetRolePolicies0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Conte
 	}
 }
 
+func _Auth_CheckAuth0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CheckAuthReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthCheckAuth)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CheckAuth(ctx, req.(*CheckAuthReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RoleStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
 type AuthHTTPClient interface {
 	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
 	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
+	CheckAuth(ctx context.Context, req *CheckAuthReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
 	DelRole(ctx context.Context, req *DelRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
 	DeleteRoleForUser(ctx context.Context, req *DeleteRoleForUserReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
 	DeleteRolesForUser(ctx context.Context, req *DeleteRolesForUserReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
@@ -345,6 +369,19 @@ func (c *AuthHTTPClientImpl) AddRolesForUser(ctx context.Context, in *SetUserFor
 	pattern := "/auth/v1/AddRolesForUser"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthAddRolesForUser))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...http.CallOption) (*RoleStatus, error) {
+	var out RoleStatus
+	pattern := "/auth/v1/CheckAuth"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthCheckAuth))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
