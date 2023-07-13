@@ -69,24 +69,22 @@ service Auth {
 	// 删除多个用户角色(删除传递用户的所有角色)
 	rpc DeleteRolesForUser (DeleteRolesForUserReq) returns (RoleStatus){
 		option (google.api.http) = {
-			delete:"/deleteRolesForUser"
+			delete:"/auth/v1/DeleteRolesForUser"
 		};
 	};
 	// 获取角色有那些权限
 	rpc GetRolePolicies (GetRolePoliciesReq) returns (GetRolePoliciesRep){
 		option (google.api.http) = {
-			get:"/getPolicies"
+			get:"/auth/v1/GetRolePolicies"
 		};
 	};
-	// 设置角色权限 - 设置
+	// 设置角色权限
 	rpc SetRolePolicies (SetRolePoliciesReq) returns (RoleStatus){
 		option (google.api.http) = {
-			post:"/updatePolicies"
+			post:"/auth/v1/SetRolePolicies"
 			body:"*"
 		};
 	};
-
-
 }
 
 // 添加角色
