@@ -316,9 +316,9 @@ message CreateMenuReq{
 // 按钮详情
 message MenuBtn {
 	// 主键id
-	int64 id = 1;
+	uint64 id = 1;
 	// 菜单id
-	int64 menu_id = 2;
+	uint64 menu_id = 2;
 	// 按钮名称
 	string name = 3;
 	// 描述
