@@ -98,20 +98,31 @@ service Auth {
 			body:"*"
 		};
 	}
-	// 菜单 - 更新
+	// 更新菜单
 	rpc EditMenu (EditMenuReq) returns (RepStatus){
 		option (google.api.http) = {
-			put:"/menu"
+			put:"/auth/v1/EditMenu"
 			body:"*"
 		};
 	};
-	// 菜单 - 删除
+	// 删除菜单
 	rpc DeleteMenu (IdReq) returns (RepStatus){
 		option (google.api.http) = {
-			delete:"/menu"
+			delete:"/auth/v1/DeleteMenu"
 		};
 	};
-
+	// 菜单列表(完整)
+	rpc ListMenu (google.protobuf.Empty) returns (ListMenuRep){
+		option (google.api.http) = {
+			delete:"/auth/v1/ListMenu"
+		};
+	};
+	// 菜单列表(完整)
+	rpc ListMenuTree (google.protobuf.Empty) returns (ListMenuRep){
+		option (google.api.http) = {
+			delete:"/auth/v1/ListMenuTree"
+		};
+	};
 }
 
 // 添加角色
@@ -395,4 +406,8 @@ message EditMenuReq {
 message IdReq {
 	// 主键id
 	int64 id = 1;
+}
+// 菜单返回
+message  ListMenuRep {
+	repeated Menu list= 1;
 }

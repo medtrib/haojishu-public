@@ -116,6 +116,26 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /auth/v1/DeleteMenu:
+        delete:
+            tags:
+                - Auth
+            description: 删除菜单
+            operationId: Auth_DeleteMenu
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键id
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
     /auth/v1/DeleteRoleForUser:
         delete:
             tags:
@@ -152,6 +172,25 @@ paths:
                   description: 用户名
                   schema:
                     type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /auth/v1/EditMenu:
+        put:
+            tags:
+                - Auth
+            description: 更新菜单
+            operationId: Auth_EditMenu
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.EditMenuReq'
+                required: true
             responses:
                 "200":
                     description: OK
@@ -246,6 +285,32 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.GetUsersForRoleRep'
+    /auth/v1/ListMenu:
+        delete:
+            tags:
+                - Auth
+            description: 菜单列表(完整)
+            operationId: Auth_ListMenu
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
+    /auth/v1/ListMenuTree:
+        delete:
+            tags:
+                - Auth
+            description: 菜单列表(完整)
+            operationId: Auth_ListMenuTree
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
     /auth/v1/PageRoleList:
         get:
             tags:
@@ -286,44 +351,6 @@ paths:
                         schema:
                             $ref: '#/components/schemas/api.auth.v1.SetRolePoliciesReq'
                 required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
-    /menu:
-        put:
-            tags:
-                - Auth
-            description: 菜单 - 更新
-            operationId: Auth_EditMenu
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.auth.v1.EditMenuReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
-        delete:
-            tags:
-                - Auth
-            description: 菜单 - 删除
-            operationId: Auth_DeleteMenu
-            parameters:
-                - name: id
-                  in: query
-                  description: 主键id
-                  schema:
-                    type: integer
-                    format: int64
             responses:
                 "200":
                     description: OK
@@ -476,6 +503,14 @@ components:
                         type: string
                     description: 用户列表
             description: 获取角色有那些用户 回复
+        api.auth.v1.ListMenuRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.Menu'
+            description: 菜单返回
         api.auth.v1.Menu:
             type: object
             properties:

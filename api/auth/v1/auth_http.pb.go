@@ -34,6 +34,8 @@ const OperationAuthFullRoleList = "/api.auth.v1.Auth/FullRoleList"
 const OperationAuthGetRolePolicies = "/api.auth.v1.Auth/GetRolePolicies"
 const OperationAuthGetRolesForUser = "/api.auth.v1.Auth/GetRolesForUser"
 const OperationAuthGetUsersForRole = "/api.auth.v1.Auth/GetUsersForRole"
+const OperationAuthListMenu = "/api.auth.v1.Auth/ListMenu"
+const OperationAuthListMenuTree = "/api.auth.v1.Auth/ListMenuTree"
 const OperationAuthPageRoleList = "/api.auth.v1.Auth/PageRoleList"
 const OperationAuthSetRolePolicies = "/api.auth.v1.Auth/SetRolePolicies"
 
@@ -48,13 +50,13 @@ type AuthHTTPServer interface {
 	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
 	// DelRole 删除角色
 	DelRole(context.Context, *DelRoleReq) (*RepStatus, error)
-	// DeleteMenu 菜单 - 删除
+	// DeleteMenu 删除菜单
 	DeleteMenu(context.Context, *IdReq) (*RepStatus, error)
 	// DeleteRoleForUser 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
 	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RepStatus, error)
 	// DeleteRolesForUser 删除多个用户角色(删除传递用户的所有角色)
 	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RepStatus, error)
-	// EditMenu 菜单 - 更新
+	// EditMenu 更新菜单
 	EditMenu(context.Context, *EditMenuReq) (*RepStatus, error)
 	// EditRole 编辑角色
 	EditRole(context.Context, *EditRoleReq) (*RepStatus, error)
@@ -66,6 +68,10 @@ type AuthHTTPServer interface {
 	GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error)
 	// GetUsersForRole 获取角色有那些用户
 	GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error)
+	// ListMenu 菜单列表(完整)
+	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
+	// ListMenuTree 菜单列表(完整)
+	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 	// SetRolePolicies 设置角色权限
@@ -88,8 +94,10 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.POST("/auth/v1/SetRolePolicies", _Auth_SetRolePolicies0_HTTP_Handler(srv))
 	r.GET("/auth/v1/CheckAuth", _Auth_CheckAuth0_HTTP_Handler(srv))
 	r.POST("/auth/v1/CreateMenu", _Auth_CreateMenu0_HTTP_Handler(srv))
-	r.PUT("/menu", _Auth_EditMenu0_HTTP_Handler(srv))
-	r.DELETE("/menu", _Auth_DeleteMenu0_HTTP_Handler(srv))
+	r.PUT("/auth/v1/EditMenu", _Auth_EditMenu0_HTTP_Handler(srv))
+	r.DELETE("/auth/v1/DeleteMenu", _Auth_DeleteMenu0_HTTP_Handler(srv))
+	r.DELETE("/auth/v1/ListMenu", _Auth_ListMenu0_HTTP_Handler(srv))
+	r.DELETE("/auth/v1/ListMenuTree", _Auth_ListMenuTree0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -396,6 +404,44 @@ func _Auth_DeleteMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) e
 	}
 }
 
+func _Auth_ListMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in emptypb.Empty
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthListMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListMenu(ctx, req.(*emptypb.Empty))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListMenuRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_ListMenuTree0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in emptypb.Empty
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthListMenuTree)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListMenuTree(ctx, req.(*emptypb.Empty))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListMenuRep)
+		return ctx.Result(200, reply)
+	}
+}
+
 type AuthHTTPClient interface {
 	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
 	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
@@ -411,6 +457,8 @@ type AuthHTTPClient interface {
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
 	GetUsersForRole(ctx context.Context, req *GetUsersForRoleReq, opts ...http.CallOption) (rsp *GetUsersForRoleRep, err error)
+	ListMenu(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
+	ListMenuTree(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
 	PageRoleList(ctx context.Context, req *PageRoleListReq, opts ...http.CallOption) (rsp *PageRoleListRep, err error)
 	SetRolePolicies(ctx context.Context, req *SetRolePoliciesReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 }
@@ -490,7 +538,7 @@ func (c *AuthHTTPClientImpl) DelRole(ctx context.Context, in *DelRoleReq, opts .
 
 func (c *AuthHTTPClientImpl) DeleteMenu(ctx context.Context, in *IdReq, opts ...http.CallOption) (*RepStatus, error) {
 	var out RepStatus
-	pattern := "/menu"
+	pattern := "/auth/v1/DeleteMenu"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthDeleteMenu))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -529,7 +577,7 @@ func (c *AuthHTTPClientImpl) DeleteRolesForUser(ctx context.Context, in *DeleteR
 
 func (c *AuthHTTPClientImpl) EditMenu(ctx context.Context, in *EditMenuReq, opts ...http.CallOption) (*RepStatus, error) {
 	var out RepStatus
-	pattern := "/menu"
+	pattern := "/auth/v1/EditMenu"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthEditMenu))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -599,6 +647,32 @@ func (c *AuthHTTPClientImpl) GetUsersForRole(ctx context.Context, in *GetUsersFo
 	opts = append(opts, http.Operation(OperationAuthGetUsersForRole))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) ListMenu(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*ListMenuRep, error) {
+	var out ListMenuRep
+	pattern := "/auth/v1/ListMenu"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthListMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) ListMenuTree(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*ListMenuRep, error) {
+	var out ListMenuRep
+	pattern := "/auth/v1/ListMenuTree"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthListMenuTree))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

@@ -36,6 +36,8 @@ const (
 	Auth_CreateMenu_FullMethodName         = "/api.auth.v1.Auth/CreateMenu"
 	Auth_EditMenu_FullMethodName           = "/api.auth.v1.Auth/EditMenu"
 	Auth_DeleteMenu_FullMethodName         = "/api.auth.v1.Auth/DeleteMenu"
+	Auth_ListMenu_FullMethodName           = "/api.auth.v1.Auth/ListMenu"
+	Auth_ListMenuTree_FullMethodName       = "/api.auth.v1.Auth/ListMenuTree"
 )
 
 // AuthClient is the client API for Auth service.
@@ -70,10 +72,14 @@ type AuthClient interface {
 	CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 创建菜单
 	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*Menu, error)
-	// 菜单 - 更新
+	// 更新菜单
 	EditMenu(ctx context.Context, in *EditMenuReq, opts ...grpc.CallOption) (*RepStatus, error)
-	// 菜单 - 删除
+	// 删除菜单
 	DeleteMenu(ctx context.Context, in *IdReq, opts ...grpc.CallOption) (*RepStatus, error)
+	// 菜单列表(完整)
+	ListMenu(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
+	// 菜单列表(完整)
+	ListMenuTree(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
 }
 
 type authClient struct {
@@ -228,6 +234,24 @@ func (c *authClient) DeleteMenu(ctx context.Context, in *IdReq, opts ...grpc.Cal
 	return out, nil
 }
 
+func (c *authClient) ListMenu(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error) {
+	out := new(ListMenuRep)
+	err := c.cc.Invoke(ctx, Auth_ListMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) ListMenuTree(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error) {
+	out := new(ListMenuRep)
+	err := c.cc.Invoke(ctx, Auth_ListMenuTree_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
@@ -260,10 +284,14 @@ type AuthServer interface {
 	CheckAuth(context.Context, *CheckAuthReq) (*RepStatus, error)
 	// 创建菜单
 	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
-	// 菜单 - 更新
+	// 更新菜单
 	EditMenu(context.Context, *EditMenuReq) (*RepStatus, error)
-	// 菜单 - 删除
+	// 删除菜单
 	DeleteMenu(context.Context, *IdReq) (*RepStatus, error)
+	// 菜单列表(完整)
+	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
+	// 菜单列表(完整)
+	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -318,6 +346,12 @@ func (UnimplementedAuthServer) EditMenu(context.Context, *EditMenuReq) (*RepStat
 }
 func (UnimplementedAuthServer) DeleteMenu(context.Context, *IdReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
+}
+func (UnimplementedAuthServer) ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMenu not implemented")
+}
+func (UnimplementedAuthServer) ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListMenuTree not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -620,6 +654,42 @@ func _Auth_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_ListMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).ListMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_ListMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).ListMenu(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_ListMenuTree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).ListMenuTree(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_ListMenuTree_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).ListMenuTree(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -690,6 +760,14 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteMenu",
 			Handler:    _Auth_DeleteMenu_Handler,
+		},
+		{
+			MethodName: "ListMenu",
+			Handler:    _Auth_ListMenu_Handler,
+		},
+		{
+			MethodName: "ListMenuTree",
+			Handler:    _Auth_ListMenuTree_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
