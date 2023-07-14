@@ -23,9 +23,12 @@ const _ = http.SupportPackageIsVersion1
 const OperationAuthAddRole = "/api.auth.v1.Auth/AddRole"
 const OperationAuthAddRolesForUser = "/api.auth.v1.Auth/AddRolesForUser"
 const OperationAuthCheckAuth = "/api.auth.v1.Auth/CheckAuth"
+const OperationAuthCreateMenu = "/api.auth.v1.Auth/CreateMenu"
 const OperationAuthDelRole = "/api.auth.v1.Auth/DelRole"
+const OperationAuthDeleteMenu = "/api.auth.v1.Auth/DeleteMenu"
 const OperationAuthDeleteRoleForUser = "/api.auth.v1.Auth/DeleteRoleForUser"
 const OperationAuthDeleteRolesForUser = "/api.auth.v1.Auth/DeleteRolesForUser"
+const OperationAuthEditMenu = "/api.auth.v1.Auth/EditMenu"
 const OperationAuthEditRole = "/api.auth.v1.Auth/EditRole"
 const OperationAuthFullRoleList = "/api.auth.v1.Auth/FullRoleList"
 const OperationAuthGetRolePolicies = "/api.auth.v1.Auth/GetRolePolicies"
@@ -38,17 +41,23 @@ type AuthHTTPServer interface {
 	// AddRole 添加角色
 	AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error)
 	// AddRolesForUser 给用户设置角色
-	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error)
+	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RepStatus, error)
 	// CheckAuth 检查权限
-	CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error)
+	CheckAuth(context.Context, *CheckAuthReq) (*RepStatus, error)
+	// CreateMenu 创建菜单
+	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
 	// DelRole 删除角色
-	DelRole(context.Context, *DelRoleReq) (*RoleStatus, error)
+	DelRole(context.Context, *DelRoleReq) (*RepStatus, error)
+	// DeleteMenu 菜单 - 删除
+	DeleteMenu(context.Context, *IdReq) (*RepStatus, error)
 	// DeleteRoleForUser 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
-	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error)
+	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RepStatus, error)
 	// DeleteRolesForUser 删除多个用户角色(删除传递用户的所有角色)
-	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error)
+	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RepStatus, error)
+	// EditMenu 菜单 - 更新
+	EditMenu(context.Context, *EditMenuReq) (*RepStatus, error)
 	// EditRole 编辑角色
-	EditRole(context.Context, *EditRoleReq) (*RoleStatus, error)
+	EditRole(context.Context, *EditRoleReq) (*RepStatus, error)
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// GetRolePolicies 获取角色有那些权限
@@ -60,7 +69,7 @@ type AuthHTTPServer interface {
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 	// SetRolePolicies 设置角色权限
-	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
+	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RepStatus, error)
 }
 
 func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
@@ -78,6 +87,9 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.GET("/auth/v1/GetRolePolicies", _Auth_GetRolePolicies0_HTTP_Handler(srv))
 	r.POST("/auth/v1/SetRolePolicies", _Auth_SetRolePolicies0_HTTP_Handler(srv))
 	r.GET("/auth/v1/CheckAuth", _Auth_CheckAuth0_HTTP_Handler(srv))
+	r.POST("/auth/v1/CreateMenu", _Auth_CreateMenu0_HTTP_Handler(srv))
+	r.PUT("/menu", _Auth_EditMenu0_HTTP_Handler(srv))
+	r.DELETE("/menu", _Auth_DeleteMenu0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -113,7 +125,7 @@ func _Auth_EditRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) err
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -132,7 +144,7 @@ func _Auth_DelRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) erro
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -189,7 +201,7 @@ func _Auth_AddRolesForUser0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Conte
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -246,7 +258,7 @@ func _Auth_DeleteRoleForUser0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Con
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -265,7 +277,7 @@ func _Auth_DeleteRolesForUser0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Co
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -303,7 +315,7 @@ func _Auth_SetRolePolicies0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Conte
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -322,25 +334,85 @@ func _Auth_CheckAuth0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) er
 		if err != nil {
 			return err
 		}
-		reply := out.(*RoleStatus)
+		reply := out.(*RepStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_CreateMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateMenuReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthCreateMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateMenu(ctx, req.(*CreateMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*Menu)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_EditMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EditMenuReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthEditMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.EditMenu(ctx, req.(*EditMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RepStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_DeleteMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in IdReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthDeleteMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DeleteMenu(ctx, req.(*IdReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
 
 type AuthHTTPClient interface {
 	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
-	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
-	CheckAuth(ctx context.Context, req *CheckAuthReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
-	DelRole(ctx context.Context, req *DelRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
-	DeleteRoleForUser(ctx context.Context, req *DeleteRoleForUserReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
-	DeleteRolesForUser(ctx context.Context, req *DeleteRolesForUserReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
-	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
+	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	CheckAuth(ctx context.Context, req *CheckAuthReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	CreateMenu(ctx context.Context, req *CreateMenuReq, opts ...http.CallOption) (rsp *Menu, err error)
+	DelRole(ctx context.Context, req *DelRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	DeleteMenu(ctx context.Context, req *IdReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	DeleteRoleForUser(ctx context.Context, req *DeleteRoleForUserReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	DeleteRolesForUser(ctx context.Context, req *DeleteRolesForUserReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	EditMenu(ctx context.Context, req *EditMenuReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
 	GetUsersForRole(ctx context.Context, req *GetUsersForRoleReq, opts ...http.CallOption) (rsp *GetUsersForRoleRep, err error)
 	PageRoleList(ctx context.Context, req *PageRoleListReq, opts ...http.CallOption) (rsp *PageRoleListRep, err error)
-	SetRolePolicies(ctx context.Context, req *SetRolePoliciesReq, opts ...http.CallOption) (rsp *RoleStatus, err error)
+	SetRolePolicies(ctx context.Context, req *SetRolePoliciesReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 }
 
 type AuthHTTPClientImpl struct {
@@ -364,8 +436,8 @@ func (c *AuthHTTPClientImpl) AddRole(ctx context.Context, in *AddRoleReq, opts .
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/AddRolesForUser"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthAddRolesForUser))
@@ -377,8 +449,8 @@ func (c *AuthHTTPClientImpl) AddRolesForUser(ctx context.Context, in *SetUserFor
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/CheckAuth"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthCheckAuth))
@@ -390,8 +462,21 @@ func (c *AuthHTTPClientImpl) CheckAuth(ctx context.Context, in *CheckAuthReq, op
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) DelRole(ctx context.Context, in *DelRoleReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...http.CallOption) (*Menu, error) {
+	var out Menu
+	pattern := "/auth/v1/CreateMenu"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationAuthCreateMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) DelRole(ctx context.Context, in *DelRoleReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/DelRole"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthDelRole))
@@ -403,8 +488,21 @@ func (c *AuthHTTPClientImpl) DelRole(ctx context.Context, in *DelRoleReq, opts .
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) DeleteMenu(ctx context.Context, in *IdReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
+	pattern := "/menu"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthDeleteMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/DeleteRoleForUser"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthDeleteRoleForUser))
@@ -416,8 +514,8 @@ func (c *AuthHTTPClientImpl) DeleteRoleForUser(ctx context.Context, in *DeleteRo
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/DeleteRolesForUser"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthDeleteRolesForUser))
@@ -429,8 +527,21 @@ func (c *AuthHTTPClientImpl) DeleteRolesForUser(ctx context.Context, in *DeleteR
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) EditRole(ctx context.Context, in *EditRoleReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) EditMenu(ctx context.Context, in *EditMenuReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
+	pattern := "/menu"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationAuthEditMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) EditRole(ctx context.Context, in *EditRoleReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/EditRole"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthEditRole))
@@ -507,8 +618,8 @@ func (c *AuthHTTPClientImpl) PageRoleList(ctx context.Context, in *PageRoleListR
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...http.CallOption) (*RoleStatus, error) {
-	var out RoleStatus
+func (c *AuthHTTPClientImpl) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
 	pattern := "/auth/v1/SetRolePolicies"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthSetRolePolicies))

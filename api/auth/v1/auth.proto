@@ -18,14 +18,14 @@ service Auth {
 		};
 	};
 	// 编辑角色
-	rpc EditRole(EditRoleReq) returns(RoleStatus){
+	rpc EditRole(EditRoleReq) returns(RepStatus){
 		option (google.api.http) = {
 			put:"/auth/v1/EditRole"
 			body:"*"
 		};
 	}
 	// 删除角色
-	rpc DelRole(DelRoleReq) returns (RoleStatus){
+	rpc DelRole(DelRoleReq) returns (RepStatus){
 		option (google.api.http) = {
 			delete:"/auth/v1/DelRole"
 		};
@@ -43,7 +43,7 @@ service Auth {
 		};
 	}
 	// 给用户设置角色
-	rpc AddRolesForUser(SetUserForRoleReq) returns (RoleStatus){
+	rpc AddRolesForUser(SetUserForRoleReq) returns (RepStatus){
 		option (google.api.http) = {
 			get:"/auth/v1/AddRolesForUser"
 		};
@@ -61,13 +61,13 @@ service Auth {
 		};
 	};
 	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
-	rpc DeleteRoleForUser (DeleteRoleForUserReq) returns (RoleStatus){
+	rpc DeleteRoleForUser (DeleteRoleForUserReq) returns (RepStatus){
 		option (google.api.http) = {
 			delete:"/auth/v1/DeleteRoleForUser"
 		};
 	};
 	// 删除多个用户角色(删除传递用户的所有角色)
-	rpc DeleteRolesForUser (DeleteRolesForUserReq) returns (RoleStatus){
+	rpc DeleteRolesForUser (DeleteRolesForUserReq) returns (RepStatus){
 		option (google.api.http) = {
 			delete:"/auth/v1/DeleteRolesForUser"
 		};
@@ -79,18 +79,39 @@ service Auth {
 		};
 	};
 	// 设置角色权限
-	rpc SetRolePolicies (SetRolePoliciesReq) returns (RoleStatus){
+	rpc SetRolePolicies (SetRolePoliciesReq) returns (RepStatus){
 		option (google.api.http) = {
 			post:"/auth/v1/SetRolePolicies"
 			body:"*"
 		};
 	};
 	// 检查权限
-	rpc CheckAuth (CheckAuthReq) returns (RoleStatus){
+	rpc CheckAuth (CheckAuthReq) returns (RepStatus){
 		option (google.api.http) = {
 			get:"/auth/v1/CheckAuth"
 		};
 	};
+	// 创建菜单
+	rpc CreateMenu(CreateMenuReq) returns (Menu){
+		option (google.api.http) = {
+			post:"/auth/v1/CreateMenu"
+			body:"*"
+		};
+	}
+	// 菜单 - 更新
+	rpc EditMenu (EditMenuReq) returns (RepStatus){
+		option (google.api.http) = {
+			put:"/menu"
+			body:"*"
+		};
+	};
+	// 菜单 - 删除
+	rpc DeleteMenu (IdReq) returns (RepStatus){
+		option (google.api.http) = {
+			delete:"/menu"
+		};
+	};
+
 }
 
 // 添加角色
@@ -119,7 +140,7 @@ message EditRoleReq{
 	];
 }
 // 角色状态回复
-message RoleStatus{
+message RepStatus{
 	bool success = 1;
 }
 // 删除角色
@@ -243,4 +264,135 @@ message CheckAuthReq {
 	string role = 1;
 	string url = 2;
 	string mod = 3;
+}
+// 创建菜单
+message CreateMenuReq{
+	// 父级id
+	int64 parent_id = 2;
+	// 前端路径
+	string path = 3[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单名
+	string name = 4[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 是否隐藏
+	bool hidden = 5;
+	// 前端文件路径
+	string component = 6[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 排序
+	int64 sort = 7[
+		(validate.rules).int64.gt = 0
+	];
+	// 页面名称
+	string title = 8[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单图标
+	string icon = 9[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单按钮列表
+	repeated MenuBtn menuBtns = 13;
+	// 父级id字符串 英文逗号分割
+	string parent_ids = 14[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 按钮详情
+message MenuBtn {
+	// 主键id
+	int64 id = 1;
+	// 菜单id
+	int64 menu_id = 2;
+	// 按钮名称
+	string name = 3;
+	// 描述
+	string description = 4;
+	// 英文标识
+	string identifier = 5;
+	// 创建时间
+	string created_at = 6;
+	// 更新时间
+	string updated_at = 7;
+}
+// 菜单详情
+message Menu {
+	// 主键id
+	int64 id = 1;
+	// 父级id
+	int64 parent_id = 2;
+	// 前端路径
+	string path = 3;
+	// 菜单名
+	string name = 4;
+	// 是否隐藏
+	bool hidden = 5;
+	// 前端文件路径
+	string component = 6;
+	// 排序
+	int64 sort = 7;
+	// 页面名称
+	string title = 8;
+	// 菜单图标
+	string icon = 9;
+	// 创建时间
+	string created_at = 10;
+	// 更新时间
+	string updated_at = 11;
+	// 子菜单
+	repeated Menu children = 12;
+	// 菜单按钮列表
+	repeated MenuBtn menuBtns = 13;
+	// 父级id字符串 英文逗号分割
+	string parent_ids = 14;
+}
+// 编辑菜单
+message EditMenuReq {
+	// 主键id
+	int64 id = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 父级id
+	int64 parent_id = 2;
+	// 前端路径
+	string path = 3[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单名
+	string name = 4[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 是否隐藏
+	bool hidden = 5;
+	// 前端文件路径
+	string component = 6[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 排序
+	int64 sort = 7[
+		(validate.rules).int64.gt = 0
+	];
+	// 页面名称
+	string title = 8[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单图标
+	string icon = 9[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 菜单按钮列表
+	repeated MenuBtn menuBtnS = 13;
+	// 父级id字符串 英文逗号分割
+	string parent_ids = 14[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 请求
+message IdReq {
+	// 主键id
+	int64 id = 1;
 }

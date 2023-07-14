@@ -33,6 +33,9 @@ const (
 	Auth_GetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/GetRolePolicies"
 	Auth_SetRolePolicies_FullMethodName    = "/api.auth.v1.Auth/SetRolePolicies"
 	Auth_CheckAuth_FullMethodName          = "/api.auth.v1.Auth/CheckAuth"
+	Auth_CreateMenu_FullMethodName         = "/api.auth.v1.Auth/CreateMenu"
+	Auth_EditMenu_FullMethodName           = "/api.auth.v1.Auth/EditMenu"
+	Auth_DeleteMenu_FullMethodName         = "/api.auth.v1.Auth/DeleteMenu"
 )
 
 // AuthClient is the client API for Auth service.
@@ -42,29 +45,35 @@ type AuthClient interface {
 	// 添加角色
 	AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleRep, error)
 	// 编辑角色
-	EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 删除角色
-	DelRole(ctx context.Context, in *DelRoleReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	DelRole(ctx context.Context, in *DelRoleReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 获取角色列表(完整)
 	FullRoleList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FullRoleListRep, error)
 	// 获取角色列表(分页)
 	PageRoleList(ctx context.Context, in *PageRoleListReq, opts ...grpc.CallOption) (*PageRoleListRep, error)
 	// 给用户设置角色
-	AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 获取用户角色
 	GetRolesForUser(ctx context.Context, in *GetRolesForUserReq, opts ...grpc.CallOption) (*GetRolesForUserRep, error)
 	// 获取角色有那些用户
 	GetUsersForRole(ctx context.Context, in *GetUsersForRoleReq, opts ...grpc.CallOption) (*GetUsersForRoleRep, error)
 	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
-	DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 删除多个用户角色(删除传递用户的所有角色)
-	DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 获取角色有那些权限
 	GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...grpc.CallOption) (*GetRolePoliciesRep, error)
 	// 设置角色权限
-	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 检查权限
-	CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RoleStatus, error)
+	CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RepStatus, error)
+	// 创建菜单
+	CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*Menu, error)
+	// 菜单 - 更新
+	EditMenu(ctx context.Context, in *EditMenuReq, opts ...grpc.CallOption) (*RepStatus, error)
+	// 菜单 - 删除
+	DeleteMenu(ctx context.Context, in *IdReq, opts ...grpc.CallOption) (*RepStatus, error)
 }
 
 type authClient struct {
@@ -84,8 +93,8 @@ func (c *authClient) AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.C
 	return out, nil
 }
 
-func (c *authClient) EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_EditRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -93,8 +102,8 @@ func (c *authClient) EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc
 	return out, nil
 }
 
-func (c *authClient) DelRole(ctx context.Context, in *DelRoleReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) DelRole(ctx context.Context, in *DelRoleReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_DelRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -120,8 +129,8 @@ func (c *authClient) PageRoleList(ctx context.Context, in *PageRoleListReq, opts
 	return out, nil
 }
 
-func (c *authClient) AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) AddRolesForUser(ctx context.Context, in *SetUserForRoleReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_AddRolesForUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -147,8 +156,8 @@ func (c *authClient) GetUsersForRole(ctx context.Context, in *GetUsersForRoleReq
 	return out, nil
 }
 
-func (c *authClient) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUserReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_DeleteRoleForUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -156,8 +165,8 @@ func (c *authClient) DeleteRoleForUser(ctx context.Context, in *DeleteRoleForUse
 	return out, nil
 }
 
-func (c *authClient) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) DeleteRolesForUser(ctx context.Context, in *DeleteRolesForUserReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_DeleteRolesForUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -174,8 +183,8 @@ func (c *authClient) GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq
 	return out, nil
 }
 
-func (c *authClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_SetRolePolicies_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -183,9 +192,36 @@ func (c *authClient) SetRolePolicies(ctx context.Context, in *SetRolePoliciesReq
 	return out, nil
 }
 
-func (c *authClient) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RoleStatus, error) {
-	out := new(RoleStatus)
+func (c *authClient) CheckAuth(ctx context.Context, in *CheckAuthReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
 	err := c.cc.Invoke(ctx, Auth_CheckAuth_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) CreateMenu(ctx context.Context, in *CreateMenuReq, opts ...grpc.CallOption) (*Menu, error) {
+	out := new(Menu)
+	err := c.cc.Invoke(ctx, Auth_CreateMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) EditMenu(ctx context.Context, in *EditMenuReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
+	err := c.cc.Invoke(ctx, Auth_EditMenu_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) DeleteMenu(ctx context.Context, in *IdReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
+	err := c.cc.Invoke(ctx, Auth_DeleteMenu_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -199,29 +235,35 @@ type AuthServer interface {
 	// 添加角色
 	AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error)
 	// 编辑角色
-	EditRole(context.Context, *EditRoleReq) (*RoleStatus, error)
+	EditRole(context.Context, *EditRoleReq) (*RepStatus, error)
 	// 删除角色
-	DelRole(context.Context, *DelRoleReq) (*RoleStatus, error)
+	DelRole(context.Context, *DelRoleReq) (*RepStatus, error)
 	// 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 	// 给用户设置角色
-	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error)
+	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RepStatus, error)
 	// 获取用户角色
 	GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error)
 	// 获取角色有那些用户
 	GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error)
 	// 删除单个用户角色(如果需要删除单个用户的某个角色用这个)
-	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error)
+	DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RepStatus, error)
 	// 删除多个用户角色(删除传递用户的所有角色)
-	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error)
+	DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RepStatus, error)
 	// 获取角色有那些权限
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
 	// 设置角色权限
-	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error)
+	SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RepStatus, error)
 	// 检查权限
-	CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error)
+	CheckAuth(context.Context, *CheckAuthReq) (*RepStatus, error)
+	// 创建菜单
+	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
+	// 菜单 - 更新
+	EditMenu(context.Context, *EditMenuReq) (*RepStatus, error)
+	// 菜单 - 删除
+	DeleteMenu(context.Context, *IdReq) (*RepStatus, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -232,10 +274,10 @@ type UnimplementedAuthServer struct {
 func (UnimplementedAuthServer) AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
 }
-func (UnimplementedAuthServer) EditRole(context.Context, *EditRoleReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) EditRole(context.Context, *EditRoleReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EditRole not implemented")
 }
-func (UnimplementedAuthServer) DelRole(context.Context, *DelRoleReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) DelRole(context.Context, *DelRoleReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DelRole not implemented")
 }
 func (UnimplementedAuthServer) FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error) {
@@ -244,7 +286,7 @@ func (UnimplementedAuthServer) FullRoleList(context.Context, *emptypb.Empty) (*F
 func (UnimplementedAuthServer) PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageRoleList not implemented")
 }
-func (UnimplementedAuthServer) AddRolesForUser(context.Context, *SetUserForRoleReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) AddRolesForUser(context.Context, *SetUserForRoleReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRolesForUser not implemented")
 }
 func (UnimplementedAuthServer) GetRolesForUser(context.Context, *GetRolesForUserReq) (*GetRolesForUserRep, error) {
@@ -253,20 +295,29 @@ func (UnimplementedAuthServer) GetRolesForUser(context.Context, *GetRolesForUser
 func (UnimplementedAuthServer) GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUsersForRole not implemented")
 }
-func (UnimplementedAuthServer) DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) DeleteRoleForUser(context.Context, *DeleteRoleForUserReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRoleForUser not implemented")
 }
-func (UnimplementedAuthServer) DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) DeleteRolesForUser(context.Context, *DeleteRolesForUserReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteRolesForUser not implemented")
 }
 func (UnimplementedAuthServer) GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRolePolicies not implemented")
 }
-func (UnimplementedAuthServer) SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) SetRolePolicies(context.Context, *SetRolePoliciesReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetRolePolicies not implemented")
 }
-func (UnimplementedAuthServer) CheckAuth(context.Context, *CheckAuthReq) (*RoleStatus, error) {
+func (UnimplementedAuthServer) CheckAuth(context.Context, *CheckAuthReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckAuth not implemented")
+}
+func (UnimplementedAuthServer) CreateMenu(context.Context, *CreateMenuReq) (*Menu, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateMenu not implemented")
+}
+func (UnimplementedAuthServer) EditMenu(context.Context, *EditMenuReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditMenu not implemented")
+}
+func (UnimplementedAuthServer) DeleteMenu(context.Context, *IdReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteMenu not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -515,6 +566,60 @@ func _Auth_CheckAuth_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_CreateMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CreateMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CreateMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CreateMenu(ctx, req.(*CreateMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_EditMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditMenuReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).EditMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_EditMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).EditMenu(ctx, req.(*EditMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_DeleteMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).DeleteMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_DeleteMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).DeleteMenu(ctx, req.(*IdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -573,6 +678,18 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CheckAuth",
 			Handler:    _Auth_CheckAuth_Handler,
+		},
+		{
+			MethodName: "CreateMenu",
+			Handler:    _Auth_CreateMenu_Handler,
+		},
+		{
+			MethodName: "EditMenu",
+			Handler:    _Auth_EditMenu_Handler,
+		},
+		{
+			MethodName: "DeleteMenu",
+			Handler:    _Auth_DeleteMenu_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

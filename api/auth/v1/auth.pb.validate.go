@@ -369,22 +369,22 @@ var _ interface {
 	ErrorName() string
 } = EditRoleReqValidationError{}
 
-// Validate checks the field values on RoleStatus with the rules defined in the
+// Validate checks the field values on RepStatus with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
-func (m *RoleStatus) Validate() error {
+func (m *RepStatus) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on RoleStatus with the rules defined in
+// ValidateAll checks the field values on RepStatus with the rules defined in
 // the proto definition for this message. If any rules are violated, the
-// result is a list of violation errors wrapped in RoleStatusMultiError, or
-// nil if none found.
-func (m *RoleStatus) ValidateAll() error {
+// result is a list of violation errors wrapped in RepStatusMultiError, or nil
+// if none found.
+func (m *RepStatus) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *RoleStatus) validate(all bool) error {
+func (m *RepStatus) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -394,18 +394,18 @@ func (m *RoleStatus) validate(all bool) error {
 	// no validation rules for Success
 
 	if len(errors) > 0 {
-		return RoleStatusMultiError(errors)
+		return RepStatusMultiError(errors)
 	}
 
 	return nil
 }
 
-// RoleStatusMultiError is an error wrapping multiple validation errors
-// returned by RoleStatus.ValidateAll() if the designated constraints aren't met.
-type RoleStatusMultiError []error
+// RepStatusMultiError is an error wrapping multiple validation errors returned
+// by RepStatus.ValidateAll() if the designated constraints aren't met.
+type RepStatusMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m RoleStatusMultiError) Error() string {
+func (m RepStatusMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -414,11 +414,11 @@ func (m RoleStatusMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m RoleStatusMultiError) AllErrors() []error { return m }
+func (m RepStatusMultiError) AllErrors() []error { return m }
 
-// RoleStatusValidationError is the validation error returned by
-// RoleStatus.Validate if the designated constraints aren't met.
-type RoleStatusValidationError struct {
+// RepStatusValidationError is the validation error returned by
+// RepStatus.Validate if the designated constraints aren't met.
+type RepStatusValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -426,22 +426,22 @@ type RoleStatusValidationError struct {
 }
 
 // Field function returns field value.
-func (e RoleStatusValidationError) Field() string { return e.field }
+func (e RepStatusValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e RoleStatusValidationError) Reason() string { return e.reason }
+func (e RepStatusValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e RoleStatusValidationError) Cause() error { return e.cause }
+func (e RepStatusValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e RoleStatusValidationError) Key() bool { return e.key }
+func (e RepStatusValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e RoleStatusValidationError) ErrorName() string { return "RoleStatusValidationError" }
+func (e RepStatusValidationError) ErrorName() string { return "RepStatusValidationError" }
 
 // Error satisfies the builtin error interface
-func (e RoleStatusValidationError) Error() string {
+func (e RepStatusValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -453,14 +453,14 @@ func (e RoleStatusValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sRoleStatus.%s: %s%s",
+		"invalid %sRepStatus.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = RoleStatusValidationError{}
+var _ error = RepStatusValidationError{}
 
 var _ interface {
 	Field() string
@@ -468,7 +468,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = RoleStatusValidationError{}
+} = RepStatusValidationError{}
 
 // Validate checks the field values on DelRoleReq with the rules defined in the
 // proto definition for this message. If any rules are violated, the first
@@ -2494,3 +2494,845 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CheckAuthReqValidationError{}
+
+// Validate checks the field values on CreateMenuReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateMenuReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateMenuReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateMenuReqMultiError, or
+// nil if none found.
+func (m *CreateMenuReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateMenuReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ParentId
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Hidden
+
+	if l := utf8.RuneCountInString(m.GetComponent()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "Component",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetSort() <= 0 {
+		err := CreateMenuReqValidationError{
+			field:  "Sort",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "Title",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetIcon()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "Icon",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetMenuBtns() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateMenuReqValidationError{
+						field:  fmt.Sprintf("MenuBtns[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateMenuReqValidationError{
+						field:  fmt.Sprintf("MenuBtns[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateMenuReqValidationError{
+					field:  fmt.Sprintf("MenuBtns[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if l := utf8.RuneCountInString(m.GetParentIds()); l < 1 || l > 255 {
+		err := CreateMenuReqValidationError{
+			field:  "ParentIds",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateMenuReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateMenuReqMultiError is an error wrapping multiple validation errors
+// returned by CreateMenuReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreateMenuReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateMenuReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateMenuReqMultiError) AllErrors() []error { return m }
+
+// CreateMenuReqValidationError is the validation error returned by
+// CreateMenuReq.Validate if the designated constraints aren't met.
+type CreateMenuReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateMenuReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateMenuReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateMenuReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateMenuReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateMenuReqValidationError) ErrorName() string { return "CreateMenuReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreateMenuReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateMenuReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateMenuReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateMenuReqValidationError{}
+
+// Validate checks the field values on MenuBtn with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MenuBtn) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MenuBtn with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in MenuBtnMultiError, or nil if none found.
+func (m *MenuBtn) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MenuBtn) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for MenuId
+
+	// no validation rules for Name
+
+	// no validation rules for Description
+
+	// no validation rules for Identifier
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	if len(errors) > 0 {
+		return MenuBtnMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuBtnMultiError is an error wrapping multiple validation errors returned
+// by MenuBtn.ValidateAll() if the designated constraints aren't met.
+type MenuBtnMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuBtnMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuBtnMultiError) AllErrors() []error { return m }
+
+// MenuBtnValidationError is the validation error returned by MenuBtn.Validate
+// if the designated constraints aren't met.
+type MenuBtnValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuBtnValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuBtnValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuBtnValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuBtnValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuBtnValidationError) ErrorName() string { return "MenuBtnValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuBtnValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenuBtn.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuBtnValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuBtnValidationError{}
+
+// Validate checks the field values on Menu with the rules defined in the proto
+// definition for this message. If any rules are violated, the first error
+// encountered is returned, or nil if there are no violations.
+func (m *Menu) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Menu with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in MenuMultiError, or nil if none found.
+func (m *Menu) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Menu) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for ParentId
+
+	// no validation rules for Path
+
+	// no validation rules for Name
+
+	// no validation rules for Hidden
+
+	// no validation rules for Component
+
+	// no validation rules for Sort
+
+	// no validation rules for Title
+
+	// no validation rules for Icon
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	for idx, item := range m.GetChildren() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MenuValidationError{
+						field:  fmt.Sprintf("Children[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MenuValidationError{
+						field:  fmt.Sprintf("Children[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MenuValidationError{
+					field:  fmt.Sprintf("Children[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetMenuBtns() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, MenuValidationError{
+						field:  fmt.Sprintf("MenuBtns[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, MenuValidationError{
+						field:  fmt.Sprintf("MenuBtns[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return MenuValidationError{
+					field:  fmt.Sprintf("MenuBtns[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for ParentIds
+
+	if len(errors) > 0 {
+		return MenuMultiError(errors)
+	}
+
+	return nil
+}
+
+// MenuMultiError is an error wrapping multiple validation errors returned by
+// Menu.ValidateAll() if the designated constraints aren't met.
+type MenuMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MenuMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MenuMultiError) AllErrors() []error { return m }
+
+// MenuValidationError is the validation error returned by Menu.Validate if the
+// designated constraints aren't met.
+type MenuValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MenuValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MenuValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MenuValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MenuValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MenuValidationError) ErrorName() string { return "MenuValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MenuValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMenu.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MenuValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MenuValidationError{}
+
+// Validate checks the field values on EditMenuReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *EditMenuReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditMenuReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in EditMenuReqMultiError, or
+// nil if none found.
+func (m *EditMenuReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditMenuReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() <= 0 {
+		err := EditMenuReqValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for ParentId
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Hidden
+
+	if l := utf8.RuneCountInString(m.GetComponent()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "Component",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetSort() <= 0 {
+		err := EditMenuReqValidationError{
+			field:  "Sort",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetTitle()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "Title",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetIcon()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "Icon",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetMenuBtnS() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, EditMenuReqValidationError{
+						field:  fmt.Sprintf("MenuBtnS[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, EditMenuReqValidationError{
+						field:  fmt.Sprintf("MenuBtnS[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return EditMenuReqValidationError{
+					field:  fmt.Sprintf("MenuBtnS[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if l := utf8.RuneCountInString(m.GetParentIds()); l < 1 || l > 255 {
+		err := EditMenuReqValidationError{
+			field:  "ParentIds",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return EditMenuReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditMenuReqMultiError is an error wrapping multiple validation errors
+// returned by EditMenuReq.ValidateAll() if the designated constraints aren't met.
+type EditMenuReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditMenuReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditMenuReqMultiError) AllErrors() []error { return m }
+
+// EditMenuReqValidationError is the validation error returned by
+// EditMenuReq.Validate if the designated constraints aren't met.
+type EditMenuReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditMenuReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditMenuReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditMenuReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditMenuReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditMenuReqValidationError) ErrorName() string { return "EditMenuReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e EditMenuReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditMenuReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditMenuReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditMenuReqValidationError{}
+
+// Validate checks the field values on IdReq with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *IdReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on IdReq with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in IdReqMultiError, or nil if none found.
+func (m *IdReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *IdReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return IdReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// IdReqMultiError is an error wrapping multiple validation errors returned by
+// IdReq.ValidateAll() if the designated constraints aren't met.
+type IdReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m IdReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m IdReqMultiError) AllErrors() []error { return m }
+
+// IdReqValidationError is the validation error returned by IdReq.Validate if
+// the designated constraints aren't met.
+type IdReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e IdReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e IdReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e IdReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e IdReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e IdReqValidationError) ErrorName() string { return "IdReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e IdReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sIdReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = IdReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = IdReqValidationError{}
