@@ -570,11 +570,11 @@ components:
                 id:
                     type: integer
                     description: 主键id
-                    format: int64
+                    format: uint64
                 menuId:
                     type: integer
                     description: 菜单id
-                    format: int64
+                    format: uint64
                 name:
                     type: string
                     description: 按钮名称
