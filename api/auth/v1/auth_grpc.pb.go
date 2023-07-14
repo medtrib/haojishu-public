@@ -78,7 +78,7 @@ type AuthClient interface {
 	DeleteMenu(ctx context.Context, in *IdReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 菜单列表(完整)
 	ListMenu(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
-	// 菜单列表(完整)
+	// 菜单列表(树)
 	ListMenuTree(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
 }
 
@@ -290,7 +290,7 @@ type AuthServer interface {
 	DeleteMenu(context.Context, *IdReq) (*RepStatus, error)
 	// 菜单列表(完整)
 	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
-	// 菜单列表(完整)
+	// 菜单列表(树)
 	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	mustEmbedUnimplementedAuthServer()
 }

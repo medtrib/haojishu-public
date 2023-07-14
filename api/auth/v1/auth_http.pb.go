@@ -70,7 +70,7 @@ type AuthHTTPServer interface {
 	GetUsersForRole(context.Context, *GetUsersForRoleReq) (*GetUsersForRoleRep, error)
 	// ListMenu 菜单列表(完整)
 	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
-	// ListMenuTree 菜单列表(完整)
+	// ListMenuTree 菜单列表(树)
 	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)

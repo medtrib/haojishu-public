@@ -128,7 +128,7 @@ paths:
                   description: 主键id
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
             responses:
                 "200":
                     description: OK
@@ -302,7 +302,7 @@ paths:
         delete:
             tags:
                 - Auth
-            description: 菜单列表(完整)
+            description: 菜单列表(树)
             operationId: Auth_ListMenuTree
             responses:
                 "200":
@@ -384,7 +384,7 @@ components:
                 parentId:
                     type: integer
                     description: 父级id
-                    format: int64
+                    format: uint64
                 path:
                     type: string
                     description: 前端路径
@@ -400,7 +400,7 @@ components:
                 sort:
                     type: integer
                     description: 排序
-                    format: int64
+                    format: uint64
                 title:
                     type: string
                     description: 页面名称
@@ -422,11 +422,11 @@ components:
                 id:
                     type: integer
                     description: 主键id
-                    format: int64
+                    format: uint64
                 parentId:
                     type: integer
                     description: 父级id
-                    format: int64
+                    format: uint64
                 path:
                     type: string
                     description: 前端路径
@@ -442,7 +442,7 @@ components:
                 sort:
                     type: integer
                     description: 排序
-                    format: int64
+                    format: uint64
                 title:
                     type: string
                     description: 页面名称
@@ -517,11 +517,11 @@ components:
                 id:
                     type: integer
                     description: 主键id
-                    format: int64
+                    format: uint64
                 parentId:
                     type: integer
                     description: 父级id
-                    format: int64
+                    format: uint64
                 path:
                     type: string
                     description: 前端路径
@@ -537,7 +537,7 @@ components:
                 sort:
                     type: integer
                     description: 排序
-                    format: int64
+                    format: uint64
                 title:
                     type: string
                     description: 页面名称
