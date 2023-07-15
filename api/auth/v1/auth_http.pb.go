@@ -96,8 +96,8 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.POST("/auth/v1/CreateMenu", _Auth_CreateMenu0_HTTP_Handler(srv))
 	r.PUT("/auth/v1/EditMenu", _Auth_EditMenu0_HTTP_Handler(srv))
 	r.DELETE("/auth/v1/DeleteMenu", _Auth_DeleteMenu0_HTTP_Handler(srv))
-	r.DELETE("/auth/v1/ListMenu", _Auth_ListMenu0_HTTP_Handler(srv))
-	r.DELETE("/auth/v1/ListMenuTree", _Auth_ListMenuTree0_HTTP_Handler(srv))
+	r.GET("/auth/v1/ListMenu", _Auth_ListMenu0_HTTP_Handler(srv))
+	r.GET("/auth/v1/ListMenuTree", _Auth_ListMenuTree0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -659,7 +659,7 @@ func (c *AuthHTTPClientImpl) ListMenu(ctx context.Context, in *emptypb.Empty, op
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthListMenu))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -672,7 +672,7 @@ func (c *AuthHTTPClientImpl) ListMenuTree(ctx context.Context, in *emptypb.Empty
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthListMenuTree))
 	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

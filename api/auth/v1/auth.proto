@@ -114,13 +114,13 @@ service Auth {
 	// 菜单列表(完整)
 	rpc ListMenu (google.protobuf.Empty) returns (ListMenuRep){
 		option (google.api.http) = {
-			delete:"/auth/v1/ListMenu"
+			get:"/auth/v1/ListMenu"
 		};
 	};
 	// 菜单列表(树)
 	rpc ListMenuTree (google.protobuf.Empty) returns (ListMenuRep){
 		option (google.api.http) = {
-			delete:"/auth/v1/ListMenuTree"
+			get:"/auth/v1/ListMenuTree"
 		};
 	};
 }

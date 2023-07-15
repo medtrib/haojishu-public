@@ -286,7 +286,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.GetUsersForRoleRep'
     /auth/v1/ListMenu:
-        delete:
+        get:
             tags:
                 - Auth
             description: 菜单列表(完整)
@@ -299,7 +299,7 @@ paths:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
     /auth/v1/ListMenuTree:
-        delete:
+        get:
             tags:
                 - Auth
             description: 菜单列表(树)
