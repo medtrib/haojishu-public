@@ -449,7 +449,7 @@ components:
                 icon:
                     type: string
                     description: 菜单图标
-                menuBtnS:
+                menuBtns:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.auth.v1.MenuBtn'
