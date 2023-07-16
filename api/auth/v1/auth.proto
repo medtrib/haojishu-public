@@ -123,6 +123,38 @@ service Auth {
 			get:"/auth/v1/ListMenuTree"
 		};
 	};
+	// 角色按钮菜单添加
+	rpc CreateRoleMenuBtn (CreateRoleMenuBtnReq) returns (RepStatus){
+		option (google.api.http) = {
+			post:"/auth/v1/CreateMenuBtn"
+			body:"*"
+		};
+	};
+	// 角色菜单添加
+	rpc  CreateRoleMenu (CreateRoleMenuReq) returns (RepStatus){
+		option (google.api.http) = {
+			post:"/auth/v1/CreateRoleMenu"
+			body:"*"
+		};
+	};
+		// 角色菜单列表(完整)
+		rpc ListRoleMenu (ListRoleMenuReq) returns (ListRoleMenuRep){
+			option (google.api.http) = {
+				get:"/auth/v1/ListRoleMenu"
+			};
+		};
+	// 角色菜单 - 树状结构
+	rpc ListRoleMenuTree (ListRoleMenuReq) returns (ListRoleMenuRep){
+		option (google.api.http) = {
+			get:"/auth/v1/ListRoleMenuTree"
+		};
+	};
+	// 角色菜单按钮 - 列表
+	rpc GetRoleMenuBtn (GetRoleMenuBtnReq) returns (GetRoleMenuBtnRes){
+		option (google.api.http) = {
+			get:"/roleMenuBtn"
+		};
+	};
 }
 
 // 添加角色
@@ -410,4 +442,54 @@ message IdReq {
 // 菜单返回
 message  ListMenuRep {
 	repeated Menu list= 1;
+}
+// 创建角色菜单按钮
+message CreateRoleMenuBtnReq{
+	// 角色id
+	int64 role_id = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 菜单id
+	int64 menu_id = 2[
+		(validate.rules).int64.gt = 0
+	];
+	// 按钮id数组
+	repeated int64 menu_btn_ids = 3[
+		(validate.rules).repeated.min_items = 1
+	];
+}
+// 角色菜单列表
+message ListRoleMenuReq {
+	string role = 1[
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// 角色菜单返回
+message ListRoleMenuRep {
+	// 菜单列表
+	repeated Menu list = 1;
+}
+message CreateRoleMenuReq{
+	// 角色id
+	int64 role_id = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 菜单id数组
+	repeated int64 menu_ids = 2[
+		(validate.rules).repeated.min_items = 1
+	];
+}
+// 获取角色菜单按钮
+message GetRoleMenuBtnReq {
+	// 角色id
+	int64 role_id = 1;
+	// 角色名称
+	string role_name = 2;
+	// 菜单id
+	int64 menu_id = 3;
+}
+// 角色菜单按钮列表
+message GetRoleMenuBtnRes {
+	// 菜单按钮列表
+	repeated MenuBtn list = 1;
 }

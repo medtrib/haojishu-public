@@ -3469,3 +3469,751 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ListMenuRepValidationError{}
+
+// Validate checks the field values on CreateRoleMenuBtnReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateRoleMenuBtnReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateRoleMenuBtnReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateRoleMenuBtnReqMultiError, or nil if none found.
+func (m *CreateRoleMenuBtnReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateRoleMenuBtnReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetRoleId() <= 0 {
+		err := CreateRoleMenuBtnReqValidationError{
+			field:  "RoleId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetMenuId() <= 0 {
+		err := CreateRoleMenuBtnReqValidationError{
+			field:  "MenuId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetMenuBtnIds()) < 1 {
+		err := CreateRoleMenuBtnReqValidationError{
+			field:  "MenuBtnIds",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateRoleMenuBtnReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateRoleMenuBtnReqMultiError is an error wrapping multiple validation
+// errors returned by CreateRoleMenuBtnReq.ValidateAll() if the designated
+// constraints aren't met.
+type CreateRoleMenuBtnReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateRoleMenuBtnReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateRoleMenuBtnReqMultiError) AllErrors() []error { return m }
+
+// CreateRoleMenuBtnReqValidationError is the validation error returned by
+// CreateRoleMenuBtnReq.Validate if the designated constraints aren't met.
+type CreateRoleMenuBtnReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateRoleMenuBtnReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateRoleMenuBtnReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateRoleMenuBtnReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateRoleMenuBtnReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateRoleMenuBtnReqValidationError) ErrorName() string {
+	return "CreateRoleMenuBtnReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateRoleMenuBtnReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateRoleMenuBtnReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateRoleMenuBtnReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateRoleMenuBtnReqValidationError{}
+
+// Validate checks the field values on ListRoleMenuReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ListRoleMenuReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListRoleMenuReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListRoleMenuReqMultiError, or nil if none found.
+func (m *ListRoleMenuReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListRoleMenuReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetRole()); l < 1 || l > 255 {
+		err := ListRoleMenuReqValidationError{
+			field:  "Role",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return ListRoleMenuReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListRoleMenuReqMultiError is an error wrapping multiple validation errors
+// returned by ListRoleMenuReq.ValidateAll() if the designated constraints
+// aren't met.
+type ListRoleMenuReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListRoleMenuReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListRoleMenuReqMultiError) AllErrors() []error { return m }
+
+// ListRoleMenuReqValidationError is the validation error returned by
+// ListRoleMenuReq.Validate if the designated constraints aren't met.
+type ListRoleMenuReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListRoleMenuReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListRoleMenuReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListRoleMenuReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListRoleMenuReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListRoleMenuReqValidationError) ErrorName() string { return "ListRoleMenuReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ListRoleMenuReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListRoleMenuReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListRoleMenuReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListRoleMenuReqValidationError{}
+
+// Validate checks the field values on ListRoleMenuRep with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *ListRoleMenuRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListRoleMenuRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListRoleMenuRepMultiError, or nil if none found.
+func (m *ListRoleMenuRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListRoleMenuRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListRoleMenuRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListRoleMenuRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListRoleMenuRepValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListRoleMenuRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListRoleMenuRepMultiError is an error wrapping multiple validation errors
+// returned by ListRoleMenuRep.ValidateAll() if the designated constraints
+// aren't met.
+type ListRoleMenuRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListRoleMenuRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListRoleMenuRepMultiError) AllErrors() []error { return m }
+
+// ListRoleMenuRepValidationError is the validation error returned by
+// ListRoleMenuRep.Validate if the designated constraints aren't met.
+type ListRoleMenuRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListRoleMenuRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListRoleMenuRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListRoleMenuRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListRoleMenuRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListRoleMenuRepValidationError) ErrorName() string { return "ListRoleMenuRepValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ListRoleMenuRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListRoleMenuRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListRoleMenuRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListRoleMenuRepValidationError{}
+
+// Validate checks the field values on CreateRoleMenuReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *CreateRoleMenuReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateRoleMenuReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateRoleMenuReqMultiError, or nil if none found.
+func (m *CreateRoleMenuReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateRoleMenuReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetRoleId() <= 0 {
+		err := CreateRoleMenuReqValidationError{
+			field:  "RoleId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetMenuIds()) < 1 {
+		err := CreateRoleMenuReqValidationError{
+			field:  "MenuIds",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateRoleMenuReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateRoleMenuReqMultiError is an error wrapping multiple validation errors
+// returned by CreateRoleMenuReq.ValidateAll() if the designated constraints
+// aren't met.
+type CreateRoleMenuReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateRoleMenuReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateRoleMenuReqMultiError) AllErrors() []error { return m }
+
+// CreateRoleMenuReqValidationError is the validation error returned by
+// CreateRoleMenuReq.Validate if the designated constraints aren't met.
+type CreateRoleMenuReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateRoleMenuReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateRoleMenuReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateRoleMenuReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateRoleMenuReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateRoleMenuReqValidationError) ErrorName() string {
+	return "CreateRoleMenuReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateRoleMenuReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateRoleMenuReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateRoleMenuReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateRoleMenuReqValidationError{}
+
+// Validate checks the field values on GetRoleMenuBtnReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetRoleMenuBtnReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRoleMenuBtnReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRoleMenuBtnReqMultiError, or nil if none found.
+func (m *GetRoleMenuBtnReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRoleMenuBtnReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for RoleId
+
+	// no validation rules for RoleName
+
+	// no validation rules for MenuId
+
+	if len(errors) > 0 {
+		return GetRoleMenuBtnReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRoleMenuBtnReqMultiError is an error wrapping multiple validation errors
+// returned by GetRoleMenuBtnReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetRoleMenuBtnReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRoleMenuBtnReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRoleMenuBtnReqMultiError) AllErrors() []error { return m }
+
+// GetRoleMenuBtnReqValidationError is the validation error returned by
+// GetRoleMenuBtnReq.Validate if the designated constraints aren't met.
+type GetRoleMenuBtnReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRoleMenuBtnReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRoleMenuBtnReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRoleMenuBtnReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRoleMenuBtnReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRoleMenuBtnReqValidationError) ErrorName() string {
+	return "GetRoleMenuBtnReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRoleMenuBtnReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRoleMenuBtnReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRoleMenuBtnReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRoleMenuBtnReqValidationError{}
+
+// Validate checks the field values on GetRoleMenuBtnRes with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetRoleMenuBtnRes) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetRoleMenuBtnRes with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetRoleMenuBtnResMultiError, or nil if none found.
+func (m *GetRoleMenuBtnRes) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetRoleMenuBtnRes) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetRoleMenuBtnResValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetRoleMenuBtnResValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetRoleMenuBtnResValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetRoleMenuBtnResMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetRoleMenuBtnResMultiError is an error wrapping multiple validation errors
+// returned by GetRoleMenuBtnRes.ValidateAll() if the designated constraints
+// aren't met.
+type GetRoleMenuBtnResMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetRoleMenuBtnResMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetRoleMenuBtnResMultiError) AllErrors() []error { return m }
+
+// GetRoleMenuBtnResValidationError is the validation error returned by
+// GetRoleMenuBtnRes.Validate if the designated constraints aren't met.
+type GetRoleMenuBtnResValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetRoleMenuBtnResValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetRoleMenuBtnResValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetRoleMenuBtnResValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetRoleMenuBtnResValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetRoleMenuBtnResValidationError) ErrorName() string {
+	return "GetRoleMenuBtnResValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetRoleMenuBtnResValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetRoleMenuBtnRes.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetRoleMenuBtnResValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetRoleMenuBtnResValidationError{}

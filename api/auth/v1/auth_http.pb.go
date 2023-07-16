@@ -24,6 +24,8 @@ const OperationAuthAddRole = "/api.auth.v1.Auth/AddRole"
 const OperationAuthAddRolesForUser = "/api.auth.v1.Auth/AddRolesForUser"
 const OperationAuthCheckAuth = "/api.auth.v1.Auth/CheckAuth"
 const OperationAuthCreateMenu = "/api.auth.v1.Auth/CreateMenu"
+const OperationAuthCreateRoleMenu = "/api.auth.v1.Auth/CreateRoleMenu"
+const OperationAuthCreateRoleMenuBtn = "/api.auth.v1.Auth/CreateRoleMenuBtn"
 const OperationAuthDelRole = "/api.auth.v1.Auth/DelRole"
 const OperationAuthDeleteMenu = "/api.auth.v1.Auth/DeleteMenu"
 const OperationAuthDeleteRoleForUser = "/api.auth.v1.Auth/DeleteRoleForUser"
@@ -31,11 +33,14 @@ const OperationAuthDeleteRolesForUser = "/api.auth.v1.Auth/DeleteRolesForUser"
 const OperationAuthEditMenu = "/api.auth.v1.Auth/EditMenu"
 const OperationAuthEditRole = "/api.auth.v1.Auth/EditRole"
 const OperationAuthFullRoleList = "/api.auth.v1.Auth/FullRoleList"
+const OperationAuthGetRoleMenuBtn = "/api.auth.v1.Auth/GetRoleMenuBtn"
 const OperationAuthGetRolePolicies = "/api.auth.v1.Auth/GetRolePolicies"
 const OperationAuthGetRolesForUser = "/api.auth.v1.Auth/GetRolesForUser"
 const OperationAuthGetUsersForRole = "/api.auth.v1.Auth/GetUsersForRole"
 const OperationAuthListMenu = "/api.auth.v1.Auth/ListMenu"
 const OperationAuthListMenuTree = "/api.auth.v1.Auth/ListMenuTree"
+const OperationAuthListRoleMenu = "/api.auth.v1.Auth/ListRoleMenu"
+const OperationAuthListRoleMenuTree = "/api.auth.v1.Auth/ListRoleMenuTree"
 const OperationAuthPageRoleList = "/api.auth.v1.Auth/PageRoleList"
 const OperationAuthSetRolePolicies = "/api.auth.v1.Auth/SetRolePolicies"
 
@@ -48,6 +53,10 @@ type AuthHTTPServer interface {
 	CheckAuth(context.Context, *CheckAuthReq) (*RepStatus, error)
 	// CreateMenu 创建菜单
 	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
+	// CreateRoleMenu 角色菜单添加
+	CreateRoleMenu(context.Context, *CreateRoleMenuReq) (*RepStatus, error)
+	// CreateRoleMenuBtn 角色按钮菜单添加
+	CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error)
 	// DelRole 删除角色
 	DelRole(context.Context, *DelRoleReq) (*RepStatus, error)
 	// DeleteMenu 删除菜单
@@ -62,6 +71,8 @@ type AuthHTTPServer interface {
 	EditRole(context.Context, *EditRoleReq) (*RepStatus, error)
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
+	// GetRoleMenuBtn 角色菜单按钮 - 列表
+	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRes, error)
 	// GetRolePolicies 获取角色有那些权限
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
 	// GetRolesForUser 获取用户角色
@@ -72,6 +83,10 @@ type AuthHTTPServer interface {
 	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	// ListMenuTree 菜单列表(树)
 	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
+	// ListRoleMenu 角色菜单列表(完整)
+	ListRoleMenu(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
+	// ListRoleMenuTree 角色菜单 - 树状结构
+	ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 	// SetRolePolicies 设置角色权限
@@ -98,6 +113,11 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.DELETE("/auth/v1/DeleteMenu", _Auth_DeleteMenu0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListMenu", _Auth_ListMenu0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListMenuTree", _Auth_ListMenuTree0_HTTP_Handler(srv))
+	r.POST("/auth/v1/CreateMenuBtn", _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv))
+	r.POST("/auth/v1/CreateRoleMenu", _Auth_CreateRoleMenu0_HTTP_Handler(srv))
+	r.GET("/auth/v1/ListRoleMenu", _Auth_ListRoleMenu0_HTTP_Handler(srv))
+	r.GET("/auth/v1/ListRoleMenuTree", _Auth_ListRoleMenuTree0_HTTP_Handler(srv))
+	r.GET("/roleMenuBtn", _Auth_GetRoleMenuBtn0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -442,11 +462,108 @@ func _Auth_ListMenuTree0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 	}
 }
 
+func _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateRoleMenuBtnReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthCreateRoleMenuBtn)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateRoleMenuBtn(ctx, req.(*CreateRoleMenuBtnReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RepStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_CreateRoleMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateRoleMenuReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthCreateRoleMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateRoleMenu(ctx, req.(*CreateRoleMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RepStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_ListRoleMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListRoleMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthListRoleMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListRoleMenu(ctx, req.(*ListRoleMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListRoleMenuRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_ListRoleMenuTree0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ListRoleMenuReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthListRoleMenuTree)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListRoleMenuTree(ctx, req.(*ListRoleMenuReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListRoleMenuRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Auth_GetRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetRoleMenuBtnReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthGetRoleMenuBtn)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetRoleMenuBtn(ctx, req.(*GetRoleMenuBtnReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetRoleMenuBtnRes)
+		return ctx.Result(200, reply)
+	}
+}
+
 type AuthHTTPClient interface {
 	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
 	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	CheckAuth(ctx context.Context, req *CheckAuthReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	CreateMenu(ctx context.Context, req *CreateMenuReq, opts ...http.CallOption) (rsp *Menu, err error)
+	CreateRoleMenu(ctx context.Context, req *CreateRoleMenuReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	CreateRoleMenuBtn(ctx context.Context, req *CreateRoleMenuBtnReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	DelRole(ctx context.Context, req *DelRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	DeleteMenu(ctx context.Context, req *IdReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	DeleteRoleForUser(ctx context.Context, req *DeleteRoleForUserReq, opts ...http.CallOption) (rsp *RepStatus, err error)
@@ -454,11 +571,14 @@ type AuthHTTPClient interface {
 	EditMenu(ctx context.Context, req *EditMenuReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
+	GetRoleMenuBtn(ctx context.Context, req *GetRoleMenuBtnReq, opts ...http.CallOption) (rsp *GetRoleMenuBtnRes, err error)
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
 	GetUsersForRole(ctx context.Context, req *GetUsersForRoleReq, opts ...http.CallOption) (rsp *GetUsersForRoleRep, err error)
 	ListMenu(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
 	ListMenuTree(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
+	ListRoleMenu(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListRoleMenuRep, err error)
+	ListRoleMenuTree(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListRoleMenuRep, err error)
 	PageRoleList(ctx context.Context, req *PageRoleListReq, opts ...http.CallOption) (rsp *PageRoleListRep, err error)
 	SetRolePolicies(ctx context.Context, req *SetRolePoliciesReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 }
@@ -515,6 +635,32 @@ func (c *AuthHTTPClientImpl) CreateMenu(ctx context.Context, in *CreateMenuReq, 
 	pattern := "/auth/v1/CreateMenu"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthCreateMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) CreateRoleMenu(ctx context.Context, in *CreateRoleMenuReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
+	pattern := "/auth/v1/CreateRoleMenu"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationAuthCreateRoleMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) CreateRoleMenuBtn(ctx context.Context, in *CreateRoleMenuBtnReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
+	pattern := "/auth/v1/CreateMenuBtn"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationAuthCreateRoleMenuBtn))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
@@ -614,6 +760,19 @@ func (c *AuthHTTPClientImpl) FullRoleList(ctx context.Context, in *emptypb.Empty
 	return &out, err
 }
 
+func (c *AuthHTTPClientImpl) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...http.CallOption) (*GetRoleMenuBtnRes, error) {
+	var out GetRoleMenuBtnRes
+	pattern := "/roleMenuBtn"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthGetRoleMenuBtn))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *AuthHTTPClientImpl) GetRolePolicies(ctx context.Context, in *GetRolePoliciesReq, opts ...http.CallOption) (*GetRolePoliciesRep, error) {
 	var out GetRolePoliciesRep
 	pattern := "/auth/v1/GetRolePolicies"
@@ -671,6 +830,32 @@ func (c *AuthHTTPClientImpl) ListMenuTree(ctx context.Context, in *emptypb.Empty
 	pattern := "/auth/v1/ListMenuTree"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthListMenuTree))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) ListRoleMenu(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListRoleMenuRep, error) {
+	var out ListRoleMenuRep
+	pattern := "/auth/v1/ListRoleMenu"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthListRoleMenu))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListRoleMenuRep, error) {
+	var out ListRoleMenuRep
+	pattern := "/auth/v1/ListRoleMenuTree"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthListRoleMenuTree))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

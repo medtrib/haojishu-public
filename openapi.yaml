@@ -97,6 +97,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.Menu'
+    /auth/v1/CreateMenuBtn:
+        post:
+            tags:
+                - Auth
+            description: 角色按钮菜单添加
+            operationId: Auth_CreateRoleMenuBtn
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.CreateRoleMenuBtnReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /auth/v1/CreateRoleMenu:
+        post:
+            tags:
+                - Auth
+            description: 角色菜单添加
+            operationId: Auth_CreateRoleMenu
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.CreateRoleMenuReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
     /auth/v1/DelRole:
         delete:
             tags:
@@ -311,6 +349,42 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
+    /auth/v1/ListRoleMenu:
+        get:
+            tags:
+                - Auth
+            description: 角色菜单列表(完整)
+            operationId: Auth_ListRoleMenu
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.ListRoleMenuRep'
+    /auth/v1/ListRoleMenuTree:
+        get:
+            tags:
+                - Auth
+            description: 角色菜单 - 树状结构
+            operationId: Auth_ListRoleMenuTree
+            parameters:
+                - name: role
+                  in: query
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.ListRoleMenuRep'
     /auth/v1/PageRoleList:
         get:
             tags:
@@ -358,6 +432,37 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /roleMenuBtn:
+        get:
+            tags:
+                - Auth
+            description: 角色菜单按钮 - 列表
+            operationId: Auth_GetRoleMenuBtn
+            parameters:
+                - name: roleId
+                  in: query
+                  description: 角色id
+                  schema:
+                    type: integer
+                    format: int64
+                - name: roleName
+                  in: query
+                  description: 角色名称
+                  schema:
+                    type: string
+                - name: menuId
+                  in: query
+                  description: 菜单id
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRoleMenuBtnRes'
 components:
     schemas:
         api.auth.v1.AddRoleRep:
@@ -416,6 +521,37 @@ components:
                     type: string
                     description: 父级id字符串 英文逗号分割
             description: 创建菜单
+        api.auth.v1.CreateRoleMenuBtnReq:
+            type: object
+            properties:
+                roleId:
+                    type: integer
+                    description: 角色id
+                    format: int64
+                menuId:
+                    type: integer
+                    description: 菜单id
+                    format: int64
+                menuBtnIds:
+                    type: array
+                    items:
+                        type: integer
+                        format: int64
+                    description: 按钮id数组
+            description: 创建角色菜单按钮
+        api.auth.v1.CreateRoleMenuReq:
+            type: object
+            properties:
+                roleId:
+                    type: integer
+                    description: 角色id
+                    format: int64
+                menuIds:
+                    type: array
+                    items:
+                        type: integer
+                        format: int64
+                    description: 菜单id数组
         api.auth.v1.EditMenuReq:
             type: object
             properties:
@@ -477,6 +613,15 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 完整角色列表回复
+        api.auth.v1.GetRoleMenuBtnRes:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.MenuBtn'
+                    description: 菜单按钮列表
+            description: 角色菜单按钮列表
         api.auth.v1.GetRolePoliciesRep:
             type: object
             properties:
@@ -511,6 +656,15 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Menu'
             description: 菜单返回
+        api.auth.v1.ListRoleMenuRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.Menu'
+                    description: 菜单列表
+            description: 角色菜单返回
         api.auth.v1.Menu:
             type: object
             properties:
