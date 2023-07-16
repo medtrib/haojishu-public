@@ -446,15 +446,15 @@ message  ListMenuRep {
 // 创建角色菜单按钮
 message CreateRoleMenuBtnReq{
 	// 角色id
-	int64 role_id = 1[
-		(validate.rules).int64.gt = 0
+	uint64 role_id = 1[
+		(validate.rules).uint64.gt = 0
 	];
 	// 菜单id
-	int64 menu_id = 2[
-		(validate.rules).int64.gt = 0
+	uint64 menu_id = 2[
+		(validate.rules).uint64.gt = 0
 	];
 	// 按钮id数组
-	repeated int64 menu_btn_ids = 3[
+	repeated uint64 menu_btn_ids = 3[
 		(validate.rules).repeated.min_items = 1
 	];
 }
@@ -471,22 +471,22 @@ message ListRoleMenuRep {
 }
 message CreateRoleMenuReq{
 	// 角色id
-	int64 role_id = 1[
-		(validate.rules).int64.gt = 0
+	uint64 role_id = 1[
+		(validate.rules).uint64.gt = 0
 	];
 	// 菜单id数组
-	repeated int64 menu_ids = 2[
+	repeated uint64 menu_ids = 2[
 		(validate.rules).repeated.min_items = 1
 	];
 }
 // 获取角色菜单按钮
 message GetRoleMenuBtnReq {
 	// 角色id
-	int64 role_id = 1;
+	uint64 role_id = 1;
 	// 角色名称
 	string role_name = 2;
 	// 菜单id
-	int64 menu_id = 3;
+	uint64 menu_id = 3;
 }
 // 角色菜单按钮列表
 message GetRoleMenuBtnRep {

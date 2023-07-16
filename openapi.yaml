@@ -19,7 +19,7 @@ paths:
                   description: 角色id
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
                 - name: roleName
                   in: query
                   description: 角色名称
@@ -30,7 +30,7 @@ paths:
                   description: 菜单id
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
             responses:
                 "200":
                     description: OK
@@ -527,16 +527,16 @@ components:
                 roleId:
                     type: integer
                     description: 角色id
-                    format: int64
+                    format: uint64
                 menuId:
                     type: integer
                     description: 菜单id
-                    format: int64
+                    format: uint64
                 menuBtnIds:
                     type: array
                     items:
                         type: integer
-                        format: int64
+                        format: uint64
                     description: 按钮id数组
             description: 创建角色菜单按钮
         api.auth.v1.CreateRoleMenuReq:
@@ -545,12 +545,12 @@ components:
                 roleId:
                     type: integer
                     description: 角色id
-                    format: int64
+                    format: uint64
                 menuIds:
                     type: array
                     items:
                         type: integer
-                        format: int64
+                        format: uint64
                     description: 菜单id数组
         api.auth.v1.EditMenuReq:
             type: object
