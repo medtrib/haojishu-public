@@ -38,8 +38,8 @@ const (
 	Auth_DeleteMenu_FullMethodName         = "/api.auth.v1.Auth/DeleteMenu"
 	Auth_ListMenu_FullMethodName           = "/api.auth.v1.Auth/ListMenu"
 	Auth_ListMenuTree_FullMethodName       = "/api.auth.v1.Auth/ListMenuTree"
-	Auth_CreateRoleMenuBtn_FullMethodName  = "/api.auth.v1.Auth/CreateRoleMenuBtn"
 	Auth_CreateRoleMenu_FullMethodName     = "/api.auth.v1.Auth/CreateRoleMenu"
+	Auth_CreateRoleMenuBtn_FullMethodName  = "/api.auth.v1.Auth/CreateRoleMenuBtn"
 	Auth_ListRoleMenu_FullMethodName       = "/api.auth.v1.Auth/ListRoleMenu"
 	Auth_ListRoleMenuTree_FullMethodName   = "/api.auth.v1.Auth/ListRoleMenuTree"
 	Auth_GetRoleMenuBtn_FullMethodName     = "/api.auth.v1.Auth/GetRoleMenuBtn"
@@ -85,16 +85,16 @@ type AuthClient interface {
 	ListMenu(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
 	// 菜单列表(树)
 	ListMenuTree(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListMenuRep, error)
-	// 角色按钮菜单添加
-	CreateRoleMenuBtn(ctx context.Context, in *CreateRoleMenuBtnReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 角色菜单添加
 	CreateRoleMenu(ctx context.Context, in *CreateRoleMenuReq, opts ...grpc.CallOption) (*RepStatus, error)
+	// 角色菜单按钮添加
+	CreateRoleMenuBtn(ctx context.Context, in *CreateRoleMenuBtnReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 角色菜单列表(完整)
 	ListRoleMenu(ctx context.Context, in *ListRoleMenuReq, opts ...grpc.CallOption) (*ListRoleMenuRep, error)
 	// 角色菜单 - 树状结构
 	ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, opts ...grpc.CallOption) (*ListRoleMenuRep, error)
 	// 角色菜单按钮 - 列表
-	GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRes, error)
+	GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRep, error)
 }
 
 type authClient struct {
@@ -267,18 +267,18 @@ func (c *authClient) ListMenuTree(ctx context.Context, in *emptypb.Empty, opts .
 	return out, nil
 }
 
-func (c *authClient) CreateRoleMenuBtn(ctx context.Context, in *CreateRoleMenuBtnReq, opts ...grpc.CallOption) (*RepStatus, error) {
+func (c *authClient) CreateRoleMenu(ctx context.Context, in *CreateRoleMenuReq, opts ...grpc.CallOption) (*RepStatus, error) {
 	out := new(RepStatus)
-	err := c.cc.Invoke(ctx, Auth_CreateRoleMenuBtn_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Auth_CreateRoleMenu_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *authClient) CreateRoleMenu(ctx context.Context, in *CreateRoleMenuReq, opts ...grpc.CallOption) (*RepStatus, error) {
+func (c *authClient) CreateRoleMenuBtn(ctx context.Context, in *CreateRoleMenuBtnReq, opts ...grpc.CallOption) (*RepStatus, error) {
 	out := new(RepStatus)
-	err := c.cc.Invoke(ctx, Auth_CreateRoleMenu_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Auth_CreateRoleMenuBtn_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -303,8 +303,8 @@ func (c *authClient) ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, 
 	return out, nil
 }
 
-func (c *authClient) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRes, error) {
-	out := new(GetRoleMenuBtnRes)
+func (c *authClient) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRep, error) {
+	out := new(GetRoleMenuBtnRep)
 	err := c.cc.Invoke(ctx, Auth_GetRoleMenuBtn_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -352,16 +352,16 @@ type AuthServer interface {
 	ListMenu(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	// 菜单列表(树)
 	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
-	// 角色按钮菜单添加
-	CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error)
 	// 角色菜单添加
 	CreateRoleMenu(context.Context, *CreateRoleMenuReq) (*RepStatus, error)
+	// 角色菜单按钮添加
+	CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error)
 	// 角色菜单列表(完整)
 	ListRoleMenu(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
 	// 角色菜单 - 树状结构
 	ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
 	// 角色菜单按钮 - 列表
-	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRes, error)
+	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -423,11 +423,11 @@ func (UnimplementedAuthServer) ListMenu(context.Context, *emptypb.Empty) (*ListM
 func (UnimplementedAuthServer) ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListMenuTree not implemented")
 }
-func (UnimplementedAuthServer) CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateRoleMenuBtn not implemented")
-}
 func (UnimplementedAuthServer) CreateRoleMenu(context.Context, *CreateRoleMenuReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateRoleMenu not implemented")
+}
+func (UnimplementedAuthServer) CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRoleMenuBtn not implemented")
 }
 func (UnimplementedAuthServer) ListRoleMenu(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoleMenu not implemented")
@@ -435,7 +435,7 @@ func (UnimplementedAuthServer) ListRoleMenu(context.Context, *ListRoleMenuReq) (
 func (UnimplementedAuthServer) ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListRoleMenuTree not implemented")
 }
-func (UnimplementedAuthServer) GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRes, error) {
+func (UnimplementedAuthServer) GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleMenuBtn not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
@@ -775,24 +775,6 @@ func _Auth_ListMenuTree_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Auth_CreateRoleMenuBtn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateRoleMenuBtnReq)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthServer).CreateRoleMenuBtn(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Auth_CreateRoleMenuBtn_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).CreateRoleMenuBtn(ctx, req.(*CreateRoleMenuBtnReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Auth_CreateRoleMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateRoleMenuReq)
 	if err := dec(in); err != nil {
@@ -807,6 +789,24 @@ func _Auth_CreateRoleMenu_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AuthServer).CreateRoleMenu(ctx, req.(*CreateRoleMenuReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_CreateRoleMenuBtn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRoleMenuBtnReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CreateRoleMenuBtn(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CreateRoleMenuBtn_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CreateRoleMenuBtn(ctx, req.(*CreateRoleMenuBtnReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -945,12 +945,12 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Auth_ListMenuTree_Handler,
 		},
 		{
-			MethodName: "CreateRoleMenuBtn",
-			Handler:    _Auth_CreateRoleMenuBtn_Handler,
-		},
-		{
 			MethodName: "CreateRoleMenu",
 			Handler:    _Auth_CreateRoleMenu_Handler,
+		},
+		{
+			MethodName: "CreateRoleMenuBtn",
+			Handler:    _Auth_CreateRoleMenuBtn_Handler,
 		},
 		{
 			MethodName: "ListRoleMenu",

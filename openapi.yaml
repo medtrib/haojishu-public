@@ -7,6 +7,37 @@ info:
     description: 权限认证服务
     version: 0.0.1
 paths:
+    /auth/v1//GetRoleMenuBtn:
+        get:
+            tags:
+                - Auth
+            description: 角色菜单按钮 - 列表
+            operationId: Auth_GetRoleMenuBtn
+            parameters:
+                - name: roleId
+                  in: query
+                  description: 角色id
+                  schema:
+                    type: integer
+                    format: int64
+                - name: roleName
+                  in: query
+                  description: 角色名称
+                  schema:
+                    type: string
+                - name: menuId
+                  in: query
+                  description: 菜单id
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRoleMenuBtnRep'
     /auth/v1/AddRole:
         post:
             tags:
@@ -101,7 +132,7 @@ paths:
         post:
             tags:
                 - Auth
-            description: 角色按钮菜单添加
+            description: 角色菜单按钮添加
             operationId: Auth_CreateRoleMenuBtn
             requestBody:
                 content:
@@ -432,37 +463,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
-    /roleMenuBtn:
-        get:
-            tags:
-                - Auth
-            description: 角色菜单按钮 - 列表
-            operationId: Auth_GetRoleMenuBtn
-            parameters:
-                - name: roleId
-                  in: query
-                  description: 角色id
-                  schema:
-                    type: integer
-                    format: int64
-                - name: roleName
-                  in: query
-                  description: 角色名称
-                  schema:
-                    type: string
-                - name: menuId
-                  in: query
-                  description: 菜单id
-                  schema:
-                    type: integer
-                    format: int64
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.auth.v1.GetRoleMenuBtnRes'
 components:
     schemas:
         api.auth.v1.AddRoleRep:
@@ -613,7 +613,7 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 完整角色列表回复
-        api.auth.v1.GetRoleMenuBtnRes:
+        api.auth.v1.GetRoleMenuBtnRep:
             type: object
             properties:
                 list:

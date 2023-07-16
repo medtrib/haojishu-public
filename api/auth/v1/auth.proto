@@ -123,13 +123,6 @@ service Auth {
 			get:"/auth/v1/ListMenuTree"
 		};
 	};
-	// 角色按钮菜单添加
-	rpc CreateRoleMenuBtn (CreateRoleMenuBtnReq) returns (RepStatus){
-		option (google.api.http) = {
-			post:"/auth/v1/CreateMenuBtn"
-			body:"*"
-		};
-	};
 	// 角色菜单添加
 	rpc  CreateRoleMenu (CreateRoleMenuReq) returns (RepStatus){
 		option (google.api.http) = {
@@ -137,8 +130,15 @@ service Auth {
 			body:"*"
 		};
 	};
-		// 角色菜单列表(完整)
-		rpc ListRoleMenu (ListRoleMenuReq) returns (ListRoleMenuRep){
+	// 角色菜单按钮添加
+	rpc CreateRoleMenuBtn (CreateRoleMenuBtnReq) returns (RepStatus){
+		option (google.api.http) = {
+			post:"/auth/v1/CreateMenuBtn"
+			body:"*"
+		};
+	};
+	// 角色菜单列表(完整)
+	rpc ListRoleMenu (ListRoleMenuReq) returns (ListRoleMenuRep){
 			option (google.api.http) = {
 				get:"/auth/v1/ListRoleMenu"
 			};
@@ -150,9 +150,9 @@ service Auth {
 		};
 	};
 	// 角色菜单按钮 - 列表
-	rpc GetRoleMenuBtn (GetRoleMenuBtnReq) returns (GetRoleMenuBtnRes){
+	rpc GetRoleMenuBtn (GetRoleMenuBtnReq) returns (GetRoleMenuBtnRep){
 		option (google.api.http) = {
-			get:"/roleMenuBtn"
+			get:"/auth/v1//GetRoleMenuBtn"
 		};
 	};
 }
@@ -489,7 +489,7 @@ message GetRoleMenuBtnReq {
 	int64 menu_id = 3;
 }
 // 角色菜单按钮列表
-message GetRoleMenuBtnRes {
+message GetRoleMenuBtnRep {
 	// 菜单按钮列表
 	repeated MenuBtn list = 1;
 }

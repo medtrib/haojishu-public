@@ -55,7 +55,7 @@ type AuthHTTPServer interface {
 	CreateMenu(context.Context, *CreateMenuReq) (*Menu, error)
 	// CreateRoleMenu 角色菜单添加
 	CreateRoleMenu(context.Context, *CreateRoleMenuReq) (*RepStatus, error)
-	// CreateRoleMenuBtn 角色按钮菜单添加
+	// CreateRoleMenuBtn 角色菜单按钮添加
 	CreateRoleMenuBtn(context.Context, *CreateRoleMenuBtnReq) (*RepStatus, error)
 	// DelRole 删除角色
 	DelRole(context.Context, *DelRoleReq) (*RepStatus, error)
@@ -72,7 +72,7 @@ type AuthHTTPServer interface {
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// GetRoleMenuBtn 角色菜单按钮 - 列表
-	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRes, error)
+	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
 	// GetRolePolicies 获取角色有那些权限
 	GetRolePolicies(context.Context, *GetRolePoliciesReq) (*GetRolePoliciesRep, error)
 	// GetRolesForUser 获取用户角色
@@ -113,11 +113,11 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.DELETE("/auth/v1/DeleteMenu", _Auth_DeleteMenu0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListMenu", _Auth_ListMenu0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListMenuTree", _Auth_ListMenuTree0_HTTP_Handler(srv))
-	r.POST("/auth/v1/CreateMenuBtn", _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv))
 	r.POST("/auth/v1/CreateRoleMenu", _Auth_CreateRoleMenu0_HTTP_Handler(srv))
+	r.POST("/auth/v1/CreateMenuBtn", _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListRoleMenu", _Auth_ListRoleMenu0_HTTP_Handler(srv))
 	r.GET("/auth/v1/ListRoleMenuTree", _Auth_ListRoleMenuTree0_HTTP_Handler(srv))
-	r.GET("/roleMenuBtn", _Auth_GetRoleMenuBtn0_HTTP_Handler(srv))
+	r.GET("/auth/v1//GetRoleMenuBtn", _Auth_GetRoleMenuBtn0_HTTP_Handler(srv))
 }
 
 func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
@@ -462,15 +462,15 @@ func _Auth_ListMenuTree0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 	}
 }
 
-func _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+func _Auth_CreateRoleMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateRoleMenuBtnReq
+		var in CreateRoleMenuReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationAuthCreateRoleMenuBtn)
+		http.SetOperation(ctx, OperationAuthCreateRoleMenu)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateRoleMenuBtn(ctx, req.(*CreateRoleMenuBtnReq))
+			return srv.CreateRoleMenu(ctx, req.(*CreateRoleMenuReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -481,15 +481,15 @@ func _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Con
 	}
 }
 
-func _Auth_CreateRoleMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+func _Auth_CreateRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in CreateRoleMenuReq
+		var in CreateRoleMenuBtnReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationAuthCreateRoleMenu)
+		http.SetOperation(ctx, OperationAuthCreateRoleMenuBtn)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.CreateRoleMenu(ctx, req.(*CreateRoleMenuReq))
+			return srv.CreateRoleMenuBtn(ctx, req.(*CreateRoleMenuBtnReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -552,7 +552,7 @@ func _Auth_GetRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Contex
 		if err != nil {
 			return err
 		}
-		reply := out.(*GetRoleMenuBtnRes)
+		reply := out.(*GetRoleMenuBtnRep)
 		return ctx.Result(200, reply)
 	}
 }
@@ -571,7 +571,7 @@ type AuthHTTPClient interface {
 	EditMenu(ctx context.Context, req *EditMenuReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
-	GetRoleMenuBtn(ctx context.Context, req *GetRoleMenuBtnReq, opts ...http.CallOption) (rsp *GetRoleMenuBtnRes, err error)
+	GetRoleMenuBtn(ctx context.Context, req *GetRoleMenuBtnReq, opts ...http.CallOption) (rsp *GetRoleMenuBtnRep, err error)
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
 	GetUsersForRole(ctx context.Context, req *GetUsersForRoleReq, opts ...http.CallOption) (rsp *GetUsersForRoleRep, err error)
@@ -760,9 +760,9 @@ func (c *AuthHTTPClientImpl) FullRoleList(ctx context.Context, in *emptypb.Empty
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...http.CallOption) (*GetRoleMenuBtnRes, error) {
-	var out GetRoleMenuBtnRes
-	pattern := "/roleMenuBtn"
+func (c *AuthHTTPClientImpl) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...http.CallOption) (*GetRoleMenuBtnRep, error) {
+	var out GetRoleMenuBtnRep
+	pattern := "/auth/v1//GetRoleMenuBtn"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthGetRoleMenuBtn))
 	opts = append(opts, http.PathTemplate(pattern))

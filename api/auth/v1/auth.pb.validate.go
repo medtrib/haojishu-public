@@ -4082,22 +4082,22 @@ var _ interface {
 	ErrorName() string
 } = GetRoleMenuBtnReqValidationError{}
 
-// Validate checks the field values on GetRoleMenuBtnRes with the rules defined
+// Validate checks the field values on GetRoleMenuBtnRep with the rules defined
 // in the proto definition for this message. If any rules are violated, the
 // first error encountered is returned, or nil if there are no violations.
-func (m *GetRoleMenuBtnRes) Validate() error {
+func (m *GetRoleMenuBtnRep) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on GetRoleMenuBtnRes with the rules
+// ValidateAll checks the field values on GetRoleMenuBtnRep with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the result is a list of violation errors wrapped in
-// GetRoleMenuBtnResMultiError, or nil if none found.
-func (m *GetRoleMenuBtnRes) ValidateAll() error {
+// GetRoleMenuBtnRepMultiError, or nil if none found.
+func (m *GetRoleMenuBtnRep) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *GetRoleMenuBtnRes) validate(all bool) error {
+func (m *GetRoleMenuBtnRep) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -4111,7 +4111,7 @@ func (m *GetRoleMenuBtnRes) validate(all bool) error {
 			switch v := interface{}(item).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
-					errors = append(errors, GetRoleMenuBtnResValidationError{
+					errors = append(errors, GetRoleMenuBtnRepValidationError{
 						field:  fmt.Sprintf("List[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -4119,7 +4119,7 @@ func (m *GetRoleMenuBtnRes) validate(all bool) error {
 				}
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
-					errors = append(errors, GetRoleMenuBtnResValidationError{
+					errors = append(errors, GetRoleMenuBtnRepValidationError{
 						field:  fmt.Sprintf("List[%v]", idx),
 						reason: "embedded message failed validation",
 						cause:  err,
@@ -4128,7 +4128,7 @@ func (m *GetRoleMenuBtnRes) validate(all bool) error {
 			}
 		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return GetRoleMenuBtnResValidationError{
+				return GetRoleMenuBtnRepValidationError{
 					field:  fmt.Sprintf("List[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -4139,19 +4139,19 @@ func (m *GetRoleMenuBtnRes) validate(all bool) error {
 	}
 
 	if len(errors) > 0 {
-		return GetRoleMenuBtnResMultiError(errors)
+		return GetRoleMenuBtnRepMultiError(errors)
 	}
 
 	return nil
 }
 
-// GetRoleMenuBtnResMultiError is an error wrapping multiple validation errors
-// returned by GetRoleMenuBtnRes.ValidateAll() if the designated constraints
+// GetRoleMenuBtnRepMultiError is an error wrapping multiple validation errors
+// returned by GetRoleMenuBtnRep.ValidateAll() if the designated constraints
 // aren't met.
-type GetRoleMenuBtnResMultiError []error
+type GetRoleMenuBtnRepMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m GetRoleMenuBtnResMultiError) Error() string {
+func (m GetRoleMenuBtnRepMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -4160,11 +4160,11 @@ func (m GetRoleMenuBtnResMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m GetRoleMenuBtnResMultiError) AllErrors() []error { return m }
+func (m GetRoleMenuBtnRepMultiError) AllErrors() []error { return m }
 
-// GetRoleMenuBtnResValidationError is the validation error returned by
-// GetRoleMenuBtnRes.Validate if the designated constraints aren't met.
-type GetRoleMenuBtnResValidationError struct {
+// GetRoleMenuBtnRepValidationError is the validation error returned by
+// GetRoleMenuBtnRep.Validate if the designated constraints aren't met.
+type GetRoleMenuBtnRepValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -4172,24 +4172,24 @@ type GetRoleMenuBtnResValidationError struct {
 }
 
 // Field function returns field value.
-func (e GetRoleMenuBtnResValidationError) Field() string { return e.field }
+func (e GetRoleMenuBtnRepValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e GetRoleMenuBtnResValidationError) Reason() string { return e.reason }
+func (e GetRoleMenuBtnRepValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e GetRoleMenuBtnResValidationError) Cause() error { return e.cause }
+func (e GetRoleMenuBtnRepValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e GetRoleMenuBtnResValidationError) Key() bool { return e.key }
+func (e GetRoleMenuBtnRepValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e GetRoleMenuBtnResValidationError) ErrorName() string {
-	return "GetRoleMenuBtnResValidationError"
+func (e GetRoleMenuBtnRepValidationError) ErrorName() string {
+	return "GetRoleMenuBtnRepValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e GetRoleMenuBtnResValidationError) Error() string {
+func (e GetRoleMenuBtnRepValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -4201,14 +4201,14 @@ func (e GetRoleMenuBtnResValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sGetRoleMenuBtnRes.%s: %s%s",
+		"invalid %sGetRoleMenuBtnRep.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = GetRoleMenuBtnResValidationError{}
+var _ error = GetRoleMenuBtnRepValidationError{}
 
 var _ interface {
 	Field() string
@@ -4216,4 +4216,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = GetRoleMenuBtnResValidationError{}
+} = GetRoleMenuBtnRepValidationError{}
