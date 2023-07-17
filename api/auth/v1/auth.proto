@@ -138,13 +138,13 @@ service Auth {
 		};
 	};
 	// 角色菜单列表(完整)
-	rpc ListRoleMenu (ListRoleMenuReq) returns (ListRoleMenuRep){
+	rpc ListRoleMenu (ListRoleMenuReq) returns (ListMenuRep){
 			option (google.api.http) = {
 				get:"/auth/v1/ListRoleMenu"
 			};
 		};
 	// 角色菜单 - 树状结构
-	rpc ListRoleMenuTree (ListRoleMenuReq) returns (ListRoleMenuRep){
+	rpc ListRoleMenuTree (ListRoleMenuReq) returns (ListMenuRep){
 		option (google.api.http) = {
 			get:"/auth/v1/ListRoleMenuTree"
 		};
@@ -463,11 +463,6 @@ message ListRoleMenuReq {
 	string role = 1[
 		(validate.rules).string = {min_len: 1, max_len: 255}
 	];
-}
-// 角色菜单返回
-message ListRoleMenuRep {
-	// 菜单列表
-	repeated Menu list = 1;
 }
 message CreateRoleMenuReq{
 	// 角色id

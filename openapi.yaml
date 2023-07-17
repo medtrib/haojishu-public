@@ -397,7 +397,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.auth.v1.ListRoleMenuRep'
+                                $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
     /auth/v1/ListRoleMenuTree:
         get:
             tags:
@@ -415,7 +415,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.auth.v1.ListRoleMenuRep'
+                                $ref: '#/components/schemas/api.auth.v1.ListMenuRep'
     /auth/v1/PageRoleList:
         get:
             tags:
@@ -656,15 +656,6 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Menu'
             description: 菜单返回
-        api.auth.v1.ListRoleMenuRep:
-            type: object
-            properties:
-                list:
-                    type: array
-                    items:
-                        $ref: '#/components/schemas/api.auth.v1.Menu'
-                    description: 菜单列表
-            description: 角色菜单返回
         api.auth.v1.Menu:
             type: object
             properties:

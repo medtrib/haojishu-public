@@ -84,9 +84,9 @@ type AuthHTTPServer interface {
 	// ListMenuTree 菜单列表(树)
 	ListMenuTree(context.Context, *emptypb.Empty) (*ListMenuRep, error)
 	// ListRoleMenu 角色菜单列表(完整)
-	ListRoleMenu(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
+	ListRoleMenu(context.Context, *ListRoleMenuReq) (*ListMenuRep, error)
 	// ListRoleMenuTree 角色菜单 - 树状结构
-	ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListRoleMenuRep, error)
+	ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListMenuRep, error)
 	// PageRoleList 获取角色列表(分页)
 	PageRoleList(context.Context, *PageRoleListReq) (*PageRoleListRep, error)
 	// SetRolePolicies 设置角色权限
@@ -514,7 +514,7 @@ func _Auth_ListRoleMenu0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context)
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListRoleMenuRep)
+		reply := out.(*ListMenuRep)
 		return ctx.Result(200, reply)
 	}
 }
@@ -533,7 +533,7 @@ func _Auth_ListRoleMenuTree0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Cont
 		if err != nil {
 			return err
 		}
-		reply := out.(*ListRoleMenuRep)
+		reply := out.(*ListMenuRep)
 		return ctx.Result(200, reply)
 	}
 }
@@ -577,8 +577,8 @@ type AuthHTTPClient interface {
 	GetUsersForRole(ctx context.Context, req *GetUsersForRoleReq, opts ...http.CallOption) (rsp *GetUsersForRoleRep, err error)
 	ListMenu(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
 	ListMenuTree(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *ListMenuRep, err error)
-	ListRoleMenu(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListRoleMenuRep, err error)
-	ListRoleMenuTree(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListRoleMenuRep, err error)
+	ListRoleMenu(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListMenuRep, err error)
+	ListRoleMenuTree(ctx context.Context, req *ListRoleMenuReq, opts ...http.CallOption) (rsp *ListMenuRep, err error)
 	PageRoleList(ctx context.Context, req *PageRoleListReq, opts ...http.CallOption) (rsp *PageRoleListRep, err error)
 	SetRolePolicies(ctx context.Context, req *SetRolePoliciesReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 }
@@ -838,8 +838,8 @@ func (c *AuthHTTPClientImpl) ListMenuTree(ctx context.Context, in *emptypb.Empty
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) ListRoleMenu(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListRoleMenuRep, error) {
-	var out ListRoleMenuRep
+func (c *AuthHTTPClientImpl) ListRoleMenu(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListMenuRep, error) {
+	var out ListMenuRep
 	pattern := "/auth/v1/ListRoleMenu"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthListRoleMenu))
@@ -851,8 +851,8 @@ func (c *AuthHTTPClientImpl) ListRoleMenu(ctx context.Context, in *ListRoleMenuR
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListRoleMenuRep, error) {
-	var out ListRoleMenuRep
+func (c *AuthHTTPClientImpl) ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, opts ...http.CallOption) (*ListMenuRep, error) {
+	var out ListMenuRep
 	pattern := "/auth/v1/ListRoleMenuTree"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthListRoleMenuTree))
