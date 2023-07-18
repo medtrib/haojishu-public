@@ -124,7 +124,7 @@ message CreateAdminReq {
 }
 message AdminInfoRep {
 	// id
-	int64 id = 1;
+	uint64 id = 1;
 	// 用户名
 	string username = 2;
 	// Email
@@ -153,8 +153,8 @@ message AdminInfoRep {
 // 编辑管理员
 message UpdateAdminReq {
 	// id
-	int64 id = 1 [
-		(validate.rules).int64.gt = 0
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
 	];
 	// 用户名
 	string username = 2[
@@ -206,21 +206,21 @@ message RepStatus {
 }
 // 删除管理员
 message DeleteAdminReq {
-	int64 id = 1[
+	uint64 id = 1[
 		(validate.rules).uint64.gt = 0
 	];
 }
 // 恢复管理员
 message RecoverAdminReq {
 	// id
-	int64 id = 1[
-		(validate.rules).int64.gt = 0
+	uint64 id = 1[
+		(validate.rules).uint64.gt = 0
 	];
 }
 message AdminStatusReq {
 	// id
-	int64 id = 1[
-		(validate.rules).int64.gt = 0
+	uint64 id = 1[
+		(validate.rules).uint64.gt = 0
 	];
 	// 状态 true正常 false冻结
 	bool status = 2;
@@ -228,8 +228,8 @@ message AdminStatusReq {
 // 验证管理员密码
 message VerifyAdminPasswdReq {
 	// id
-	int64 id = 1[
-		(validate.rules).int64.gt = 0
+	uint64 id = 1[
+		(validate.rules).uint64.gt = 0
 	];
 	// 密码
 	string password = 2[
@@ -241,7 +241,7 @@ message VerifyAdminPasswdReq {
 // 获取管理员详情
 message GetAdminReq {
 	// id
-	int64 id = 1;
+	uint64 id = 1;
 	// 用户名
 	string username = 2;
 	// 手机号
@@ -252,12 +252,12 @@ message GetAdminReq {
 // 管理员列表
 message ListAdminReq {
 	// 页码
-	int64 page = 1[
-		(validate.rules).int64.gt = 0
+	uint64 page = 1[
+		(validate.rules).uint64.gt = 0
 	];
 	// 页记录数
-	int64 page_size = 2[
-		(validate.rules).int64.gt = 0
+	uint64 page_size = 2[
+		(validate.rules).uint64.gt = 0
 	];
 	// 用户名
 	string username = 3;
@@ -274,7 +274,7 @@ message ListAdminReq {
 }
 message ListAdminRep {
 	// 总记录数
-	int64 total = 1;
+	uint64 total = 1;
 	// 列表
 	repeated AdminInfoRep list = 2;
 }

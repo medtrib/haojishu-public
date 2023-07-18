@@ -55,7 +55,7 @@ paths:
                   in: query
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
             responses:
                 "200":
                     description: OK
@@ -75,7 +75,7 @@ paths:
                   description: id
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
                 - name: username
                   in: query
                   description: 用户名
@@ -110,13 +110,13 @@ paths:
                   description: 页码
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
                 - name: pageSize
                   in: query
                   description: 页记录数
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
                 - name: username
                   in: query
                   description: 用户名
@@ -675,7 +675,7 @@ components:
                 id:
                     type: integer
                     description: id
-                    format: int64
+                    format: uint64
                 username:
                     type: string
                     description: 用户名
@@ -718,7 +718,7 @@ components:
                 id:
                     type: integer
                     description: id
-                    format: int64
+                    format: uint64
                 status:
                     type: boolean
                     description: 状态 true正常 false冻结
@@ -755,7 +755,7 @@ components:
                 total:
                     type: integer
                     description: 总记录数
-                    format: int64
+                    format: uint64
                 list:
                     type: array
                     items:
@@ -767,7 +767,7 @@ components:
                 id:
                     type: integer
                     description: id
-                    format: int64
+                    format: uint64
             description: 恢复管理员
         api.admin.v1.RepStatus:
             type: object
@@ -781,7 +781,7 @@ components:
                 id:
                     type: integer
                     description: id
-                    format: int64
+                    format: uint64
                 username:
                     type: string
                     description: 用户名
@@ -810,7 +810,7 @@ components:
                 id:
                     type: integer
                     description: id
-                    format: int64
+                    format: uint64
                 password:
                     type: string
                     description: 密码
