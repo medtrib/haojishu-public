@@ -1,0 +1,280 @@
+syntax = "proto3";
+
+package api.admin.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "google/protobuf/wrappers.proto";
+option go_package = "github.com/medtrib/haojishu-public/api/admin/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.admin.v1";
+
+
+service Admin {
+	// 创建管理员
+	rpc CreateAdmin (CreateAdminReq) returns (AdminInfoRep){
+			option (google.api.http) = {
+					post:"/admin/v1/CreateAdmin"
+					body:"*"
+			};
+	};
+
+	// 编辑管理员
+	rpc UpdateAdmin (UpdateAdminReq) returns (RepStatus){
+			option (google.api.http) = {
+					put:"/admin/v1/UpdateAdmin"
+					body:"*"
+			};
+	};
+
+	// 删除管理员
+	rpc DeleteAdmin (DeleteAdminReq) returns (RepStatus){
+			option (google.api.http) = {
+					delete:"/admin/v1/DeleteAdmin"
+			};
+	};
+
+	// 恢复管理员
+	rpc RecoverAdmin (RecoverAdminReq) returns (RepStatus){
+			option (google.api.http) = {
+					patch:"/admin/v1/RecoverAdmin"
+					body:"*"
+			};
+	};
+
+	// 管理员状态
+	rpc AdminStatus (AdminStatusReq) returns (RepStatus){
+			option (google.api.http) = {
+					patch:"/admin/v1/AdminStatus"
+					body:"*"
+			};
+	};
+
+	// 验证管理员密码
+	rpc VerifyAdminPasswd (VerifyAdminPasswdReq) returns (RepStatus){
+			option (google.api.http) = {
+					post:"/admin/v1/VerifyAdminPasswd"
+					body:"*"
+			};
+	};
+
+	// 获取管理员详情
+	rpc GetAdmin (GetAdminReq) returns (AdminInfoRep){
+			option (google.api.http) = {
+					get:"/admin/v1/GetAdmin"
+			};
+	};
+
+	// 获取管理员列表
+	rpc ListAdmin (ListAdminReq) returns (ListAdminRep){
+		option (google.api.http) = {
+			get:"/admin/v1/ListAdmin"
+		};
+	};
+
+}
+// 创建管理员
+message CreateAdminReq {
+	// 用户名
+	string username = 1[
+		(validate.rules).string = {
+			pattern:   "^[a-zA-Z][a-zA-Z0-9_]{3,15}$",
+			min_len: 4,
+			max_len: 20
+		}
+	];
+	// 用户名
+	string email = 2[
+		(validate.rules).string.email = true
+	];
+	// 密码
+	string password = 3[
+		(validate.rules).string = {
+			min_len: 6
+		}
+	];
+	// 手机号
+	string mobile = 4[
+		(validate.rules).string = {
+			pattern:   "^1[0-9]{10}$",
+		}
+	];
+	// 昵称
+	string nickname = 5[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 20
+		}
+	];
+	// 头像
+	string avatar = 6[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 255
+		}
+	];
+	bool status = 7;
+	// 当前角色
+	string role = 8[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 255
+		}
+	];
+}
+message AdminInfoRep {
+	// id
+	int64 id = 1;
+	// 用户名
+	string username = 2;
+	// Email
+	string email = 3;
+	// 手机号
+	string mobile = 4;
+	// 昵称
+	string nickname = 5;
+	// 昵称
+	string avatar = 6;
+	// 状态 true正常 false冻结
+	bool status = 7;
+	// 角色
+	string role = 8;
+	// 上次登录时间
+	string last_login_time = 9;
+	// 上次登录ip
+	string last_login_ip = 10;
+	// 创建时间
+	string created_at = 11;
+	// 更新时间
+	string updated_at = 12;
+	// 删除时间
+	string deleted_at = 13;
+}
+// 编辑管理员
+message UpdateAdminReq {
+	// id
+	int64 id = 1 [
+		(validate.rules).int64.gt = 0
+	];
+	// 用户名
+	string username = 2[
+		(validate.rules).string = {
+			pattern:   "^[a-zA-Z][a-zA-Z0-9_]{3,15}$",
+			min_len: 5,
+			max_len: 20
+		}
+	];
+	// 密码
+	string password = 3[
+		(validate.rules).string = {
+			min_len: 6
+		}
+	];
+	// 手机号
+	string mobile = 4[
+		(validate.rules).string = {
+			pattern:   "^1[0-9]{10}$",
+		}
+	];
+	// 昵称
+	string nickname = 5[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 20
+		}
+	];
+	// 头像
+	string avatar = 6[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 255
+		}
+	];
+	// 状态 true正常 false冻结
+	bool status = 7;
+	// 角色
+	string role = 8[
+		(validate.rules).string = {
+			min_len: 1,
+			max_len: 255
+		}
+	];
+}
+// 状态回复
+message RepStatus {
+	bool success = 1;
+}
+// 删除管理员
+message DeleteAdminReq {
+	int64 id = 1[
+		(validate.rules).uint64.gt = 0
+	];
+}
+// 恢复管理员
+message RecoverAdminReq {
+	// id
+	int64 id = 1[
+		(validate.rules).int64.gt = 0
+	];
+}
+message AdminStatusReq {
+	// id
+	int64 id = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 状态 true正常 false冻结
+	bool status = 2;
+}
+// 验证管理员密码
+message VerifyAdminPasswdReq {
+	// id
+	int64 id = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 密码
+	string password = 2[
+		(validate.rules).string = {
+			min_len: 6
+		}
+	];
+}
+// 获取管理员详情
+message GetAdminReq {
+	// id
+	int64 id = 1;
+	// 用户名
+	string username = 2;
+	// 手机号
+	string mobile = 3;
+	// 角色
+	string role = 4;
+}
+// 管理员列表
+message ListAdminReq {
+	// 页码
+	int64 page = 1[
+		(validate.rules).int64.gt = 0
+	];
+	// 页记录数
+	int64 page_size = 2[
+		(validate.rules).int64.gt = 0
+	];
+	// 用户名
+	string username = 3;
+	// 手机号
+	string mobile = 4;
+	// 昵称
+	string nickname = 5;
+	// 状态 true正常 false冻结
+	google.protobuf.BoolValue status = 6;
+	// 创建开始时间 YYYY-MM-dd
+	string created_at_start = 7;
+	// 创建结束时间 YYYY-MM-dd
+	string created_at_end = 8;
+}
+message ListAdminRep {
+	// 总记录数
+	int64 total = 1;
+	// 列表
+	repeated AdminInfoRep list = 2;
+}
