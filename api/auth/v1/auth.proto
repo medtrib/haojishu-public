@@ -11,7 +11,7 @@ option java_package = "api.auth.v1";
 // 权限认证服务
 service Auth {
 	// 添加角色
-	rpc AddRole(AddRoleReq) returns(AddRoleRep){
+	rpc AddRole(AddRoleReq) returns(Role){
 		option (google.api.http) = {
 			post:"/auth/v1/AddRole"
 			body:"*"
@@ -164,13 +164,6 @@ message AddRoleReq {
 		(validate.rules).string = {min_len: 1, max_len: 255}
 	];
 }
-// 添加角色回复
-message AddRoleRep{
-	// 角色Id
-	uint64 roleId = 1;
-	// 角色名称
-	string roleName = 2;
-}
 // 编辑角色
 message EditRoleReq{
 	// 角色Id
@@ -182,7 +175,7 @@ message EditRoleReq{
 		(validate.rules).string = {min_len:1, max_len:255}
 	];
 }
-// 角色状态回复
+// 角色状态
 message RepStatus{
 	bool success = 1;
 }
@@ -192,7 +185,7 @@ message DelRoleReq{
 		(validate.rules).uint64.gt = 0
 	];
 }
-// 完整角色列表回复
+// 完整角色列表
 message FullRoleListRep{
 	repeated Role list = 1;
 }
@@ -243,7 +236,7 @@ message GetRolesForUserReq {
 		(validate.rules).string = {min_len: 1, max_len: 255}
 	];
 }
-// 获取用户角色回复
+// 获取用户角色
 message GetRolesForUserRep{
 	// 角色列表
 	repeated string roles = 1;
@@ -254,7 +247,7 @@ message GetUsersForRoleReq {
 		(validate.rules).string = {min_len: 1, max_len: 255}
 	];
 }
-// 获取角色有那些用户 回复
+// 获取角色有那些用户
 message GetUsersForRoleRep {
 	// 用户列表
 	repeated string users = 1;
@@ -283,7 +276,7 @@ message GetRolePoliciesReq {
 		(validate.rules).string = {min_len: 1, max_len: 255}
 	];
 }
-// 获取角色有那些权限 回复
+// 获取角色有那些权限
 message GetRolePoliciesRep{
 	repeated PolicyRules policyRules = 1;
 }

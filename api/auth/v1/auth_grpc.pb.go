@@ -50,7 +50,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AuthClient interface {
 	// 添加角色
-	AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleRep, error)
+	AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*Role, error)
 	// 编辑角色
 	EditRole(ctx context.Context, in *EditRoleReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 删除角色
@@ -105,8 +105,8 @@ func NewAuthClient(cc grpc.ClientConnInterface) AuthClient {
 	return &authClient{cc}
 }
 
-func (c *authClient) AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*AddRoleRep, error) {
-	out := new(AddRoleRep)
+func (c *authClient) AddRole(ctx context.Context, in *AddRoleReq, opts ...grpc.CallOption) (*Role, error) {
+	out := new(Role)
 	err := c.cc.Invoke(ctx, Auth_AddRole_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -317,7 +317,7 @@ func (c *authClient) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, 
 // for forward compatibility
 type AuthServer interface {
 	// 添加角色
-	AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error)
+	AddRole(context.Context, *AddRoleReq) (*Role, error)
 	// 编辑角色
 	EditRole(context.Context, *EditRoleReq) (*RepStatus, error)
 	// 删除角色
@@ -369,7 +369,7 @@ type AuthServer interface {
 type UnimplementedAuthServer struct {
 }
 
-func (UnimplementedAuthServer) AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error) {
+func (UnimplementedAuthServer) AddRole(context.Context, *AddRoleReq) (*Role, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddRole not implemented")
 }
 func (UnimplementedAuthServer) EditRole(context.Context, *EditRoleReq) (*RepStatus, error) {

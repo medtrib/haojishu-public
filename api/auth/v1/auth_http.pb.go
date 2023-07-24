@@ -46,7 +46,7 @@ const OperationAuthSetRolePolicies = "/api.auth.v1.Auth/SetRolePolicies"
 
 type AuthHTTPServer interface {
 	// AddRole 添加角色
-	AddRole(context.Context, *AddRoleReq) (*AddRoleRep, error)
+	AddRole(context.Context, *AddRoleReq) (*Role, error)
 	// AddRolesForUser 给用户设置角色
 	AddRolesForUser(context.Context, *SetUserForRoleReq) (*RepStatus, error)
 	// CheckAuth 检查权限
@@ -134,7 +134,7 @@ func _Auth_AddRole0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) erro
 		if err != nil {
 			return err
 		}
-		reply := out.(*AddRoleRep)
+		reply := out.(*Role)
 		return ctx.Result(200, reply)
 	}
 }
@@ -558,7 +558,7 @@ func _Auth_GetRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Contex
 }
 
 type AuthHTTPClient interface {
-	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *AddRoleRep, err error)
+	AddRole(ctx context.Context, req *AddRoleReq, opts ...http.CallOption) (rsp *Role, err error)
 	AddRolesForUser(ctx context.Context, req *SetUserForRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	CheckAuth(ctx context.Context, req *CheckAuthReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	CreateMenu(ctx context.Context, req *CreateMenuReq, opts ...http.CallOption) (rsp *Menu, err error)
@@ -591,8 +591,8 @@ func NewAuthHTTPClient(client *http.Client) AuthHTTPClient {
 	return &AuthHTTPClientImpl{client}
 }
 
-func (c *AuthHTTPClientImpl) AddRole(ctx context.Context, in *AddRoleReq, opts ...http.CallOption) (*AddRoleRep, error) {
-	var out AddRoleRep
+func (c *AuthHTTPClientImpl) AddRole(ctx context.Context, in *AddRoleReq, opts ...http.CallOption) (*Role, error) {
+	var out Role
 	pattern := "/auth/v1/AddRole"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationAuthAddRole))

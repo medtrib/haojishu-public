@@ -200,7 +200,7 @@ message UpdateAdminReq {
 		}
 	];
 }
-// 状态回复
+// 状态
 message RepStatus {
 	bool success = 1;
 }

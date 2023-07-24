@@ -402,7 +402,7 @@ func (x *UpdateAdminReq) GetRole() string {
 	return ""
 }
 
-// 状态回复
+// 状态
 type RepStatus struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

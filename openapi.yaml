@@ -260,7 +260,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.auth.v1.AddRoleRep'
+                                $ref: '#/components/schemas/api.auth.v1.Role'
     /auth/v1/AddRolesForUser:
         get:
             tags:
@@ -774,7 +774,7 @@ components:
             properties:
                 success:
                     type: boolean
-            description: 状态回复
+            description: 状态
         api.admin.v1.UpdateAdminReq:
             type: object
             properties:
@@ -815,17 +815,6 @@ components:
                     type: string
                     description: 密码
             description: 验证管理员密码
-        api.auth.v1.AddRoleRep:
-            type: object
-            properties:
-                roleId:
-                    type: integer
-                    description: 角色Id
-                    format: uint64
-                roleName:
-                    type: string
-                    description: 角色名称
-            description: 添加角色回复
         api.auth.v1.AddRoleReq:
             type: object
             properties:
@@ -962,7 +951,7 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
-            description: 完整角色列表回复
+            description: 完整角色列表
         api.auth.v1.GetRoleMenuBtnRep:
             type: object
             properties:
@@ -979,7 +968,7 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
-            description: 获取角色有那些权限 回复
+            description: 获取角色有那些权限
         api.auth.v1.GetRolesForUserRep:
             type: object
             properties:
@@ -988,7 +977,7 @@ components:
                     items:
                         type: string
                     description: 角色列表
-            description: 获取用户角色回复
+            description: 获取用户角色
         api.auth.v1.GetUsersForRoleRep:
             type: object
             properties:
@@ -997,7 +986,7 @@ components:
                     items:
                         type: string
                     description: 用户列表
-            description: 获取角色有那些用户 回复
+            description: 获取角色有那些用户
         api.auth.v1.ListMenuRep:
             type: object
             properties:
@@ -1109,7 +1098,7 @@ components:
             properties:
                 success:
                     type: boolean
-            description: 角色状态回复
+            description: 角色状态
         api.auth.v1.Role:
             type: object
             properties:
