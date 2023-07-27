@@ -19,15 +19,24 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationCommonFireWallAddToWhitelist = "/api.common.v1.Common/FireWallAddToWhitelist"
+const OperationCommonFireWallUnblockIP = "/api.common.v1.Common/FireWallUnblockIP"
 const OperationCommonFireWallVerify = "/api.common.v1.Common/FireWallVerify"
 const OperationCommonGetCaptcha = "/api.common.v1.Common/GetCaptcha"
+const OperationCommonRemoveFromWhitelist = "/api.common.v1.Common/RemoveFromWhitelist"
 const OperationCommonVerifyCaptcha = "/api.common.v1.Common/VerifyCaptcha"
 
 type CommonHTTPServer interface {
+	// FireWallAddToWhitelist 防火墙添加白名单IP
+	FireWallAddToWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
+	// FireWallUnblockIP 防火墙封禁IP
+	FireWallUnblockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// FireWallVerify 防火墙检查
 	FireWallVerify(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// GetCaptcha 获取验证码
 	GetCaptcha(context.Context, *GetCaptchaReq) (*GetCaptchaRep, error)
+	// RemoveFromWhitelist 防火墙从白名单中删除IP
+	RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// VerifyCaptcha 验证验证码
 	VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaRep, error)
 }
@@ -37,6 +46,9 @@ func RegisterCommonHTTPServer(s *http.Server, srv CommonHTTPServer) {
 	r.GET("/common/v1/GetCaptcha", _Common_GetCaptcha0_HTTP_Handler(srv))
 	r.GET("/common/v1/VerifyCaptcha", _Common_VerifyCaptcha0_HTTP_Handler(srv))
 	r.GET("/common/v1/FireWallVerify", _Common_FireWallVerify0_HTTP_Handler(srv))
+	r.GET("/common/v1/FireWallUnblockIP", _Common_FireWallUnblockIP0_HTTP_Handler(srv))
+	r.GET("/common/v1/FireWallAddToWhitelist", _Common_FireWallAddToWhitelist0_HTTP_Handler(srv))
+	r.GET("/common/v1/RemoveFromWhitelist", _Common_RemoveFromWhitelist0_HTTP_Handler(srv))
 }
 
 func _Common_GetCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
@@ -96,9 +108,69 @@ func _Common_FireWallVerify0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Co
 	}
 }
 
+func _Common_FireWallUnblockIP0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in FireWallVerifyReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonFireWallUnblockIP)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.FireWallUnblockIP(ctx, req.(*FireWallVerifyReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*FireWallVerifyRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Common_FireWallAddToWhitelist0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in FireWallVerifyReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonFireWallAddToWhitelist)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.FireWallAddToWhitelist(ctx, req.(*FireWallVerifyReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*FireWallVerifyRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Common_RemoveFromWhitelist0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in FireWallVerifyReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonRemoveFromWhitelist)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.RemoveFromWhitelist(ctx, req.(*FireWallVerifyReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*FireWallVerifyRep)
+		return ctx.Result(200, reply)
+	}
+}
+
 type CommonHTTPClient interface {
+	FireWallAddToWhitelist(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
+	FireWallUnblockIP(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
 	FireWallVerify(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
 	GetCaptcha(ctx context.Context, req *GetCaptchaReq, opts ...http.CallOption) (rsp *GetCaptchaRep, err error)
+	RemoveFromWhitelist(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
 	VerifyCaptcha(ctx context.Context, req *VerifyCaptchaReq, opts ...http.CallOption) (rsp *VerifyCaptchaRep, err error)
 }
 
@@ -108,6 +180,32 @@ type CommonHTTPClientImpl struct {
 
 func NewCommonHTTPClient(client *http.Client) CommonHTTPClient {
 	return &CommonHTTPClientImpl{client}
+}
+
+func (c *CommonHTTPClientImpl) FireWallAddToWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...http.CallOption) (*FireWallVerifyRep, error) {
+	var out FireWallVerifyRep
+	pattern := "/common/v1/FireWallAddToWhitelist"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationCommonFireWallAddToWhitelist))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *CommonHTTPClientImpl) FireWallUnblockIP(ctx context.Context, in *FireWallVerifyReq, opts ...http.CallOption) (*FireWallVerifyRep, error) {
+	var out FireWallVerifyRep
+	pattern := "/common/v1/FireWallUnblockIP"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationCommonFireWallUnblockIP))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *CommonHTTPClientImpl) FireWallVerify(ctx context.Context, in *FireWallVerifyReq, opts ...http.CallOption) (*FireWallVerifyRep, error) {
@@ -128,6 +226,19 @@ func (c *CommonHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaReq
 	pattern := "/common/v1/GetCaptcha"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationCommonGetCaptcha))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *CommonHTTPClientImpl) RemoveFromWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...http.CallOption) (*FireWallVerifyRep, error) {
+	var out FireWallVerifyRep
+	pattern := "/common/v1/RemoveFromWhitelist"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationCommonRemoveFromWhitelist))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

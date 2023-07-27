@@ -667,6 +667,44 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /common/v1/FireWallAddToWhitelist:
+        get:
+            tags:
+                - Common
+            description: 防火墙添加白名单IP
+            operationId: Common_FireWallAddToWhitelist
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
+    /common/v1/FireWallUnblockIP:
+        get:
+            tags:
+                - Common
+            description: 防火墙封禁IP
+            operationId: Common_FireWallUnblockIP
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
     /common/v1/FireWallVerify:
         get:
             tags:
@@ -705,6 +743,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.GetCaptchaRep'
+    /common/v1/RemoveFromWhitelist:
+        get:
+            tags:
+                - Common
+            description: 防火墙从白名单中删除IP
+            operationId: Common_RemoveFromWhitelist
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
     /common/v1/VerifyCaptcha:
         get:
             tags:
