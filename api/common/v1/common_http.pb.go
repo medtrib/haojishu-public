@@ -10,6 +10,7 @@ import (
 	context "context"
 	http "github.com/go-kratos/kratos/v2/transport/http"
 	binding "github.com/go-kratos/kratos/v2/transport/http/binding"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -27,6 +28,8 @@ const OperationCommonGetBlockedIPs = "/api.common.v1.Common/GetBlockedIPs"
 const OperationCommonGetCaptcha = "/api.common.v1.Common/GetCaptcha"
 const OperationCommonGetWhitelistedIPs = "/api.common.v1.Common/GetWhitelistedIPs"
 const OperationCommonRemoveFromWhitelist = "/api.common.v1.Common/RemoveFromWhitelist"
+const OperationCommonUpToken = "/api.common.v1.Common/UpToken"
+const OperationCommonUploadFileBase = "/api.common.v1.Common/UploadFileBase"
 const OperationCommonVerifyCaptcha = "/api.common.v1.Common/VerifyCaptcha"
 
 type CommonHTTPServer interface {
@@ -46,6 +49,10 @@ type CommonHTTPServer interface {
 	GetWhitelistedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error)
 	// RemoveFromWhitelist 防火墙从白名单中删除IP
 	RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
+	// UpToken 获取Token
+	UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error)
+	// UploadFileBase 上传文件
+	UploadFileBase(context.Context, *UploadFileBaseReq) (*UploadFileBaseRep, error)
 	// VerifyCaptcha 验证验证码
 	VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaRep, error)
 }
@@ -61,6 +68,8 @@ func RegisterCommonHTTPServer(s *http.Server, srv CommonHTTPServer) {
 	r.GET("/common/v1/FireWallAddToWhitelist", _Common_FireWallAddToWhitelist0_HTTP_Handler(srv))
 	r.GET("/common/v1/RemoveFromWhitelist", _Common_RemoveFromWhitelist0_HTTP_Handler(srv))
 	r.GET("/common/v1/GetWhitelistedIPs", _Common_GetWhitelistedIPs0_HTTP_Handler(srv))
+	r.GET("/common/v1/UpToken", _Common_UpToken0_HTTP_Handler(srv))
+	r.POST("/common/UploadFileBase", _Common_UploadFileBase0_HTTP_Handler(srv))
 }
 
 func _Common_GetCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
@@ -234,6 +243,44 @@ func _Common_GetWhitelistedIPs0_HTTP_Handler(srv CommonHTTPServer) func(ctx http
 	}
 }
 
+func _Common_UpToken0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in emptypb.Empty
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonUpToken)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpToken(ctx, req.(*emptypb.Empty))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UpTokenRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Common_UploadFileBase0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UploadFileBaseReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonUploadFileBase)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UploadFileBase(ctx, req.(*UploadFileBaseReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*UploadFileBaseRep)
+		return ctx.Result(200, reply)
+	}
+}
+
 type CommonHTTPClient interface {
 	FireWallAddToWhitelist(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
 	FireWallBlockIP(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
@@ -243,6 +290,8 @@ type CommonHTTPClient interface {
 	GetCaptcha(ctx context.Context, req *GetCaptchaReq, opts ...http.CallOption) (rsp *GetCaptchaRep, err error)
 	GetWhitelistedIPs(ctx context.Context, req *FireWallListReq, opts ...http.CallOption) (rsp *FireWallListRep, err error)
 	RemoveFromWhitelist(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
+	UpToken(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *UpTokenRep, err error)
+	UploadFileBase(ctx context.Context, req *UploadFileBaseReq, opts ...http.CallOption) (rsp *UploadFileBaseRep, err error)
 	VerifyCaptcha(ctx context.Context, req *VerifyCaptchaReq, opts ...http.CallOption) (rsp *VerifyCaptchaRep, err error)
 }
 
@@ -352,6 +401,32 @@ func (c *CommonHTTPClientImpl) RemoveFromWhitelist(ctx context.Context, in *Fire
 	opts = append(opts, http.Operation(OperationCommonRemoveFromWhitelist))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *CommonHTTPClientImpl) UpToken(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*UpTokenRep, error) {
+	var out UpTokenRep
+	pattern := "/common/v1/UpToken"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationCommonUpToken))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *CommonHTTPClientImpl) UploadFileBase(ctx context.Context, in *UploadFileBaseReq, opts ...http.CallOption) (*UploadFileBaseRep, error) {
+	var out UploadFileBaseRep
+	pattern := "/common/UploadFileBase"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationCommonUploadFileBase))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

@@ -4,6 +4,7 @@ package api.common.v1;
 
 import "google/api/annotations.proto";
 import "validate/validate.proto";
+import "google/protobuf/empty.proto";
 option go_package = "github.com/medtrib/haojishu-public/api/common/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.common.v1";
@@ -72,7 +73,20 @@ service Common {
 		};
 	}
 
+	// 获取Token
+	rpc UpToken  (google.protobuf.Empty) returns (UpTokenRep){
+		option (google.api.http) = {
+			get: "/common/v1/UpToken",
+		};
+	};
 
+	// 上传文件
+	rpc UploadFileBase  (UploadFileBaseReq) returns (UploadFileBaseRep){
+		option (google.api.http) = {
+			post: "/common/UploadFileBase",
+			body: "*",
+		};
+	};
 }
 
 // GetCaptchaReq 获取图形验证码
@@ -126,4 +140,20 @@ message FireWallListReq{
 // 列表
 message FireWallListRep{
 	repeated string list = 1;
+}
+
+// Token
+message UpTokenRep {
+	string token = 1;
+}
+
+// 上传文件
+message UploadFileBaseReq{
+	string file = 1;
+	string path = 2;
+}
+
+// 返回地址
+message UploadFileBaseRep {
+	string file = 1;
 }

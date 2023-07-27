@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -28,6 +29,8 @@ const (
 	Common_FireWallAddToWhitelist_FullMethodName = "/api.common.v1.Common/FireWallAddToWhitelist"
 	Common_RemoveFromWhitelist_FullMethodName    = "/api.common.v1.Common/RemoveFromWhitelist"
 	Common_GetWhitelistedIPs_FullMethodName      = "/api.common.v1.Common/GetWhitelistedIPs"
+	Common_UpToken_FullMethodName                = "/api.common.v1.Common/UpToken"
+	Common_UploadFileBase_FullMethodName         = "/api.common.v1.Common/UploadFileBase"
 )
 
 // CommonClient is the client API for Common service.
@@ -52,6 +55,10 @@ type CommonClient interface {
 	RemoveFromWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 	// 获取白名单列表
 	GetWhitelistedIPs(ctx context.Context, in *FireWallListReq, opts ...grpc.CallOption) (*FireWallListRep, error)
+	// 获取Token
+	UpToken(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UpTokenRep, error)
+	// 上传文件
+	UploadFileBase(ctx context.Context, in *UploadFileBaseReq, opts ...grpc.CallOption) (*UploadFileBaseRep, error)
 }
 
 type commonClient struct {
@@ -143,6 +150,24 @@ func (c *commonClient) GetWhitelistedIPs(ctx context.Context, in *FireWallListRe
 	return out, nil
 }
 
+func (c *commonClient) UpToken(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UpTokenRep, error) {
+	out := new(UpTokenRep)
+	err := c.cc.Invoke(ctx, Common_UpToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commonClient) UploadFileBase(ctx context.Context, in *UploadFileBaseReq, opts ...grpc.CallOption) (*UploadFileBaseRep, error) {
+	out := new(UploadFileBaseRep)
+	err := c.cc.Invoke(ctx, Common_UploadFileBase_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommonServer is the server API for Common service.
 // All implementations must embed UnimplementedCommonServer
 // for forward compatibility
@@ -165,6 +190,10 @@ type CommonServer interface {
 	RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// 获取白名单列表
 	GetWhitelistedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error)
+	// 获取Token
+	UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error)
+	// 上传文件
+	UploadFileBase(context.Context, *UploadFileBaseReq) (*UploadFileBaseRep, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -198,6 +227,12 @@ func (UnimplementedCommonServer) RemoveFromWhitelist(context.Context, *FireWallV
 }
 func (UnimplementedCommonServer) GetWhitelistedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWhitelistedIPs not implemented")
+}
+func (UnimplementedCommonServer) UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpToken not implemented")
+}
+func (UnimplementedCommonServer) UploadFileBase(context.Context, *UploadFileBaseReq) (*UploadFileBaseRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UploadFileBase not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
 
@@ -374,6 +409,42 @@ func _Common_GetWhitelistedIPs_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_UpToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).UpToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_UpToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).UpToken(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Common_UploadFileBase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UploadFileBaseReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).UploadFileBase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_UploadFileBase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).UploadFileBase(ctx, req.(*UploadFileBaseReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Common_ServiceDesc is the grpc.ServiceDesc for Common service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -416,6 +487,14 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWhitelistedIPs",
 			Handler:    _Common_GetWhitelistedIPs_Handler,
+		},
+		{
+			MethodName: "UpToken",
+			Handler:    _Common_UpToken_Handler,
+		},
+		{
+			MethodName: "UploadFileBase",
+			Handler:    _Common_UploadFileBase_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
