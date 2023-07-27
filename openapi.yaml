@@ -1189,7 +1189,7 @@ components:
             properties:
                 Status:
                     type: boolean
-                    description: 邮箱
+                    description: 状态
             description: 验证验证码
 tags:
     - name: Admin

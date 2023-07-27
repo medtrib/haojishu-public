@@ -48,6 +48,17 @@ message VerifyCaptchaRequest{
 
 // 验证验证码
 message VerifyCaptchaReply{
-	// 邮箱
+	// 状态
+	bool Status = 1;
+}
+
+// FireWallRequest 获取图形验证码
+message FireWallRequest {
+	// IP
+	string LastIp = 2 [(validate.rules).string.ip = true];
+}
+
+// FireWallReply 获取验证码返回
+message FireWallReply {
 	bool Status = 1;
 }
