@@ -667,6 +667,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /common/v1/FireWallVerify:
+        get:
+            tags:
+                - Common
+            description: 防火墙检查
+            operationId: Common_FireWallVerify
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyReply'
     /common/v1/GetCaptcha:
         get:
             tags:
@@ -1176,6 +1195,12 @@ components:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
                     description: 权限
             description: 设置角色权限
+        api.common.v1.FireWallVerifyReply:
+            type: object
+            properties:
+                Status:
+                    type: boolean
+            description: FireWallVerifyReply 防火墙回复
         api.common.v1.GetCaptchaReply:
             type: object
             properties:

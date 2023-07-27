@@ -19,10 +19,13 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationCommonFireWallVerify = "/api.common.v1.Common/FireWallVerify"
 const OperationCommonGetCaptcha = "/api.common.v1.Common/GetCaptcha"
 const OperationCommonVerifyCaptcha = "/api.common.v1.Common/VerifyCaptcha"
 
 type CommonHTTPServer interface {
+	// FireWallVerify 防火墙检查
+	FireWallVerify(context.Context, *FireWallVerifyRequest) (*FireWallVerifyReply, error)
 	// GetCaptcha 获取验证码
 	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaReply, error)
 	// VerifyCaptcha 验证验证码
@@ -33,6 +36,7 @@ func RegisterCommonHTTPServer(s *http.Server, srv CommonHTTPServer) {
 	r := s.Route("/")
 	r.GET("/common/v1/GetCaptcha", _Common_GetCaptcha0_HTTP_Handler(srv))
 	r.GET("/common/v1/VerifyCaptcha", _Common_VerifyCaptcha0_HTTP_Handler(srv))
+	r.GET("/common/v1/FireWallVerify", _Common_FireWallVerify0_HTTP_Handler(srv))
 }
 
 func _Common_GetCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
@@ -73,7 +77,27 @@ func _Common_VerifyCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Con
 	}
 }
 
+func _Common_FireWallVerify0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in FireWallVerifyRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationCommonFireWallVerify)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.FireWallVerify(ctx, req.(*FireWallVerifyRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*FireWallVerifyReply)
+		return ctx.Result(200, reply)
+	}
+}
+
 type CommonHTTPClient interface {
+	FireWallVerify(ctx context.Context, req *FireWallVerifyRequest, opts ...http.CallOption) (rsp *FireWallVerifyReply, err error)
 	GetCaptcha(ctx context.Context, req *GetCaptchaRequest, opts ...http.CallOption) (rsp *GetCaptchaReply, err error)
 	VerifyCaptcha(ctx context.Context, req *VerifyCaptchaRequest, opts ...http.CallOption) (rsp *VerifyCaptchaReply, err error)
 }
@@ -84,6 +108,19 @@ type CommonHTTPClientImpl struct {
 
 func NewCommonHTTPClient(client *http.Client) CommonHTTPClient {
 	return &CommonHTTPClientImpl{client}
+}
+
+func (c *CommonHTTPClientImpl) FireWallVerify(ctx context.Context, in *FireWallVerifyRequest, opts ...http.CallOption) (*FireWallVerifyReply, error) {
+	var out FireWallVerifyReply
+	pattern := "/common/v1/FireWallVerify"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationCommonFireWallVerify))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *CommonHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...http.CallOption) (*GetCaptchaReply, error) {

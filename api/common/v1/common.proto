@@ -22,6 +22,14 @@ service Common {
 			get : "/common/v1/VerifyCaptcha"
 		};
 	}
+
+	// 防火墙检查
+	rpc FireWallVerify(FireWallVerifyRequest) returns (FireWallVerifyReply) {
+		option (google.api.http) = {
+			get : "/common/v1/FireWallVerify"
+		};
+	}
+
 }
 
 // GetCaptchaRequest 获取图形验证码
@@ -52,13 +60,13 @@ message VerifyCaptchaReply{
 	bool Status = 1;
 }
 
-// FireWallRequest 获取图形验证码
-message FireWallRequest {
+// FireWallVerifyRequest 防火墙验证
+message FireWallVerifyRequest {
 	// IP
 	string LastIp = 2 [(validate.rules).string.ip = true];
 }
 
-// FireWallReply 获取验证码返回
-message FireWallReply {
+// FireWallVerifyReply 防火墙回复
+message FireWallVerifyReply {
 	bool Status = 1;
 }

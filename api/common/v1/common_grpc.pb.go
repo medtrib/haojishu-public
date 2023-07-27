@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Common_GetCaptcha_FullMethodName    = "/api.common.v1.Common/GetCaptcha"
-	Common_VerifyCaptcha_FullMethodName = "/api.common.v1.Common/VerifyCaptcha"
+	Common_GetCaptcha_FullMethodName     = "/api.common.v1.Common/GetCaptcha"
+	Common_VerifyCaptcha_FullMethodName  = "/api.common.v1.Common/VerifyCaptcha"
+	Common_FireWallVerify_FullMethodName = "/api.common.v1.Common/FireWallVerify"
 )
 
 // CommonClient is the client API for Common service.
@@ -31,6 +32,8 @@ type CommonClient interface {
 	GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaReply, error)
 	// 验证验证码
 	VerifyCaptcha(ctx context.Context, in *VerifyCaptchaRequest, opts ...grpc.CallOption) (*VerifyCaptchaReply, error)
+	// 防火墙检查
+	FireWallVerify(ctx context.Context, in *FireWallVerifyRequest, opts ...grpc.CallOption) (*FireWallVerifyReply, error)
 }
 
 type commonClient struct {
@@ -59,6 +62,15 @@ func (c *commonClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReque
 	return out, nil
 }
 
+func (c *commonClient) FireWallVerify(ctx context.Context, in *FireWallVerifyRequest, opts ...grpc.CallOption) (*FireWallVerifyReply, error) {
+	out := new(FireWallVerifyReply)
+	err := c.cc.Invoke(ctx, Common_FireWallVerify_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommonServer is the server API for Common service.
 // All implementations must embed UnimplementedCommonServer
 // for forward compatibility
@@ -67,6 +79,8 @@ type CommonServer interface {
 	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaReply, error)
 	// 验证验证码
 	VerifyCaptcha(context.Context, *VerifyCaptchaRequest) (*VerifyCaptchaReply, error)
+	// 防火墙检查
+	FireWallVerify(context.Context, *FireWallVerifyRequest) (*FireWallVerifyReply, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -79,6 +93,9 @@ func (UnimplementedCommonServer) GetCaptcha(context.Context, *GetCaptchaRequest)
 }
 func (UnimplementedCommonServer) VerifyCaptcha(context.Context, *VerifyCaptchaRequest) (*VerifyCaptchaReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCaptcha not implemented")
+}
+func (UnimplementedCommonServer) FireWallVerify(context.Context, *FireWallVerifyRequest) (*FireWallVerifyReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FireWallVerify not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
 
@@ -129,6 +146,24 @@ func _Common_VerifyCaptcha_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_FireWallVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FireWallVerifyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).FireWallVerify(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_FireWallVerify_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).FireWallVerify(ctx, req.(*FireWallVerifyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Common_ServiceDesc is the grpc.ServiceDesc for Common service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -143,6 +178,10 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "VerifyCaptcha",
 			Handler:    _Common_VerifyCaptcha_Handler,
+		},
+		{
+			MethodName: "FireWallVerify",
+			Handler:    _Common_FireWallVerify_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
