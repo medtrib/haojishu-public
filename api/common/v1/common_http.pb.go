@@ -31,8 +31,8 @@ type CommonHTTPServer interface {
 
 func RegisterCommonHTTPServer(s *http.Server, srv CommonHTTPServer) {
 	r := s.Route("/")
-	r.GET("/common/captcha/v1/getCaptcha", _Common_GetCaptcha0_HTTP_Handler(srv))
-	r.GET("/common/captcha/v1/verifyCaptcha", _Common_VerifyCaptcha0_HTTP_Handler(srv))
+	r.GET("/common/v1/GetCaptcha", _Common_GetCaptcha0_HTTP_Handler(srv))
+	r.GET("/common/v1/VerifyCaptcha", _Common_VerifyCaptcha0_HTTP_Handler(srv))
 }
 
 func _Common_GetCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
@@ -88,7 +88,7 @@ func NewCommonHTTPClient(client *http.Client) CommonHTTPClient {
 
 func (c *CommonHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...http.CallOption) (*GetCaptchaReply, error) {
 	var out GetCaptchaReply
-	pattern := "/common/captcha/v1/getCaptcha"
+	pattern := "/common/v1/GetCaptcha"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationCommonGetCaptcha))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -101,7 +101,7 @@ func (c *CommonHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaReq
 
 func (c *CommonHTTPClientImpl) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaRequest, opts ...http.CallOption) (*VerifyCaptchaReply, error) {
 	var out VerifyCaptchaReply
-	pattern := "/common/captcha/v1/verifyCaptcha"
+	pattern := "/common/v1/VerifyCaptcha"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationCommonVerifyCaptcha))
 	opts = append(opts, http.PathTemplate(pattern))

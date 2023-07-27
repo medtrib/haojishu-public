@@ -667,7 +667,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
-    /common/captcha/v1/getCaptcha:
+    /common/v1/GetCaptcha:
         get:
             tags:
                 - Common
@@ -686,7 +686,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.GetCaptchaReply'
-    /common/captcha/v1/verifyCaptcha:
+    /common/v1/VerifyCaptcha:
         get:
             tags:
                 - Common
