@@ -667,6 +667,54 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /common/captcha/v1/getCaptcha:
+        get:
+            tags:
+                - Common
+            description: 获取验证码
+            operationId: Common_GetCaptcha
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.GetCaptchaReply'
+    /common/captcha/v1/verifyCaptcha:
+        get:
+            tags:
+                - Common
+            description: 验证验证码
+            operationId: Common_VerifyCaptcha
+            parameters:
+                - name: CaptchaId
+                  in: query
+                  description: 验证码ID
+                  schema:
+                    type: string
+                - name: Answer
+                  in: query
+                  description: 回答
+                  schema:
+                    type: string
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.VerifyCaptchaReply'
 components:
     schemas:
         api.admin.v1.AdminInfoRep:
@@ -1128,7 +1176,23 @@ components:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
                     description: 权限
             description: 设置角色权限
+        api.common.v1.GetCaptchaReply:
+            type: object
+            properties:
+                captchaId:
+                    type: string
+                data:
+                    type: string
+            description: GetCaptchaReply 获取验证码返回
+        api.common.v1.VerifyCaptchaReply:
+            type: object
+            properties:
+                Status:
+                    type: boolean
+                    description: 邮箱
+            description: 验证验证码
 tags:
     - name: Admin
     - name: Auth
       description: 权限认证服务
+    - name: Common
