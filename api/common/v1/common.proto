@@ -30,6 +30,27 @@ service Common {
 		};
 	}
 
+	// 防火墙封禁IP
+	rpc FireWallUnblockIP(FireWallVerifyReq) returns (FireWallVerifyRep) {
+		option (google.api.http) = {
+			get : "/common/v1/FireWallUnblockIP"
+		};
+	}
+
+	// 防火墙添加白名单IP
+	rpc FireWallAddToWhitelist(FireWallVerifyReq) returns (FireWallVerifyRep) {
+		option (google.api.http) = {
+			get : "/common/v1/FireWallAddToWhitelist"
+		};
+	}
+
+	// 防火墙从白名单中删除IP
+	rpc RemoveFromWhitelist(FireWallVerifyReq) returns (FireWallVerifyRep) {
+		option (google.api.http) = {
+			get : "/common/v1/RemoveFromWhitelist"
+		};
+	}
+
 }
 
 // GetCaptchaReq 获取图形验证码
