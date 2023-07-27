@@ -10,21 +10,21 @@ option java_package = "api.common.v1";
 
 service Common {
 	// 获取验证码
-	rpc GetCaptcha(GetCaptchaRequest) returns (GetCaptchaReply) {
+	rpc GetCaptcha(GetCaptchaReq) returns (GetCaptchaRep) {
 		option (google.api.http) = {
 			get : "/common/v1/GetCaptcha"
 		};
 	}
 
 	// 验证验证码
-	rpc VerifyCaptcha(VerifyCaptchaRequest) returns (VerifyCaptchaReply) {
+	rpc VerifyCaptcha(VerifyCaptchaReq) returns (VerifyCaptchaRep) {
 		option (google.api.http) = {
 			get : "/common/v1/VerifyCaptcha"
 		};
 	}
 
 	// 防火墙检查
-	rpc FireWallVerify(FireWallVerifyRequest) returns (FireWallVerifyReply) {
+	rpc FireWallVerify(FireWallVerifyReq) returns (FireWallVerifyReply) {
 		option (google.api.http) = {
 			get : "/common/v1/FireWallVerify"
 		};
@@ -32,20 +32,20 @@ service Common {
 
 }
 
-// GetCaptchaRequest 获取图形验证码
-message GetCaptchaRequest {
+// GetCaptchaReq 获取图形验证码
+message GetCaptchaReq {
 	// IP
 	string LastIp = 2 [(validate.rules).string.ip = true];
 }
 
-// GetCaptchaReply 获取验证码返回
-message GetCaptchaReply {
+// GetCaptchaRep 获取验证码返回
+message GetCaptchaRep {
 	string captchaId = 2;
 	string data = 3;
 }
 
 // 验证验证码
-message VerifyCaptchaRequest{
+message VerifyCaptchaReq{
 	// 验证码ID
 	string CaptchaId = 2 [(validate.rules).string.ignore_empty = false];
 	// 回答
@@ -55,13 +55,13 @@ message VerifyCaptchaRequest{
 }
 
 // 验证验证码
-message VerifyCaptchaReply{
+message VerifyCaptchaRep{
 	// 状态
 	bool Status = 1;
 }
 
 // FireWallVerifyRequest 防火墙验证
-message FireWallVerifyRequest {
+message FireWallVerifyReq {
 	// IP
 	string LastIp = 2 [(validate.rules).string.ip = true];
 }
