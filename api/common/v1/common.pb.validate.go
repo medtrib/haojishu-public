@@ -679,3 +679,207 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = FireWallVerifyRepValidationError{}
+
+// Validate checks the field values on FireWallListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *FireWallListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FireWallListReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FireWallListReqMultiError, or nil if none found.
+func (m *FireWallListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FireWallListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Page
+
+	// no validation rules for PageSize
+
+	if len(errors) > 0 {
+		return FireWallListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// FireWallListReqMultiError is an error wrapping multiple validation errors
+// returned by FireWallListReq.ValidateAll() if the designated constraints
+// aren't met.
+type FireWallListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FireWallListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FireWallListReqMultiError) AllErrors() []error { return m }
+
+// FireWallListReqValidationError is the validation error returned by
+// FireWallListReq.Validate if the designated constraints aren't met.
+type FireWallListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FireWallListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FireWallListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FireWallListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FireWallListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FireWallListReqValidationError) ErrorName() string { return "FireWallListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FireWallListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFireWallListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FireWallListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FireWallListReqValidationError{}
+
+// Validate checks the field values on FireWallListRep with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *FireWallListRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on FireWallListRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// FireWallListRepMultiError, or nil if none found.
+func (m *FireWallListRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *FireWallListRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return FireWallListRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// FireWallListRepMultiError is an error wrapping multiple validation errors
+// returned by FireWallListRep.ValidateAll() if the designated constraints
+// aren't met.
+type FireWallListRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m FireWallListRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m FireWallListRepMultiError) AllErrors() []error { return m }
+
+// FireWallListRepValidationError is the validation error returned by
+// FireWallListRep.Validate if the designated constraints aren't met.
+type FireWallListRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e FireWallListRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e FireWallListRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e FireWallListRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e FireWallListRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e FireWallListRepValidationError) ErrorName() string { return "FireWallListRepValidationError" }
+
+// Error satisfies the builtin error interface
+func (e FireWallListRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sFireWallListRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = FireWallListRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = FireWallListRepValidationError{}

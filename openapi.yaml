@@ -743,6 +743,30 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
+    /common/v1/GetBlockedIPs:
+        get:
+            tags:
+                - Common
+            description: 获取黑单列表
+            operationId: Common_GetBlockedIPs
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallListRep'
     /common/v1/GetCaptcha:
         get:
             tags:
@@ -762,6 +786,30 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.GetCaptchaRep'
+    /common/v1/GetWhitelistedIPs:
+        get:
+            tags:
+                - Common
+            description: 获取白名单列表
+            operationId: Common_GetWhitelistedIPs
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallListRep'
     /common/v1/RemoveFromWhitelist:
         get:
             tags:
@@ -1271,6 +1319,14 @@ components:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
                     description: 权限
             description: 设置角色权限
+        api.common.v1.FireWallListRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        type: string
+            description: 列表
         api.common.v1.FireWallVerifyRep:
             type: object
             properties:

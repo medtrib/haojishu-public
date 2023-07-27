@@ -44,6 +44,13 @@ service Common {
 		};
 	}
 
+	// 获取黑单列表
+	rpc GetBlockedIPs(FireWallListReq) returns (FireWallListRep) {
+		option (google.api.http) = {
+			get : "/common/v1/GetBlockedIPs"
+		};
+	}
+
 	// 防火墙添加白名单IP
 	rpc FireWallAddToWhitelist(FireWallVerifyReq) returns (FireWallVerifyRep) {
 		option (google.api.http) = {
@@ -57,6 +64,14 @@ service Common {
 			get : "/common/v1/RemoveFromWhitelist"
 		};
 	}
+
+	// 获取白名单列表
+	rpc GetWhitelistedIPs(FireWallListReq) returns (FireWallListRep) {
+		option (google.api.http) = {
+			get : "/common/v1/GetWhitelistedIPs"
+		};
+	}
+
 
 }
 
@@ -97,4 +112,14 @@ message FireWallVerifyReq {
 // FireWallVerifyReply 防火墙回复
 message FireWallVerifyRep {
 	bool Status = 1;
+}
+
+// 列表
+message FireWallListReq{
+	int64 page = 1;
+	int64 pageSize = 2;
+}
+// 列表
+message FireWallListRep{
+	repeated string list = 1;
 }

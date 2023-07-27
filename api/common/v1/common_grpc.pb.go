@@ -24,8 +24,10 @@ const (
 	Common_FireWallVerify_FullMethodName         = "/api.common.v1.Common/FireWallVerify"
 	Common_FireWallBlockIP_FullMethodName        = "/api.common.v1.Common/FireWallBlockIP"
 	Common_FireWallUnblockIP_FullMethodName      = "/api.common.v1.Common/FireWallUnblockIP"
+	Common_GetBlockedIPs_FullMethodName          = "/api.common.v1.Common/GetBlockedIPs"
 	Common_FireWallAddToWhitelist_FullMethodName = "/api.common.v1.Common/FireWallAddToWhitelist"
 	Common_RemoveFromWhitelist_FullMethodName    = "/api.common.v1.Common/RemoveFromWhitelist"
+	Common_GetWhitelistedIPs_FullMethodName      = "/api.common.v1.Common/GetWhitelistedIPs"
 )
 
 // CommonClient is the client API for Common service.
@@ -42,10 +44,14 @@ type CommonClient interface {
 	FireWallBlockIP(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 	// 防火墙解禁IP
 	FireWallUnblockIP(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
+	// 获取黑单列表
+	GetBlockedIPs(ctx context.Context, in *FireWallListReq, opts ...grpc.CallOption) (*FireWallListRep, error)
 	// 防火墙添加白名单IP
 	FireWallAddToWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 	// 防火墙从白名单中删除IP
 	RemoveFromWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
+	// 获取白名单列表
+	GetWhitelistedIPs(ctx context.Context, in *FireWallListReq, opts ...grpc.CallOption) (*FireWallListRep, error)
 }
 
 type commonClient struct {
@@ -101,6 +107,15 @@ func (c *commonClient) FireWallUnblockIP(ctx context.Context, in *FireWallVerify
 	return out, nil
 }
 
+func (c *commonClient) GetBlockedIPs(ctx context.Context, in *FireWallListReq, opts ...grpc.CallOption) (*FireWallListRep, error) {
+	out := new(FireWallListRep)
+	err := c.cc.Invoke(ctx, Common_GetBlockedIPs_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *commonClient) FireWallAddToWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error) {
 	out := new(FireWallVerifyRep)
 	err := c.cc.Invoke(ctx, Common_FireWallAddToWhitelist_FullMethodName, in, out, opts...)
@@ -113,6 +128,15 @@ func (c *commonClient) FireWallAddToWhitelist(ctx context.Context, in *FireWallV
 func (c *commonClient) RemoveFromWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error) {
 	out := new(FireWallVerifyRep)
 	err := c.cc.Invoke(ctx, Common_RemoveFromWhitelist_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commonClient) GetWhitelistedIPs(ctx context.Context, in *FireWallListReq, opts ...grpc.CallOption) (*FireWallListRep, error) {
+	out := new(FireWallListRep)
+	err := c.cc.Invoke(ctx, Common_GetWhitelistedIPs_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -133,10 +157,14 @@ type CommonServer interface {
 	FireWallBlockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// 防火墙解禁IP
 	FireWallUnblockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
+	// 获取黑单列表
+	GetBlockedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error)
 	// 防火墙添加白名单IP
 	FireWallAddToWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// 防火墙从白名单中删除IP
 	RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
+	// 获取白名单列表
+	GetWhitelistedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -159,11 +187,17 @@ func (UnimplementedCommonServer) FireWallBlockIP(context.Context, *FireWallVerif
 func (UnimplementedCommonServer) FireWallUnblockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FireWallUnblockIP not implemented")
 }
+func (UnimplementedCommonServer) GetBlockedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBlockedIPs not implemented")
+}
 func (UnimplementedCommonServer) FireWallAddToWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FireWallAddToWhitelist not implemented")
 }
 func (UnimplementedCommonServer) RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveFromWhitelist not implemented")
+}
+func (UnimplementedCommonServer) GetWhitelistedIPs(context.Context, *FireWallListReq) (*FireWallListRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWhitelistedIPs not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
 
@@ -268,6 +302,24 @@ func _Common_FireWallUnblockIP_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_GetBlockedIPs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FireWallListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).GetBlockedIPs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_GetBlockedIPs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).GetBlockedIPs(ctx, req.(*FireWallListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Common_FireWallAddToWhitelist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FireWallVerifyReq)
 	if err := dec(in); err != nil {
@@ -304,6 +356,24 @@ func _Common_RemoveFromWhitelist_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_GetWhitelistedIPs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FireWallListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).GetWhitelistedIPs(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_GetWhitelistedIPs_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).GetWhitelistedIPs(ctx, req.(*FireWallListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Common_ServiceDesc is the grpc.ServiceDesc for Common service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -332,12 +402,20 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Common_FireWallUnblockIP_Handler,
 		},
 		{
+			MethodName: "GetBlockedIPs",
+			Handler:    _Common_GetBlockedIPs_Handler,
+		},
+		{
 			MethodName: "FireWallAddToWhitelist",
 			Handler:    _Common_FireWallAddToWhitelist_Handler,
 		},
 		{
 			MethodName: "RemoveFromWhitelist",
 			Handler:    _Common_RemoveFromWhitelist_Handler,
+		},
+		{
+			MethodName: "GetWhitelistedIPs",
+			Handler:    _Common_GetWhitelistedIPs_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
