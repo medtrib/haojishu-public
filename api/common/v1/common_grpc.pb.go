@@ -22,6 +22,7 @@ const (
 	Common_GetCaptcha_FullMethodName             = "/api.common.v1.Common/GetCaptcha"
 	Common_VerifyCaptcha_FullMethodName          = "/api.common.v1.Common/VerifyCaptcha"
 	Common_FireWallVerify_FullMethodName         = "/api.common.v1.Common/FireWallVerify"
+	Common_FireWallBlockIP_FullMethodName        = "/api.common.v1.Common/FireWallBlockIP"
 	Common_FireWallUnblockIP_FullMethodName      = "/api.common.v1.Common/FireWallUnblockIP"
 	Common_FireWallAddToWhitelist_FullMethodName = "/api.common.v1.Common/FireWallAddToWhitelist"
 	Common_RemoveFromWhitelist_FullMethodName    = "/api.common.v1.Common/RemoveFromWhitelist"
@@ -38,6 +39,8 @@ type CommonClient interface {
 	// 防火墙检查
 	FireWallVerify(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 	// 防火墙封禁IP
+	FireWallBlockIP(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
+	// 防火墙解禁IP
 	FireWallUnblockIP(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 	// 防火墙添加白名单IP
 	FireWallAddToWhitelist(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
@@ -74,6 +77,15 @@ func (c *commonClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReq, 
 func (c *commonClient) FireWallVerify(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error) {
 	out := new(FireWallVerifyRep)
 	err := c.cc.Invoke(ctx, Common_FireWallVerify_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *commonClient) FireWallBlockIP(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error) {
+	out := new(FireWallVerifyRep)
+	err := c.cc.Invoke(ctx, Common_FireWallBlockIP_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +130,8 @@ type CommonServer interface {
 	// 防火墙检查
 	FireWallVerify(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// 防火墙封禁IP
+	FireWallBlockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
+	// 防火墙解禁IP
 	FireWallUnblockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// 防火墙添加白名单IP
 	FireWallAddToWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
@@ -138,6 +152,9 @@ func (UnimplementedCommonServer) VerifyCaptcha(context.Context, *VerifyCaptchaRe
 }
 func (UnimplementedCommonServer) FireWallVerify(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FireWallVerify not implemented")
+}
+func (UnimplementedCommonServer) FireWallBlockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FireWallBlockIP not implemented")
 }
 func (UnimplementedCommonServer) FireWallUnblockIP(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FireWallUnblockIP not implemented")
@@ -215,6 +232,24 @@ func _Common_FireWallVerify_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Common_FireWallBlockIP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FireWallVerifyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommonServer).FireWallBlockIP(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Common_FireWallBlockIP_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommonServer).FireWallBlockIP(ctx, req.(*FireWallVerifyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Common_FireWallUnblockIP_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FireWallVerifyReq)
 	if err := dec(in); err != nil {
@@ -287,6 +322,10 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FireWallVerify",
 			Handler:    _Common_FireWallVerify_Handler,
+		},
+		{
+			MethodName: "FireWallBlockIP",
+			Handler:    _Common_FireWallBlockIP_Handler,
 		},
 		{
 			MethodName: "FireWallUnblockIP",

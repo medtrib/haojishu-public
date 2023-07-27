@@ -686,11 +686,30 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
-    /common/v1/FireWallUnblockIP:
+    /common/v1/FireWallBlockIP:
         get:
             tags:
                 - Common
             description: 防火墙封禁IP
+            operationId: Common_FireWallBlockIP
+            parameters:
+                - name: LastIp
+                  in: query
+                  description: IP
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
+    /common/v1/FireWallUnblockIP:
+        get:
+            tags:
+                - Common
+            description: 防火墙解禁IP
             operationId: Common_FireWallUnblockIP
             parameters:
                 - name: LastIp
