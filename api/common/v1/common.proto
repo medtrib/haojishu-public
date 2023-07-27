@@ -24,7 +24,7 @@ service Common {
 	}
 
 	// 防火墙检查
-	rpc FireWallVerify(FireWallVerifyReq) returns (FireWallVerifyReply) {
+	rpc FireWallVerify(FireWallVerifyReq) returns (FireWallVerifyRep) {
 		option (google.api.http) = {
 			get : "/common/v1/FireWallVerify"
 		};
@@ -67,6 +67,6 @@ message FireWallVerifyReq {
 }
 
 // FireWallVerifyReply 防火墙回复
-message FireWallVerifyReply {
+message FireWallVerifyRep {
 	bool Status = 1;
 }

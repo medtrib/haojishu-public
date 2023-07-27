@@ -685,7 +685,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyReply'
+                                $ref: '#/components/schemas/api.common.v1.FireWallVerifyRep'
     /common/v1/GetCaptcha:
         get:
             tags:
@@ -704,7 +704,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.common.v1.GetCaptchaReply'
+                                $ref: '#/components/schemas/api.common.v1.GetCaptchaRep'
     /common/v1/VerifyCaptcha:
         get:
             tags:
@@ -733,7 +733,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.common.v1.VerifyCaptchaReply'
+                                $ref: '#/components/schemas/api.common.v1.VerifyCaptchaRep'
 components:
     schemas:
         api.admin.v1.AdminInfoRep:
@@ -1195,21 +1195,21 @@ components:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
                     description: 权限
             description: 设置角色权限
-        api.common.v1.FireWallVerifyReply:
+        api.common.v1.FireWallVerifyRep:
             type: object
             properties:
                 Status:
                     type: boolean
             description: FireWallVerifyReply 防火墙回复
-        api.common.v1.GetCaptchaReply:
+        api.common.v1.GetCaptchaRep:
             type: object
             properties:
                 captchaId:
                     type: string
                 data:
                     type: string
-            description: GetCaptchaReply 获取验证码返回
-        api.common.v1.VerifyCaptchaReply:
+            description: GetCaptchaRep 获取验证码返回
+        api.common.v1.VerifyCaptchaRep:
             type: object
             properties:
                 Status:

@@ -29,11 +29,11 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CommonClient interface {
 	// 获取验证码
-	GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaReply, error)
+	GetCaptcha(ctx context.Context, in *GetCaptchaReq, opts ...grpc.CallOption) (*GetCaptchaRep, error)
 	// 验证验证码
-	VerifyCaptcha(ctx context.Context, in *VerifyCaptchaRequest, opts ...grpc.CallOption) (*VerifyCaptchaReply, error)
+	VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReq, opts ...grpc.CallOption) (*VerifyCaptchaRep, error)
 	// 防火墙检查
-	FireWallVerify(ctx context.Context, in *FireWallVerifyRequest, opts ...grpc.CallOption) (*FireWallVerifyReply, error)
+	FireWallVerify(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error)
 }
 
 type commonClient struct {
@@ -44,8 +44,8 @@ func NewCommonClient(cc grpc.ClientConnInterface) CommonClient {
 	return &commonClient{cc}
 }
 
-func (c *commonClient) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...grpc.CallOption) (*GetCaptchaReply, error) {
-	out := new(GetCaptchaReply)
+func (c *commonClient) GetCaptcha(ctx context.Context, in *GetCaptchaReq, opts ...grpc.CallOption) (*GetCaptchaRep, error) {
+	out := new(GetCaptchaRep)
 	err := c.cc.Invoke(ctx, Common_GetCaptcha_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -53,8 +53,8 @@ func (c *commonClient) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, op
 	return out, nil
 }
 
-func (c *commonClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaRequest, opts ...grpc.CallOption) (*VerifyCaptchaReply, error) {
-	out := new(VerifyCaptchaReply)
+func (c *commonClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReq, opts ...grpc.CallOption) (*VerifyCaptchaRep, error) {
+	out := new(VerifyCaptchaRep)
 	err := c.cc.Invoke(ctx, Common_VerifyCaptcha_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,8 +62,8 @@ func (c *commonClient) VerifyCaptcha(ctx context.Context, in *VerifyCaptchaReque
 	return out, nil
 }
 
-func (c *commonClient) FireWallVerify(ctx context.Context, in *FireWallVerifyRequest, opts ...grpc.CallOption) (*FireWallVerifyReply, error) {
-	out := new(FireWallVerifyReply)
+func (c *commonClient) FireWallVerify(ctx context.Context, in *FireWallVerifyReq, opts ...grpc.CallOption) (*FireWallVerifyRep, error) {
+	out := new(FireWallVerifyRep)
 	err := c.cc.Invoke(ctx, Common_FireWallVerify_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -76,11 +76,11 @@ func (c *commonClient) FireWallVerify(ctx context.Context, in *FireWallVerifyReq
 // for forward compatibility
 type CommonServer interface {
 	// 获取验证码
-	GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaReply, error)
+	GetCaptcha(context.Context, *GetCaptchaReq) (*GetCaptchaRep, error)
 	// 验证验证码
-	VerifyCaptcha(context.Context, *VerifyCaptchaRequest) (*VerifyCaptchaReply, error)
+	VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaRep, error)
 	// 防火墙检查
-	FireWallVerify(context.Context, *FireWallVerifyRequest) (*FireWallVerifyReply, error)
+	FireWallVerify(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -88,13 +88,13 @@ type CommonServer interface {
 type UnimplementedCommonServer struct {
 }
 
-func (UnimplementedCommonServer) GetCaptcha(context.Context, *GetCaptchaRequest) (*GetCaptchaReply, error) {
+func (UnimplementedCommonServer) GetCaptcha(context.Context, *GetCaptchaReq) (*GetCaptchaRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCaptcha not implemented")
 }
-func (UnimplementedCommonServer) VerifyCaptcha(context.Context, *VerifyCaptchaRequest) (*VerifyCaptchaReply, error) {
+func (UnimplementedCommonServer) VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyCaptcha not implemented")
 }
-func (UnimplementedCommonServer) FireWallVerify(context.Context, *FireWallVerifyRequest) (*FireWallVerifyReply, error) {
+func (UnimplementedCommonServer) FireWallVerify(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FireWallVerify not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
@@ -111,7 +111,7 @@ func RegisterCommonServer(s grpc.ServiceRegistrar, srv CommonServer) {
 }
 
 func _Common_GetCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCaptchaRequest)
+	in := new(GetCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -123,13 +123,13 @@ func _Common_GetCaptcha_Handler(srv interface{}, ctx context.Context, dec func(i
 		FullMethod: Common_GetCaptcha_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommonServer).GetCaptcha(ctx, req.(*GetCaptchaRequest))
+		return srv.(CommonServer).GetCaptcha(ctx, req.(*GetCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Common_VerifyCaptcha_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VerifyCaptchaRequest)
+	in := new(VerifyCaptchaReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -141,13 +141,13 @@ func _Common_VerifyCaptcha_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: Common_VerifyCaptcha_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommonServer).VerifyCaptcha(ctx, req.(*VerifyCaptchaRequest))
+		return srv.(CommonServer).VerifyCaptcha(ctx, req.(*VerifyCaptchaReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Common_FireWallVerify_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(FireWallVerifyRequest)
+	in := new(FireWallVerifyReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -159,7 +159,7 @@ func _Common_FireWallVerify_Handler(srv interface{}, ctx context.Context, dec fu
 		FullMethod: Common_FireWallVerify_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommonServer).FireWallVerify(ctx, req.(*FireWallVerifyRequest))
+		return srv.(CommonServer).FireWallVerify(ctx, req.(*FireWallVerifyReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
