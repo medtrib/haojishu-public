@@ -81,7 +81,7 @@ service Common {
 	};
 
 	// 上传文件
-	rpc UploadFile  (UploadFileReq) returns (UploadFileRep){
+	rpc UploadFile (UploadFileReq) returns (UploadFileRep){
 		option (google.api.http) = {
 			post: "/common/v1/UploadFile",
 			body: "*",
