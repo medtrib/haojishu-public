@@ -667,25 +667,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
-    /common/UploadFileBase:
-        post:
-            tags:
-                - Common
-            description: 上传文件
-            operationId: Common_Upload
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.common.v1.UploadReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.common.v1.UploadRep'
     /common/v1/FireWallAddToWhitelist:
         get:
             tags:
@@ -861,6 +842,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.UpTokenRep'
+    /common/v1/UploadFile:
+        post:
+            tags:
+                - Common
+            description: 上传文件
+            operationId: Common_UploadFile
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.common.v1.UploadFileReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.common.v1.UploadFileRep'
     /common/v1/VerifyCaptcha:
         get:
             tags:
@@ -1379,13 +1379,13 @@ components:
                 token:
                     type: string
             description: Token
-        api.common.v1.UploadRep:
+        api.common.v1.UploadFileRep:
             type: object
             properties:
                 file:
                     type: string
             description: 返回地址
-        api.common.v1.UploadReq:
+        api.common.v1.UploadFileReq:
             type: object
             properties:
                 file:

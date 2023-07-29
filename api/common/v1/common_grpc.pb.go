@@ -30,7 +30,7 @@ const (
 	Common_RemoveFromWhitelist_FullMethodName    = "/api.common.v1.Common/RemoveFromWhitelist"
 	Common_GetWhitelistedIPs_FullMethodName      = "/api.common.v1.Common/GetWhitelistedIPs"
 	Common_UpToken_FullMethodName                = "/api.common.v1.Common/UpToken"
-	Common_Upload_FullMethodName                 = "/api.common.v1.Common/Upload"
+	Common_UploadFile_FullMethodName             = "/api.common.v1.Common/UploadFile"
 )
 
 // CommonClient is the client API for Common service.
@@ -58,7 +58,7 @@ type CommonClient interface {
 	// 获取Token
 	UpToken(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*UpTokenRep, error)
 	// 上传文件
-	Upload(ctx context.Context, in *UploadReq, opts ...grpc.CallOption) (*UploadRep, error)
+	UploadFile(ctx context.Context, in *UploadFileReq, opts ...grpc.CallOption) (*UploadFileRep, error)
 }
 
 type commonClient struct {
@@ -159,9 +159,9 @@ func (c *commonClient) UpToken(ctx context.Context, in *emptypb.Empty, opts ...g
 	return out, nil
 }
 
-func (c *commonClient) Upload(ctx context.Context, in *UploadReq, opts ...grpc.CallOption) (*UploadRep, error) {
-	out := new(UploadRep)
-	err := c.cc.Invoke(ctx, Common_Upload_FullMethodName, in, out, opts...)
+func (c *commonClient) UploadFile(ctx context.Context, in *UploadFileReq, opts ...grpc.CallOption) (*UploadFileRep, error) {
+	out := new(UploadFileRep)
+	err := c.cc.Invoke(ctx, Common_UploadFile_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -193,7 +193,7 @@ type CommonServer interface {
 	// 获取Token
 	UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error)
 	// 上传文件
-	Upload(context.Context, *UploadReq) (*UploadRep, error)
+	UploadFile(context.Context, *UploadFileReq) (*UploadFileRep, error)
 	mustEmbedUnimplementedCommonServer()
 }
 
@@ -231,8 +231,8 @@ func (UnimplementedCommonServer) GetWhitelistedIPs(context.Context, *FireWallLis
 func (UnimplementedCommonServer) UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpToken not implemented")
 }
-func (UnimplementedCommonServer) Upload(context.Context, *UploadReq) (*UploadRep, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Upload not implemented")
+func (UnimplementedCommonServer) UploadFile(context.Context, *UploadFileReq) (*UploadFileRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UploadFile not implemented")
 }
 func (UnimplementedCommonServer) mustEmbedUnimplementedCommonServer() {}
 
@@ -427,20 +427,20 @@ func _Common_UpToken_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Common_Upload_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UploadReq)
+func _Common_UploadFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UploadFileReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CommonServer).Upload(ctx, in)
+		return srv.(CommonServer).UploadFile(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Common_Upload_FullMethodName,
+		FullMethod: Common_UploadFile_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CommonServer).Upload(ctx, req.(*UploadReq))
+		return srv.(CommonServer).UploadFile(ctx, req.(*UploadFileReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -493,8 +493,8 @@ var Common_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Common_UpToken_Handler,
 		},
 		{
-			MethodName: "Upload",
-			Handler:    _Common_Upload_Handler,
+			MethodName: "UploadFile",
+			Handler:    _Common_UploadFile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
