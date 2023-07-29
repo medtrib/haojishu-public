@@ -81,7 +81,7 @@ service Common {
 	};
 
 	// 上传文件
-	rpc UploadFileBase  (UploadFileBaseReq) returns (UploadFileBaseRep){
+	rpc Upload  (UploadReq) returns (UploadRep){
 		option (google.api.http) = {
 			post: "/common/UploadFileBase",
 			body: "*",
@@ -148,12 +148,12 @@ message UpTokenRep {
 }
 
 // 上传文件
-message UploadFileBaseReq{
+message UploadReq{
 	string file = 1;
 	string path = 2;
 }
 
 // 返回地址
-message UploadFileBaseRep {
+message UploadRep {
 	string file = 1;
 }

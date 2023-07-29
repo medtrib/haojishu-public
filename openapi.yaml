@@ -672,12 +672,12 @@ paths:
             tags:
                 - Common
             description: 上传文件
-            operationId: Common_UploadFileBase
+            operationId: Common_Upload
             requestBody:
                 content:
                     application/json:
                         schema:
-                            $ref: '#/components/schemas/api.common.v1.UploadFileBaseReq'
+                            $ref: '#/components/schemas/api.common.v1.UploadReq'
                 required: true
             responses:
                 "200":
@@ -685,7 +685,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.common.v1.UploadFileBaseRep'
+                                $ref: '#/components/schemas/api.common.v1.UploadRep'
     /common/v1/FireWallAddToWhitelist:
         get:
             tags:
@@ -1379,13 +1379,13 @@ components:
                 token:
                     type: string
             description: Token
-        api.common.v1.UploadFileBaseRep:
+        api.common.v1.UploadRep:
             type: object
             properties:
                 file:
                     type: string
             description: 返回地址
-        api.common.v1.UploadFileBaseReq:
+        api.common.v1.UploadReq:
             type: object
             properties:
                 file:

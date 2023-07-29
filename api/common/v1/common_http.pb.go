@@ -29,7 +29,7 @@ const OperationCommonGetCaptcha = "/api.common.v1.Common/GetCaptcha"
 const OperationCommonGetWhitelistedIPs = "/api.common.v1.Common/GetWhitelistedIPs"
 const OperationCommonRemoveFromWhitelist = "/api.common.v1.Common/RemoveFromWhitelist"
 const OperationCommonUpToken = "/api.common.v1.Common/UpToken"
-const OperationCommonUploadFileBase = "/api.common.v1.Common/UploadFileBase"
+const OperationCommonUpload = "/api.common.v1.Common/Upload"
 const OperationCommonVerifyCaptcha = "/api.common.v1.Common/VerifyCaptcha"
 
 type CommonHTTPServer interface {
@@ -51,8 +51,8 @@ type CommonHTTPServer interface {
 	RemoveFromWhitelist(context.Context, *FireWallVerifyReq) (*FireWallVerifyRep, error)
 	// UpToken 获取Token
 	UpToken(context.Context, *emptypb.Empty) (*UpTokenRep, error)
-	// UploadFileBase 上传文件
-	UploadFileBase(context.Context, *UploadFileBaseReq) (*UploadFileBaseRep, error)
+	// Upload 上传文件
+	Upload(context.Context, *UploadReq) (*UploadRep, error)
 	// VerifyCaptcha 验证验证码
 	VerifyCaptcha(context.Context, *VerifyCaptchaReq) (*VerifyCaptchaRep, error)
 }
@@ -69,7 +69,7 @@ func RegisterCommonHTTPServer(s *http.Server, srv CommonHTTPServer) {
 	r.GET("/common/v1/RemoveFromWhitelist", _Common_RemoveFromWhitelist0_HTTP_Handler(srv))
 	r.GET("/common/v1/GetWhitelistedIPs", _Common_GetWhitelistedIPs0_HTTP_Handler(srv))
 	r.GET("/common/v1/UpToken", _Common_UpToken0_HTTP_Handler(srv))
-	r.POST("/common/UploadFileBase", _Common_UploadFileBase0_HTTP_Handler(srv))
+	r.POST("/common/UploadFileBase", _Common_Upload0_HTTP_Handler(srv))
 }
 
 func _Common_GetCaptcha0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
@@ -262,21 +262,21 @@ func _Common_UpToken0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) 
 	}
 }
 
-func _Common_UploadFileBase0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
+func _Common_Upload0_HTTP_Handler(srv CommonHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in UploadFileBaseReq
+		var in UploadReq
 		if err := ctx.Bind(&in); err != nil {
 			return err
 		}
-		http.SetOperation(ctx, OperationCommonUploadFileBase)
+		http.SetOperation(ctx, OperationCommonUpload)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.UploadFileBase(ctx, req.(*UploadFileBaseReq))
+			return srv.Upload(ctx, req.(*UploadReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*UploadFileBaseRep)
+		reply := out.(*UploadRep)
 		return ctx.Result(200, reply)
 	}
 }
@@ -291,7 +291,7 @@ type CommonHTTPClient interface {
 	GetWhitelistedIPs(ctx context.Context, req *FireWallListReq, opts ...http.CallOption) (rsp *FireWallListRep, err error)
 	RemoveFromWhitelist(ctx context.Context, req *FireWallVerifyReq, opts ...http.CallOption) (rsp *FireWallVerifyRep, err error)
 	UpToken(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *UpTokenRep, err error)
-	UploadFileBase(ctx context.Context, req *UploadFileBaseReq, opts ...http.CallOption) (rsp *UploadFileBaseRep, err error)
+	Upload(ctx context.Context, req *UploadReq, opts ...http.CallOption) (rsp *UploadRep, err error)
 	VerifyCaptcha(ctx context.Context, req *VerifyCaptchaReq, opts ...http.CallOption) (rsp *VerifyCaptchaRep, err error)
 }
 
@@ -420,11 +420,11 @@ func (c *CommonHTTPClientImpl) UpToken(ctx context.Context, in *emptypb.Empty, o
 	return &out, err
 }
 
-func (c *CommonHTTPClientImpl) UploadFileBase(ctx context.Context, in *UploadFileBaseReq, opts ...http.CallOption) (*UploadFileBaseRep, error) {
-	var out UploadFileBaseRep
+func (c *CommonHTTPClientImpl) Upload(ctx context.Context, in *UploadReq, opts ...http.CallOption) (*UploadRep, error) {
+	var out UploadRep
 	pattern := "/common/UploadFileBase"
 	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationCommonUploadFileBase))
+	opts = append(opts, http.Operation(OperationCommonUpload))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
