@@ -211,37 +211,26 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.admin.v1.RepStatus'
-    /auth/v1//GetRoleMenuBtn:
-        get:
+    /api:
+        delete:
             tags:
                 - Auth
-            description: 角色菜单按钮 - 列表
-            operationId: Auth_GetRoleMenuBtn
+            description: Api删除
+            operationId: Auth_DeleteApi
             parameters:
-                - name: roleId
+                - name: id
                   in: query
-                  description: 角色id
+                  description: 主键id
                   schema:
                     type: integer
-                    format: uint64
-                - name: roleName
-                  in: query
-                  description: 角色名称
-                  schema:
-                    type: string
-                - name: menuId
-                  in: query
-                  description: 菜单id
-                  schema:
-                    type: integer
-                    format: uint64
+                    format: int64
             responses:
                 "200":
                     description: OK
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.auth.v1.GetRoleMenuBtnRep'
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
     /auth/v1/AddRole:
         post:
             tags:
@@ -313,6 +302,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /auth/v1/CreateApi:
+        post:
+            tags:
+                - Auth
+            description: Api创建
+            operationId: Auth_CreateApi
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.CreateApiReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.ApiInfo'
     /auth/v1/CreateMenu:
         post:
             tags:
@@ -503,6 +511,83 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.auth.v1.FullRoleListRep'
+    /auth/v1/GetApiList:
+        get:
+            tags:
+                - Auth
+            description: Api列表
+            operationId: Auth_GetApiList
+            parameters:
+                - name: page
+                  in: query
+                  description: 主键id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 页记录数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 名称
+                  schema:
+                    type: string
+                - name: group
+                  in: query
+                  description: 分组
+                  schema:
+                    type: string
+                - name: method
+                  in: query
+                  description: 请求方式
+                  schema:
+                    type: string
+                - name: path
+                  in: query
+                  description: 请求路径
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetApiListPageRep'
+    /auth/v1/GetRoleMenuBtn:
+        get:
+            tags:
+                - Auth
+            description: 角色菜单按钮 - 列表
+            operationId: Auth_GetRoleMenuBtn
+            parameters:
+                - name: roleId
+                  in: query
+                  description: 角色id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: roleName
+                  in: query
+                  description: 角色名称
+                  schema:
+                    type: string
+                - name: menuId
+                  in: query
+                  description: 菜单id
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.GetRoleMenuBtnRep'
     /auth/v1/GetRolePolicies:
         get:
             tags:
@@ -659,6 +744,25 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/api.auth.v1.SetRolePoliciesReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.auth.v1.RepStatus'
+    /auth/v1/UpdateApi:
+        put:
+            tags:
+                - Auth
+            description: Api更新
+            operationId: Auth_UpdateApi
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.auth.v1.UpdateApiReq'
                 required: true
             responses:
                 "200":
@@ -1045,6 +1149,51 @@ components:
                     type: string
                     description: 名称
             description: 添加角色
+        api.auth.v1.ApiInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 主键id
+                    format: uint64
+                name:
+                    type: string
+                    description: 名称
+                group:
+                    type: string
+                    description: 分组
+                method:
+                    type: string
+                    description: 请求方式
+                path:
+                    type: string
+                    description: 请求路径
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 更新时间
+                domain:
+                    type: string
+                    description: 域
+            description: API信息
+        api.auth.v1.CreateApiReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 名称
+                group:
+                    type: string
+                    description: 分组
+                method:
+                    type: string
+                    description: 请求方式
+                path:
+                    type: string
+                    description: 请求路径
+            description: API创建
         api.auth.v1.CreateMenuReq:
             type: object
             properties:
@@ -1175,6 +1324,18 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.Role'
             description: 完整角色列表
+        api.auth.v1.GetApiListPageRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.ApiInfo'
+                    description: 列表
         api.auth.v1.GetRoleMenuBtnRep:
             type: object
             properties:
@@ -1351,6 +1512,26 @@ components:
                         $ref: '#/components/schemas/api.auth.v1.PolicyRules'
                     description: 权限
             description: 设置角色权限
+        api.auth.v1.UpdateApiReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 主键id
+                    format: uint64
+                name:
+                    type: string
+                    description: 名称
+                group:
+                    type: string
+                    description: 分组
+                method:
+                    type: string
+                    description: 请求方式
+                path:
+                    type: string
+                    description: 请求路径
+            description: API更新
         api.common.v1.FireWallListRep:
             type: object
             properties:

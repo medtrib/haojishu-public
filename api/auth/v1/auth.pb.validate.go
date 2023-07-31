@@ -3980,3 +3980,783 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetRoleMenuBtnRepValidationError{}
+
+// Validate checks the field values on GetApiListReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *GetApiListReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetApiListReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in GetApiListReqMultiError, or
+// nil if none found.
+func (m *GetApiListReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetApiListReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPage() <= 0 {
+		err := GetApiListReqValidationError{
+			field:  "Page",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPageSize() <= 0 {
+		err := GetApiListReqValidationError{
+			field:  "PageSize",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Name
+
+	// no validation rules for Group
+
+	// no validation rules for Method
+
+	// no validation rules for Path
+
+	if len(errors) > 0 {
+		return GetApiListReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetApiListReqMultiError is an error wrapping multiple validation errors
+// returned by GetApiListReq.ValidateAll() if the designated constraints
+// aren't met.
+type GetApiListReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetApiListReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetApiListReqMultiError) AllErrors() []error { return m }
+
+// GetApiListReqValidationError is the validation error returned by
+// GetApiListReq.Validate if the designated constraints aren't met.
+type GetApiListReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetApiListReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetApiListReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetApiListReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetApiListReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetApiListReqValidationError) ErrorName() string { return "GetApiListReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetApiListReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetApiListReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetApiListReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetApiListReqValidationError{}
+
+// Validate checks the field values on GetApiListPageRep with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetApiListPageRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetApiListPageRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetApiListPageRepMultiError, or nil if none found.
+func (m *GetApiListPageRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetApiListPageRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Total
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, GetApiListPageRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, GetApiListPageRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return GetApiListPageRepValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return GetApiListPageRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetApiListPageRepMultiError is an error wrapping multiple validation errors
+// returned by GetApiListPageRep.ValidateAll() if the designated constraints
+// aren't met.
+type GetApiListPageRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetApiListPageRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetApiListPageRepMultiError) AllErrors() []error { return m }
+
+// GetApiListPageRepValidationError is the validation error returned by
+// GetApiListPageRep.Validate if the designated constraints aren't met.
+type GetApiListPageRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetApiListPageRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetApiListPageRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetApiListPageRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetApiListPageRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetApiListPageRepValidationError) ErrorName() string {
+	return "GetApiListPageRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GetApiListPageRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetApiListPageRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetApiListPageRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetApiListPageRepValidationError{}
+
+// Validate checks the field values on UpdateApiReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *UpdateApiReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateApiReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in UpdateApiReqMultiError, or
+// nil if none found.
+func (m *UpdateApiReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateApiReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() <= 0 {
+		err := UpdateApiReqValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := UpdateApiReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetGroup()); l < 1 || l > 255 {
+		err := UpdateApiReqValidationError{
+			field:  "Group",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMethod()); l < 1 || l > 255 {
+		err := UpdateApiReqValidationError{
+			field:  "Method",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := UpdateApiReqValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UpdateApiReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateApiReqMultiError is an error wrapping multiple validation errors
+// returned by UpdateApiReq.ValidateAll() if the designated constraints aren't met.
+type UpdateApiReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateApiReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateApiReqMultiError) AllErrors() []error { return m }
+
+// UpdateApiReqValidationError is the validation error returned by
+// UpdateApiReq.Validate if the designated constraints aren't met.
+type UpdateApiReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateApiReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateApiReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateApiReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateApiReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateApiReqValidationError) ErrorName() string { return "UpdateApiReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e UpdateApiReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateApiReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateApiReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateApiReqValidationError{}
+
+// Validate checks the field values on CreateApiReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *CreateApiReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateApiReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in CreateApiReqMultiError, or
+// nil if none found.
+func (m *CreateApiReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateApiReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := CreateApiReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetGroup()); l < 1 || l > 255 {
+		err := CreateApiReqValidationError{
+			field:  "Group",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetMethod()); l < 1 || l > 255 {
+		err := CreateApiReqValidationError{
+			field:  "Method",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := CreateApiReqValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateApiReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateApiReqMultiError is an error wrapping multiple validation errors
+// returned by CreateApiReq.ValidateAll() if the designated constraints aren't met.
+type CreateApiReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateApiReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateApiReqMultiError) AllErrors() []error { return m }
+
+// CreateApiReqValidationError is the validation error returned by
+// CreateApiReq.Validate if the designated constraints aren't met.
+type CreateApiReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateApiReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateApiReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateApiReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateApiReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateApiReqValidationError) ErrorName() string { return "CreateApiReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e CreateApiReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateApiReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateApiReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateApiReqValidationError{}
+
+// Validate checks the field values on DeleteApiReq with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *DeleteApiReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on DeleteApiReq with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in DeleteApiReqMultiError, or
+// nil if none found.
+func (m *DeleteApiReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *DeleteApiReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	if len(errors) > 0 {
+		return DeleteApiReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// DeleteApiReqMultiError is an error wrapping multiple validation errors
+// returned by DeleteApiReq.ValidateAll() if the designated constraints aren't met.
+type DeleteApiReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m DeleteApiReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m DeleteApiReqMultiError) AllErrors() []error { return m }
+
+// DeleteApiReqValidationError is the validation error returned by
+// DeleteApiReq.Validate if the designated constraints aren't met.
+type DeleteApiReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e DeleteApiReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e DeleteApiReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e DeleteApiReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e DeleteApiReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e DeleteApiReqValidationError) ErrorName() string { return "DeleteApiReqValidationError" }
+
+// Error satisfies the builtin error interface
+func (e DeleteApiReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sDeleteApiReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = DeleteApiReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = DeleteApiReqValidationError{}
+
+// Validate checks the field values on ApiInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *ApiInfo) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApiInfo with the rules defined in the
+// proto definition for this message. If any rules are violated, the result is
+// a list of violation errors wrapped in ApiInfoMultiError, or nil if none found.
+func (m *ApiInfo) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApiInfo) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Id
+
+	// no validation rules for Name
+
+	// no validation rules for Group
+
+	// no validation rules for Method
+
+	// no validation rules for Path
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for Domain
+
+	if len(errors) > 0 {
+		return ApiInfoMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApiInfoMultiError is an error wrapping multiple validation errors returned
+// by ApiInfo.ValidateAll() if the designated constraints aren't met.
+type ApiInfoMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApiInfoMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApiInfoMultiError) AllErrors() []error { return m }
+
+// ApiInfoValidationError is the validation error returned by ApiInfo.Validate
+// if the designated constraints aren't met.
+type ApiInfoValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApiInfoValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApiInfoValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApiInfoValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApiInfoValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApiInfoValidationError) ErrorName() string { return "ApiInfoValidationError" }
+
+// Error satisfies the builtin error interface
+func (e ApiInfoValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApiInfo.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApiInfoValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApiInfoValidationError{}

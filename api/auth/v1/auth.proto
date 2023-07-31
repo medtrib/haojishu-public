@@ -152,7 +152,33 @@ service Auth {
 	// 角色菜单按钮 - 列表
 	rpc GetRoleMenuBtn (GetRoleMenuBtnReq) returns (GetRoleMenuBtnRep){
 		option (google.api.http) = {
-			get:"/auth/v1//GetRoleMenuBtn"
+			get:"/auth/v1/GetRoleMenuBtn"
+		};
+	};
+	// Api列表
+	rpc GetApiList(GetApiListReq) returns(GetApiListPageRep){
+		option (google.api.http) = {
+			get:"/auth/v1/GetApiList"
+		};
+	};
+	// Api创建
+	rpc CreateApi(CreateApiReq) returns(ApiInfo){
+		option (google.api.http) = {
+			post:"/auth/v1/CreateApi"
+			body:"*"
+		};
+	};
+	// Api更新
+	rpc UpdateApi(UpdateApiReq) returns(RepStatus){
+		option (google.api.http) = {
+			put:"/auth/v1/UpdateApi"
+			body:"*"
+		};
+	};
+	// Api删除
+	rpc DeleteApi(DeleteApiReq) returns(RepStatus){
+		option (google.api.http) = {
+			delete:"/api"
 		};
 	};
 }
@@ -480,4 +506,95 @@ message GetRoleMenuBtnReq {
 message GetRoleMenuBtnRep {
 	// 菜单按钮列表
 	repeated MenuBtn list = 1;
+}
+// 请求 - API分页列表
+message  GetApiListReq {
+	// 主键id
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 页记录数
+	uint64 pageSize = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 名称
+	string name = 3;
+	// 分组
+	string group = 4;
+	// 请求方式
+	string method = 5;
+	// 请求路径
+	string path = 6;
+}
+message  GetApiListPageRep {
+	// 总数
+	uint64 total = 1;
+	// 列表
+	repeated ApiInfo list = 2;
+}
+// API更新
+message UpdateApiReq {
+	// 主键id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 名称
+	string name = 2 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 分组
+	string group = 3 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 请求方式
+	string method = 4 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 请求路径
+	string path = 5 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// API创建
+message CreateApiReq {
+	// 名称
+	string name = 1 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 分组
+	string group = 2 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 请求方式
+	string method = 3 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 请求路径
+	string path = 4 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+}
+// API删除
+message DeleteApiReq {
+	// 主键id
+	int64 id = 1;
+}
+// API信息
+message ApiInfo {
+	// 主键id
+	uint64 id = 1;
+	// 名称
+	string name = 2;
+	// 分组
+	string group = 3;
+	// 请求方式
+	string method = 4;
+	// 请求路径
+	string path = 5;
+	// 创建时间
+	string created_at = 6;
+	// 更新时间
+	string updated_at = 7;
+	// 域
+	string domain = 8;
 }

@@ -43,6 +43,10 @@ const (
 	Auth_ListRoleMenu_FullMethodName       = "/api.auth.v1.Auth/ListRoleMenu"
 	Auth_ListRoleMenuTree_FullMethodName   = "/api.auth.v1.Auth/ListRoleMenuTree"
 	Auth_GetRoleMenuBtn_FullMethodName     = "/api.auth.v1.Auth/GetRoleMenuBtn"
+	Auth_GetApiList_FullMethodName         = "/api.auth.v1.Auth/GetApiList"
+	Auth_CreateApi_FullMethodName          = "/api.auth.v1.Auth/CreateApi"
+	Auth_UpdateApi_FullMethodName          = "/api.auth.v1.Auth/UpdateApi"
+	Auth_DeleteApi_FullMethodName          = "/api.auth.v1.Auth/DeleteApi"
 )
 
 // AuthClient is the client API for Auth service.
@@ -95,6 +99,14 @@ type AuthClient interface {
 	ListRoleMenuTree(ctx context.Context, in *ListRoleMenuReq, opts ...grpc.CallOption) (*ListMenuRep, error)
 	// 角色菜单按钮 - 列表
 	GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRep, error)
+	// Api列表
+	GetApiList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error)
+	// Api创建
+	CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*ApiInfo, error)
+	// Api更新
+	UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*RepStatus, error)
+	// Api删除
+	DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*RepStatus, error)
 }
 
 type authClient struct {
@@ -312,6 +324,42 @@ func (c *authClient) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, 
 	return out, nil
 }
 
+func (c *authClient) GetApiList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error) {
+	out := new(GetApiListPageRep)
+	err := c.cc.Invoke(ctx, Auth_GetApiList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*ApiInfo, error) {
+	out := new(ApiInfo)
+	err := c.cc.Invoke(ctx, Auth_CreateApi_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) UpdateApi(ctx context.Context, in *UpdateApiReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
+	err := c.cc.Invoke(ctx, Auth_UpdateApi_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authClient) DeleteApi(ctx context.Context, in *DeleteApiReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
+	err := c.cc.Invoke(ctx, Auth_DeleteApi_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServer is the server API for Auth service.
 // All implementations must embed UnimplementedAuthServer
 // for forward compatibility
@@ -362,6 +410,14 @@ type AuthServer interface {
 	ListRoleMenuTree(context.Context, *ListRoleMenuReq) (*ListMenuRep, error)
 	// 角色菜单按钮 - 列表
 	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
+	// Api列表
+	GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
+	// Api创建
+	CreateApi(context.Context, *CreateApiReq) (*ApiInfo, error)
+	// Api更新
+	UpdateApi(context.Context, *UpdateApiReq) (*RepStatus, error)
+	// Api删除
+	DeleteApi(context.Context, *DeleteApiReq) (*RepStatus, error)
 	mustEmbedUnimplementedAuthServer()
 }
 
@@ -437,6 +493,18 @@ func (UnimplementedAuthServer) ListRoleMenuTree(context.Context, *ListRoleMenuRe
 }
 func (UnimplementedAuthServer) GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleMenuBtn not implemented")
+}
+func (UnimplementedAuthServer) GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetApiList not implemented")
+}
+func (UnimplementedAuthServer) CreateApi(context.Context, *CreateApiReq) (*ApiInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateApi not implemented")
+}
+func (UnimplementedAuthServer) UpdateApi(context.Context, *UpdateApiReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateApi not implemented")
+}
+func (UnimplementedAuthServer) DeleteApi(context.Context, *DeleteApiReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteApi not implemented")
 }
 func (UnimplementedAuthServer) mustEmbedUnimplementedAuthServer() {}
 
@@ -865,6 +933,78 @@ func _Auth_GetRoleMenuBtn_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Auth_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetApiListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).GetApiList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_GetApiList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).GetApiList(ctx, req.(*GetApiListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_CreateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).CreateApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_CreateApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).CreateApi(ctx, req.(*CreateApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_UpdateApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).UpdateApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_UpdateApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).UpdateApi(ctx, req.(*UpdateApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Auth_DeleteApi_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteApiReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServer).DeleteApi(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Auth_DeleteApi_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServer).DeleteApi(ctx, req.(*DeleteApiReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Auth_ServiceDesc is the grpc.ServiceDesc for Auth service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -963,6 +1103,22 @@ var Auth_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRoleMenuBtn",
 			Handler:    _Auth_GetRoleMenuBtn_Handler,
+		},
+		{
+			MethodName: "GetApiList",
+			Handler:    _Auth_GetApiList_Handler,
+		},
+		{
+			MethodName: "CreateApi",
+			Handler:    _Auth_CreateApi_Handler,
+		},
+		{
+			MethodName: "UpdateApi",
+			Handler:    _Auth_UpdateApi_Handler,
+		},
+		{
+			MethodName: "DeleteApi",
+			Handler:    _Auth_DeleteApi_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
