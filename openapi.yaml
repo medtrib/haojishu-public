@@ -223,7 +223,7 @@ paths:
                   description: 主键id
                   schema:
                     type: integer
-                    format: int64
+                    format: uint64
             responses:
                 "200":
                     description: OK
