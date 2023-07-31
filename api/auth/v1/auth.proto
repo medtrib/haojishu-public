@@ -577,7 +577,7 @@ message CreateApiReq {
 // API删除
 message DeleteApiReq {
 	// 主键id
-	int64 id = 1;
+	uint64 id = 1;
 }
 // API信息
 message ApiInfo {
