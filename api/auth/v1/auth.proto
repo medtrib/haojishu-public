@@ -156,13 +156,13 @@ service Auth {
 		};
 	};
 	// Api列表
-	rpc GetApiList(GetApiListReq) returns(GetApiListPageRep){
+	rpc GetApiList(google.protobuf.Empty) returns(GetApiListRep){
 		option (google.api.http) = {
 			get:"/auth/v1/GetApiList"
 		};
 	};
 	// Api列表分页
-	rpc GetApiPageList(google.protobuf.Empty) returns(GetApiListPageRep){
+	rpc GetApiPageList(GetApiListReq) returns(GetApiListPageRep){
 		option (google.api.http) = {
 			get:"/auth/v1/GetApiList"
 		};
@@ -537,6 +537,11 @@ message  GetApiListPageRep {
 	uint64 total = 1;
 	// 列表
 	repeated ApiInfo list = 2;
+}
+// 获取完整列表
+message GetApiListRep {
+	// 列表
+	repeated ApiInfo list = 1;
 }
 // API更新
 message UpdateApiReq {

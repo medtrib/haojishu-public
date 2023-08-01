@@ -517,6 +517,39 @@ paths:
                 - Auth
             description: Api列表分页
             operationId: Auth_GetApiPageList
+            parameters:
+                - name: page
+                  in: query
+                  description: 主键id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 页记录数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 名称
+                  schema:
+                    type: string
+                - name: group
+                  in: query
+                  description: 分组
+                  schema:
+                    type: string
+                - name: method
+                  in: query
+                  description: 请求方式
+                  schema:
+                    type: string
+                - name: path
+                  in: query
+                  description: 请求路径
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -1303,6 +1336,15 @@ components:
                     items:
                         $ref: '#/components/schemas/api.auth.v1.ApiInfo'
                     description: 列表
+        api.auth.v1.GetApiListRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.auth.v1.ApiInfo'
+                    description: 列表
+            description: 获取完整列表
         api.auth.v1.GetRoleMenuBtnRep:
             type: object
             properties:

@@ -81,9 +81,9 @@ type AuthHTTPServer interface {
 	// FullRoleList 获取角色列表(完整)
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// GetApiList Api列表
-	GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
+	GetApiList(context.Context, *emptypb.Empty) (*GetApiListRep, error)
 	// GetApiPageList Api列表分页
-	GetApiPageList(context.Context, *emptypb.Empty) (*GetApiListPageRep, error)
+	GetApiPageList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
 	// GetRoleMenuBtn 角色菜单按钮 - 列表
 	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
 	// GetRolePolicies 获取角色有那些权限
@@ -579,32 +579,32 @@ func _Auth_GetRoleMenuBtn0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Contex
 
 func _Auth_GetApiList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in GetApiListReq
+		var in emptypb.Empty
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationAuthGetApiList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetApiList(ctx, req.(*GetApiListReq))
+			return srv.GetApiList(ctx, req.(*emptypb.Empty))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
 			return err
 		}
-		reply := out.(*GetApiListPageRep)
+		reply := out.(*GetApiListRep)
 		return ctx.Result(200, reply)
 	}
 }
 
 func _Auth_GetApiPageList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
-		var in emptypb.Empty
+		var in GetApiListReq
 		if err := ctx.BindQuery(&in); err != nil {
 			return err
 		}
 		http.SetOperation(ctx, OperationAuthGetApiPageList)
 		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.GetApiPageList(ctx, req.(*emptypb.Empty))
+			return srv.GetApiPageList(ctx, req.(*GetApiListReq))
 		})
 		out, err := h(ctx, &in)
 		if err != nil {
@@ -688,8 +688,8 @@ type AuthHTTPClient interface {
 	EditMenu(ctx context.Context, req *EditMenuReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
-	GetApiList(ctx context.Context, req *GetApiListReq, opts ...http.CallOption) (rsp *GetApiListPageRep, err error)
-	GetApiPageList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *GetApiListPageRep, err error)
+	GetApiList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *GetApiListRep, err error)
+	GetApiPageList(ctx context.Context, req *GetApiListReq, opts ...http.CallOption) (rsp *GetApiListPageRep, err error)
 	GetRoleMenuBtn(ctx context.Context, req *GetRoleMenuBtnReq, opts ...http.CallOption) (rsp *GetRoleMenuBtnRep, err error)
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
@@ -906,8 +906,8 @@ func (c *AuthHTTPClientImpl) FullRoleList(ctx context.Context, in *emptypb.Empty
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) GetApiList(ctx context.Context, in *GetApiListReq, opts ...http.CallOption) (*GetApiListPageRep, error) {
-	var out GetApiListPageRep
+func (c *AuthHTTPClientImpl) GetApiList(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*GetApiListRep, error) {
+	var out GetApiListRep
 	pattern := "/auth/v1/GetApiList"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthGetApiList))
@@ -919,7 +919,7 @@ func (c *AuthHTTPClientImpl) GetApiList(ctx context.Context, in *GetApiListReq, 
 	return &out, err
 }
 
-func (c *AuthHTTPClientImpl) GetApiPageList(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*GetApiListPageRep, error) {
+func (c *AuthHTTPClientImpl) GetApiPageList(ctx context.Context, in *GetApiListReq, opts ...http.CallOption) (*GetApiListPageRep, error) {
 	var out GetApiListPageRep
 	pattern := "/auth/v1/GetApiList"
 	path := binding.EncodeURL(pattern, in, true)

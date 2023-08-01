@@ -101,9 +101,9 @@ type AuthClient interface {
 	// 角色菜单按钮 - 列表
 	GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, opts ...grpc.CallOption) (*GetRoleMenuBtnRep, error)
 	// Api列表
-	GetApiList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error)
+	GetApiList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetApiListRep, error)
 	// Api列表分页
-	GetApiPageList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetApiListPageRep, error)
+	GetApiPageList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error)
 	// Api创建
 	CreateApi(ctx context.Context, in *CreateApiReq, opts ...grpc.CallOption) (*ApiInfo, error)
 	// Api更新
@@ -327,8 +327,8 @@ func (c *authClient) GetRoleMenuBtn(ctx context.Context, in *GetRoleMenuBtnReq, 
 	return out, nil
 }
 
-func (c *authClient) GetApiList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error) {
-	out := new(GetApiListPageRep)
+func (c *authClient) GetApiList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetApiListRep, error) {
+	out := new(GetApiListRep)
 	err := c.cc.Invoke(ctx, Auth_GetApiList_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -336,7 +336,7 @@ func (c *authClient) GetApiList(ctx context.Context, in *GetApiListReq, opts ...
 	return out, nil
 }
 
-func (c *authClient) GetApiPageList(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetApiListPageRep, error) {
+func (c *authClient) GetApiPageList(ctx context.Context, in *GetApiListReq, opts ...grpc.CallOption) (*GetApiListPageRep, error) {
 	out := new(GetApiListPageRep)
 	err := c.cc.Invoke(ctx, Auth_GetApiPageList_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -423,9 +423,9 @@ type AuthServer interface {
 	// 角色菜单按钮 - 列表
 	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
 	// Api列表
-	GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
+	GetApiList(context.Context, *emptypb.Empty) (*GetApiListRep, error)
 	// Api列表分页
-	GetApiPageList(context.Context, *emptypb.Empty) (*GetApiListPageRep, error)
+	GetApiPageList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
 	// Api创建
 	CreateApi(context.Context, *CreateApiReq) (*ApiInfo, error)
 	// Api更新
@@ -508,10 +508,10 @@ func (UnimplementedAuthServer) ListRoleMenuTree(context.Context, *ListRoleMenuRe
 func (UnimplementedAuthServer) GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleMenuBtn not implemented")
 }
-func (UnimplementedAuthServer) GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error) {
+func (UnimplementedAuthServer) GetApiList(context.Context, *emptypb.Empty) (*GetApiListRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiList not implemented")
 }
-func (UnimplementedAuthServer) GetApiPageList(context.Context, *emptypb.Empty) (*GetApiListPageRep, error) {
+func (UnimplementedAuthServer) GetApiPageList(context.Context, *GetApiListReq) (*GetApiListPageRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiPageList not implemented")
 }
 func (UnimplementedAuthServer) CreateApi(context.Context, *CreateApiReq) (*ApiInfo, error) {
@@ -951,7 +951,7 @@ func _Auth_GetRoleMenuBtn_Handler(srv interface{}, ctx context.Context, dec func
 }
 
 func _Auth_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetApiListReq)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -963,13 +963,13 @@ func _Auth_GetApiList_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: Auth_GetApiList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetApiList(ctx, req.(*GetApiListReq))
+		return srv.(AuthServer).GetApiList(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Auth_GetApiPageList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(emptypb.Empty)
+	in := new(GetApiListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -981,7 +981,7 @@ func _Auth_GetApiPageList_Handler(srv interface{}, ctx context.Context, dec func
 		FullMethod: Auth_GetApiPageList_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthServer).GetApiPageList(ctx, req.(*emptypb.Empty))
+		return srv.(AuthServer).GetApiPageList(ctx, req.(*GetApiListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
