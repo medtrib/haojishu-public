@@ -36,6 +36,7 @@ const OperationAuthEditMenu = "/api.auth.v1.Auth/EditMenu"
 const OperationAuthEditRole = "/api.auth.v1.Auth/EditRole"
 const OperationAuthFullRoleList = "/api.auth.v1.Auth/FullRoleList"
 const OperationAuthGetApiList = "/api.auth.v1.Auth/GetApiList"
+const OperationAuthGetApiPageList = "/api.auth.v1.Auth/GetApiPageList"
 const OperationAuthGetRoleMenuBtn = "/api.auth.v1.Auth/GetRoleMenuBtn"
 const OperationAuthGetRolePolicies = "/api.auth.v1.Auth/GetRolePolicies"
 const OperationAuthGetRolesForUser = "/api.auth.v1.Auth/GetRolesForUser"
@@ -81,6 +82,8 @@ type AuthHTTPServer interface {
 	FullRoleList(context.Context, *emptypb.Empty) (*FullRoleListRep, error)
 	// GetApiList Api列表
 	GetApiList(context.Context, *GetApiListReq) (*GetApiListPageRep, error)
+	// GetApiPageList Api列表分页
+	GetApiPageList(context.Context, *emptypb.Empty) (*GetApiListPageRep, error)
 	// GetRoleMenuBtn 角色菜单按钮 - 列表
 	GetRoleMenuBtn(context.Context, *GetRoleMenuBtnReq) (*GetRoleMenuBtnRep, error)
 	// GetRolePolicies 获取角色有那些权限
@@ -131,6 +134,7 @@ func RegisterAuthHTTPServer(s *http.Server, srv AuthHTTPServer) {
 	r.GET("/auth/v1/ListRoleMenuTree", _Auth_ListRoleMenuTree0_HTTP_Handler(srv))
 	r.GET("/auth/v1/GetRoleMenuBtn", _Auth_GetRoleMenuBtn0_HTTP_Handler(srv))
 	r.GET("/auth/v1/GetApiList", _Auth_GetApiList0_HTTP_Handler(srv))
+	r.GET("/auth/v1/GetApiList", _Auth_GetApiPageList0_HTTP_Handler(srv))
 	r.POST("/auth/v1/CreateApi", _Auth_CreateApi0_HTTP_Handler(srv))
 	r.PUT("/auth/v1/UpdateApi", _Auth_UpdateApi0_HTTP_Handler(srv))
 	r.DELETE("/api", _Auth_DeleteApi0_HTTP_Handler(srv))
@@ -592,6 +596,25 @@ func _Auth_GetApiList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) e
 	}
 }
 
+func _Auth_GetApiPageList0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in emptypb.Empty
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAuthGetApiPageList)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetApiPageList(ctx, req.(*emptypb.Empty))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetApiListPageRep)
+		return ctx.Result(200, reply)
+	}
+}
+
 func _Auth_CreateApi0_HTTP_Handler(srv AuthHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in CreateApiReq
@@ -666,6 +689,7 @@ type AuthHTTPClient interface {
 	EditRole(ctx context.Context, req *EditRoleReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	FullRoleList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *FullRoleListRep, err error)
 	GetApiList(ctx context.Context, req *GetApiListReq, opts ...http.CallOption) (rsp *GetApiListPageRep, err error)
+	GetApiPageList(ctx context.Context, req *emptypb.Empty, opts ...http.CallOption) (rsp *GetApiListPageRep, err error)
 	GetRoleMenuBtn(ctx context.Context, req *GetRoleMenuBtnReq, opts ...http.CallOption) (rsp *GetRoleMenuBtnRep, err error)
 	GetRolePolicies(ctx context.Context, req *GetRolePoliciesReq, opts ...http.CallOption) (rsp *GetRolePoliciesRep, err error)
 	GetRolesForUser(ctx context.Context, req *GetRolesForUserReq, opts ...http.CallOption) (rsp *GetRolesForUserRep, err error)
@@ -887,6 +911,19 @@ func (c *AuthHTTPClientImpl) GetApiList(ctx context.Context, in *GetApiListReq, 
 	pattern := "/auth/v1/GetApiList"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationAuthGetApiList))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AuthHTTPClientImpl) GetApiPageList(ctx context.Context, in *emptypb.Empty, opts ...http.CallOption) (*GetApiListPageRep, error) {
+	var out GetApiListPageRep
+	pattern := "/auth/v1/GetApiList"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationAuthGetApiPageList))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

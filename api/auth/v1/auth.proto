@@ -161,6 +161,12 @@ service Auth {
 			get:"/auth/v1/GetApiList"
 		};
 	};
+	// Api列表分页
+	rpc GetApiPageList(google.protobuf.Empty) returns(GetApiListPageRep){
+		option (google.api.http) = {
+			get:"/auth/v1/GetApiList"
+		};
+	};
 	// Api创建
 	rpc CreateApi(CreateApiReq) returns(ApiInfo){
 		option (google.api.http) = {
