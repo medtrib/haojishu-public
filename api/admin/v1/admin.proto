@@ -18,7 +18,13 @@ service Admin {
 					body:"*"
 			};
 	};
-
+	// 更新用户登录时间和IP
+	rpc UpdateAdminIpAndTime(UpdateAdminIpAndTimeReq) returns (RepStatus) {
+		option (google.api.http) = {
+			post:"/admin/v1/UpdateAdminIpAndTime"
+			body:"*"
+		};
+	}
 	// 编辑管理员
 	rpc UpdateAdmin (UpdateAdminReq) returns (RepStatus){
 			option (google.api.http) = {
@@ -26,14 +32,12 @@ service Admin {
 					body:"*"
 			};
 	};
-
 	// 删除管理员
 	rpc DeleteAdmin (DeleteAdminReq) returns (RepStatus){
 			option (google.api.http) = {
 					delete:"/admin/v1/DeleteAdmin"
 			};
 	};
-
 	// 恢复管理员
 	rpc RecoverAdmin (RecoverAdminReq) returns (RepStatus){
 			option (google.api.http) = {
@@ -41,7 +45,6 @@ service Admin {
 					body:"*"
 			};
 	};
-
 	// 管理员状态
 	rpc AdminStatus (AdminStatusReq) returns (RepStatus){
 			option (google.api.http) = {
@@ -49,7 +52,6 @@ service Admin {
 					body:"*"
 			};
 	};
-
 	// 验证管理员密码
 	rpc VerifyAdminPasswd (VerifyAdminPasswdReq) returns (RepStatus){
 			option (google.api.http) = {
@@ -57,21 +59,18 @@ service Admin {
 					body:"*"
 			};
 	};
-
 	// 获取管理员详情
 	rpc GetAdmin (GetAdminReq) returns (AdminInfoRep){
 			option (google.api.http) = {
 					get:"/admin/v1/GetAdmin"
 			};
 	};
-
 	// 获取管理员列表
 	rpc ListAdmin (ListAdminReq) returns (ListAdminRep){
 		option (google.api.http) = {
 			get:"/admin/v1/ListAdmin"
 		};
 	};
-
 }
 // 创建管理员
 message CreateAdminReq {
@@ -149,6 +148,19 @@ message AdminInfoRep {
 	string updated_at = 12;
 	// 删除时间
 	string deleted_at = 13;
+}
+// 更新管理员登录IP与时间
+message UpdateAdminIpAndTimeReq{
+	// id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// ip
+	string ip = 2 [
+		(validate.rules).string.ip = true
+	];
+	// time
+	string time = 3 ;
 }
 // 编辑管理员
 message UpdateAdminReq {

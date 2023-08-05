@@ -192,6 +192,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.admin.v1.RepStatus'
+    /admin/v1/UpdateAdminIpAndTime:
+        post:
+            tags:
+                - Admin
+            description: 更新用户登录时间和IP
+            operationId: Admin_UpdateAdminIpAndTime
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.admin.v1.UpdateAdminIpAndTimeReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.admin.v1.RepStatus'
     /admin/v1/VerifyAdminPasswd:
         post:
             tags:
@@ -1102,6 +1121,20 @@ components:
                 success:
                     type: boolean
             description: 状态
+        api.admin.v1.UpdateAdminIpAndTimeReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: id
+                    format: uint64
+                ip:
+                    type: string
+                    description: ip
+                time:
+                    type: string
+                    description: time
+            description: 更新管理员登录IP与时间
         api.admin.v1.UpdateAdminReq:
             type: object
             properties:

@@ -26,6 +26,7 @@ const OperationAdminGetAdmin = "/api.admin.v1.Admin/GetAdmin"
 const OperationAdminListAdmin = "/api.admin.v1.Admin/ListAdmin"
 const OperationAdminRecoverAdmin = "/api.admin.v1.Admin/RecoverAdmin"
 const OperationAdminUpdateAdmin = "/api.admin.v1.Admin/UpdateAdmin"
+const OperationAdminUpdateAdminIpAndTime = "/api.admin.v1.Admin/UpdateAdminIpAndTime"
 const OperationAdminVerifyAdminPasswd = "/api.admin.v1.Admin/VerifyAdminPasswd"
 
 type AdminHTTPServer interface {
@@ -43,6 +44,8 @@ type AdminHTTPServer interface {
 	RecoverAdmin(context.Context, *RecoverAdminReq) (*RepStatus, error)
 	// UpdateAdmin 编辑管理员
 	UpdateAdmin(context.Context, *UpdateAdminReq) (*RepStatus, error)
+	// UpdateAdminIpAndTime 更新用户登录时间和IP
+	UpdateAdminIpAndTime(context.Context, *UpdateAdminIpAndTimeReq) (*RepStatus, error)
 	// VerifyAdminPasswd 验证管理员密码
 	VerifyAdminPasswd(context.Context, *VerifyAdminPasswdReq) (*RepStatus, error)
 }
@@ -50,6 +53,7 @@ type AdminHTTPServer interface {
 func RegisterAdminHTTPServer(s *http.Server, srv AdminHTTPServer) {
 	r := s.Route("/")
 	r.POST("/admin/v1/CreateAdmin", _Admin_CreateAdmin0_HTTP_Handler(srv))
+	r.POST("/admin/v1/UpdateAdminIpAndTime", _Admin_UpdateAdminIpAndTime0_HTTP_Handler(srv))
 	r.PUT("/admin/v1/UpdateAdmin", _Admin_UpdateAdmin0_HTTP_Handler(srv))
 	r.DELETE("/admin/v1/DeleteAdmin", _Admin_DeleteAdmin0_HTTP_Handler(srv))
 	r.PATCH("/admin/v1/RecoverAdmin", _Admin_RecoverAdmin0_HTTP_Handler(srv))
@@ -74,6 +78,25 @@ func _Admin_CreateAdmin0_HTTP_Handler(srv AdminHTTPServer) func(ctx http.Context
 			return err
 		}
 		reply := out.(*AdminInfoRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Admin_UpdateAdminIpAndTime0_HTTP_Handler(srv AdminHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in UpdateAdminIpAndTimeReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationAdminUpdateAdminIpAndTime)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.UpdateAdminIpAndTime(ctx, req.(*UpdateAdminIpAndTimeReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RepStatus)
 		return ctx.Result(200, reply)
 	}
 }
@@ -219,6 +242,7 @@ type AdminHTTPClient interface {
 	ListAdmin(ctx context.Context, req *ListAdminReq, opts ...http.CallOption) (rsp *ListAdminRep, err error)
 	RecoverAdmin(ctx context.Context, req *RecoverAdminReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	UpdateAdmin(ctx context.Context, req *UpdateAdminReq, opts ...http.CallOption) (rsp *RepStatus, err error)
+	UpdateAdminIpAndTime(ctx context.Context, req *UpdateAdminIpAndTimeReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 	VerifyAdminPasswd(ctx context.Context, req *VerifyAdminPasswdReq, opts ...http.CallOption) (rsp *RepStatus, err error)
 }
 
@@ -315,6 +339,19 @@ func (c *AdminHTTPClientImpl) UpdateAdmin(ctx context.Context, in *UpdateAdminRe
 	opts = append(opts, http.Operation(OperationAdminUpdateAdmin))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *AdminHTTPClientImpl) UpdateAdminIpAndTime(ctx context.Context, in *UpdateAdminIpAndTimeReq, opts ...http.CallOption) (*RepStatus, error) {
+	var out RepStatus
+	pattern := "/admin/v1/UpdateAdminIpAndTime"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationAdminUpdateAdminIpAndTime))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}

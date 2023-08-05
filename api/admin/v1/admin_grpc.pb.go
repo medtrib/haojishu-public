@@ -19,14 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Admin_CreateAdmin_FullMethodName       = "/api.admin.v1.Admin/CreateAdmin"
-	Admin_UpdateAdmin_FullMethodName       = "/api.admin.v1.Admin/UpdateAdmin"
-	Admin_DeleteAdmin_FullMethodName       = "/api.admin.v1.Admin/DeleteAdmin"
-	Admin_RecoverAdmin_FullMethodName      = "/api.admin.v1.Admin/RecoverAdmin"
-	Admin_AdminStatus_FullMethodName       = "/api.admin.v1.Admin/AdminStatus"
-	Admin_VerifyAdminPasswd_FullMethodName = "/api.admin.v1.Admin/VerifyAdminPasswd"
-	Admin_GetAdmin_FullMethodName          = "/api.admin.v1.Admin/GetAdmin"
-	Admin_ListAdmin_FullMethodName         = "/api.admin.v1.Admin/ListAdmin"
+	Admin_CreateAdmin_FullMethodName          = "/api.admin.v1.Admin/CreateAdmin"
+	Admin_UpdateAdminIpAndTime_FullMethodName = "/api.admin.v1.Admin/UpdateAdminIpAndTime"
+	Admin_UpdateAdmin_FullMethodName          = "/api.admin.v1.Admin/UpdateAdmin"
+	Admin_DeleteAdmin_FullMethodName          = "/api.admin.v1.Admin/DeleteAdmin"
+	Admin_RecoverAdmin_FullMethodName         = "/api.admin.v1.Admin/RecoverAdmin"
+	Admin_AdminStatus_FullMethodName          = "/api.admin.v1.Admin/AdminStatus"
+	Admin_VerifyAdminPasswd_FullMethodName    = "/api.admin.v1.Admin/VerifyAdminPasswd"
+	Admin_GetAdmin_FullMethodName             = "/api.admin.v1.Admin/GetAdmin"
+	Admin_ListAdmin_FullMethodName            = "/api.admin.v1.Admin/ListAdmin"
 )
 
 // AdminClient is the client API for Admin service.
@@ -35,6 +36,8 @@ const (
 type AdminClient interface {
 	// 创建管理员
 	CreateAdmin(ctx context.Context, in *CreateAdminReq, opts ...grpc.CallOption) (*AdminInfoRep, error)
+	// 更新用户登录时间和IP
+	UpdateAdminIpAndTime(ctx context.Context, in *UpdateAdminIpAndTimeReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 编辑管理员
 	UpdateAdmin(ctx context.Context, in *UpdateAdminReq, opts ...grpc.CallOption) (*RepStatus, error)
 	// 删除管理员
@@ -62,6 +65,15 @@ func NewAdminClient(cc grpc.ClientConnInterface) AdminClient {
 func (c *adminClient) CreateAdmin(ctx context.Context, in *CreateAdminReq, opts ...grpc.CallOption) (*AdminInfoRep, error) {
 	out := new(AdminInfoRep)
 	err := c.cc.Invoke(ctx, Admin_CreateAdmin_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminClient) UpdateAdminIpAndTime(ctx context.Context, in *UpdateAdminIpAndTimeReq, opts ...grpc.CallOption) (*RepStatus, error) {
+	out := new(RepStatus)
+	err := c.cc.Invoke(ctx, Admin_UpdateAdminIpAndTime_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -137,6 +149,8 @@ func (c *adminClient) ListAdmin(ctx context.Context, in *ListAdminReq, opts ...g
 type AdminServer interface {
 	// 创建管理员
 	CreateAdmin(context.Context, *CreateAdminReq) (*AdminInfoRep, error)
+	// 更新用户登录时间和IP
+	UpdateAdminIpAndTime(context.Context, *UpdateAdminIpAndTimeReq) (*RepStatus, error)
 	// 编辑管理员
 	UpdateAdmin(context.Context, *UpdateAdminReq) (*RepStatus, error)
 	// 删除管理员
@@ -160,6 +174,9 @@ type UnimplementedAdminServer struct {
 
 func (UnimplementedAdminServer) CreateAdmin(context.Context, *CreateAdminReq) (*AdminInfoRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAdmin not implemented")
+}
+func (UnimplementedAdminServer) UpdateAdminIpAndTime(context.Context, *UpdateAdminIpAndTimeReq) (*RepStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAdminIpAndTime not implemented")
 }
 func (UnimplementedAdminServer) UpdateAdmin(context.Context, *UpdateAdminReq) (*RepStatus, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAdmin not implemented")
@@ -209,6 +226,24 @@ func _Admin_CreateAdmin_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(AdminServer).CreateAdmin(ctx, req.(*CreateAdminReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Admin_UpdateAdminIpAndTime_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAdminIpAndTimeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServer).UpdateAdminIpAndTime(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Admin_UpdateAdminIpAndTime_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServer).UpdateAdminIpAndTime(ctx, req.(*UpdateAdminIpAndTimeReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -349,6 +384,10 @@ var Admin_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAdmin",
 			Handler:    _Admin_CreateAdmin_Handler,
+		},
+		{
+			MethodName: "UpdateAdminIpAndTime",
+			Handler:    _Admin_UpdateAdminIpAndTime_Handler,
 		},
 		{
 			MethodName: "UpdateAdmin",
