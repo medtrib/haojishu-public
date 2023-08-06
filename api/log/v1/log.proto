@@ -18,7 +18,7 @@ service Log {
 	// 获取日志列表
 	rpc GetLogList(GetLogListReq) returns(GetLogListRep){
 		option (google.api.http) = {
-			get:"/log/v1/log"
+			get:"/log/v1/GetLogList"
 		};
 	};
 }

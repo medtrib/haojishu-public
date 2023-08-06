@@ -1032,7 +1032,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.log.v1.RepStatus'
-    /log/v1/log:
+    /log/v1/GetLogList:
         get:
             tags:
                 - Log

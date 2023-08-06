@@ -32,7 +32,7 @@ type LogHTTPServer interface {
 func RegisterLogHTTPServer(s *http.Server, srv LogHTTPServer) {
 	r := s.Route("/")
 	r.POST("/log/v1/CreateLog", _Log_CreateLog0_HTTP_Handler(srv))
-	r.GET("/log/v1/log", _Log_GetLogList0_HTTP_Handler(srv))
+	r.GET("/log/v1/GetLogList", _Log_GetLogList0_HTTP_Handler(srv))
 }
 
 func _Log_CreateLog0_HTTP_Handler(srv LogHTTPServer) func(ctx http.Context) error {
@@ -101,7 +101,7 @@ func (c *LogHTTPClientImpl) CreateLog(ctx context.Context, in *CreateLogReq, opt
 
 func (c *LogHTTPClientImpl) GetLogList(ctx context.Context, in *GetLogListReq, opts ...http.CallOption) (*GetLogListRep, error) {
 	var out GetLogListRep
-	pattern := "/log/v1/log"
+	pattern := "/log/v1/GetLogList"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationLogGetLogList))
 	opts = append(opts, http.PathTemplate(pattern))
