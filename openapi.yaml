@@ -1013,6 +1013,86 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.common.v1.VerifyCaptchaRep'
+    /log/v1/CreateLog:
+        post:
+            tags:
+                - Log
+            description: 创建日志
+            operationId: Log_CreateLog
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.log.v1.CreateLogReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.log.v1.RepStatus'
+    /log/v1/log:
+        get:
+            tags:
+                - Log
+            description: 获取日志列表
+            operationId: Log_GetLogList
+            parameters:
+                - name: page
+                  in: query
+                  description: 主键id
+                  schema:
+                    type: integer
+                    format: int64
+                - name: pageSize
+                  in: query
+                  description: 页记录数
+                  schema:
+                    type: integer
+                    format: int64
+                - name: name
+                  in: query
+                  description: 名称
+                  schema:
+                    type: string
+                - name: userId
+                  in: query
+                  description: userId
+                  schema:
+                    type: string
+                - name: username
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+                - name: role
+                  in: query
+                  description: 角色
+                  schema:
+                    type: string
+                - name: operation
+                  in: query
+                  description: 路径
+                  schema:
+                    type: string
+                - name: ip
+                  in: query
+                  description: ip
+                  schema:
+                    type: string
+                - name: traceId
+                  in: query
+                  description: trace_id
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.log.v1.GetLogListRep'
 components:
     schemas:
         api.admin.v1.AdminInfoRep:
@@ -1623,8 +1703,130 @@ components:
                     type: boolean
                     description: 状态
             description: 验证验证码
+        api.log.v1.CreateLogReq:
+            type: object
+            properties:
+                traceId:
+                    type: string
+                    description: trace id
+                component:
+                    type: string
+                    description: http/rpc
+                name:
+                    type: string
+                    description: 表
+                latency:
+                    type: string
+                    description: 响应时长
+                userId:
+                    type: string
+                    description: 用户id
+                method:
+                    type: string
+                    description: 请求方式
+                path:
+                    type: string
+                    description: 请求路径
+                request:
+                    type: string
+                    description: 请求内容
+                code:
+                    type: string
+                    description: 响应内容
+                reason:
+                    type: string
+                    description: 提示信息
+                ip:
+                    type: string
+                    description: 请求ip
+                createdAt:
+                    type: string
+                    description: 创建时间
+                operation:
+                    type: string
+                    description: kratos操作路径
+                username:
+                    type: string
+                    description: 用户名
+                role:
+                    type: string
+                    description: 角色
+            description: 请求 - 创建
+        api.log.v1.GetLogListRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总数
+                    format: int64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.log.v1.LogInfo'
+                    description: 列表
+            description: 列表
+        api.log.v1.LogInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 日志id
+                    format: int64
+                traceId:
+                    type: string
+                    description: trace id
+                component:
+                    type: string
+                    description: http/rpc
+                operation:
+                    type: string
+                    description: kratos操作路径
+                userId:
+                    type: string
+                    description: 用户id
+                method:
+                    type: string
+                    description: 请求方式
+                path:
+                    type: string
+                    description: 请求路径
+                request:
+                    type: string
+                    description: 请求内容
+                code:
+                    type: string
+                    description: 响应内容
+                reason:
+                    type: string
+                    description: 提示信息
+                ip:
+                    type: string
+                    description: 请求ip
+                createdAt:
+                    type: string
+                    description: 创建时间
+                name:
+                    type: string
+                    description: 名称
+                latency:
+                    type: string
+                    description: 响应时长
+                username:
+                    type: string
+                    description: 用户名
+                role:
+                    type: string
+                    description: 角色
+            description: 响应 - 日志信息
+        api.log.v1.RepStatus:
+            type: object
+            properties:
+                success:
+                    type: boolean
+            description: 角色状态
 tags:
     - name: Admin
     - name: Auth
       description: 权限认证服务
     - name: Common
+    - name: Log
