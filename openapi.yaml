@@ -1706,6 +1706,9 @@ components:
         api.log.v1.CreateLogReq:
             type: object
             properties:
+                domain:
+                    type: string
+                    description: domain
                 traceId:
                     type: string
                     description: trace id

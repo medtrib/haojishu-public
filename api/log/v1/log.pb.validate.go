@@ -57,6 +57,8 @@ func (m *CreateLogReq) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for Domain
+
 	// no validation rules for TraceId
 
 	// no validation rules for Component

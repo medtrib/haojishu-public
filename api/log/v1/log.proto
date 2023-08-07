@@ -24,6 +24,8 @@ service Log {
 }
 // 请求 - 创建
 message CreateLogReq {
+	// domain
+	string domain = 1;
 	// trace id
 	string trace_id = 2;
 	// http/rpc
