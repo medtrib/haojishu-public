@@ -1,0 +1,363 @@
+syntax = "proto3";
+
+package api.product.v1;
+
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+option go_package = "github.com/medtrib/haojishu-public/api/product/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.product.v1";
+
+service Product {
+	// 创建终端
+	rpc CreateTerminal (CreateTerminalReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateTerminal"
+			body:"*"
+		};
+	};
+	// 编辑终端
+	rpc EditTerminal (EditTerminalReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditTerminal"
+			body:"*"
+		};
+	}
+	// 删除终端
+	rpc DelTerminal (DelIdReq) returns (ProductStatus){
+		option (google.api.http) = {
+			delete:"/product/v1/DelTerminal"
+		};
+	}
+	// 获取终端列表
+	rpc ListTerminal (Terminal) returns (ListTerminalRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListTerminal"
+		};
+	}
+	// 分页获取终端列表
+	rpc PageListTerminal (PageListTerminalReq) returns (PageListTerminalRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListTerminal"
+		};
+	}
+	// 查询单条终端信息
+	rpc GetTerminal(Terminal) returns (Terminal){
+		option (google.api.http) = {
+			get:"/product/v1/GetTerminal"
+		};
+	}
+
+	// 创建产品类型
+	rpc CreateKind(CreateKindReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/GetTerminal",
+			body:"*"
+		};
+	}
+	// 编辑产品类型
+	rpc EditKind(EditKindReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditKind",
+			body:"*"
+		};
+	}
+	// 删除产品类型
+	rpc DelKind(DelIdReq) returns (ProductStatus){
+		option (google.api.http) = {
+			delete:"/product/v1/DelKind"
+		};
+	}
+	// 获取产品类型列表
+	rpc ListKind(Kind) returns (ListKindRep) {
+		option (google.api.http) = {
+			get:"/product/v1/ListKind"
+		};
+	}
+	// 分页获取产品类型列表
+	rpc PageListKind(PageListKindReq) returns (PageListKindRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListKind"
+		};
+	}
+	// 查询单条产品类型
+	rpc GetKind(Kind) returns (Kind){
+		option (google.api.http) = {
+			get:"/product/v1/GetKind"
+		};
+	}
+
+	// 创建产品
+	rpc CreateProduct(CreateProductReq) returns (ProductStatus){
+		option (google.api.http) = {
+				post:"/product/v1/CreateProduct",
+				body:"*"
+		};
+	}
+	// 编辑产品
+	rpc EditProduct(EditProductReq) returns (ProductStatus){
+		option(google.api.http) = {
+			put:"/product/v1/EditProduct",
+			body:"*"
+		};
+	}
+	// 删除产品
+	rpc DelProduct(DelIdReq) returns (ProductStatus){
+		option(google.api.http) = {
+			delete:"/product/v1/DelProduct"
+		};
+	}
+	// 获取产品类型列表
+	rpc ListProduct(ProductInfo) returns (ListProductRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListProduct"
+		};
+	}
+	// 分页获取产品类型列表
+	// 查询单条产品类型
+
+	// 创建产品分类
+	// 编辑产品分类
+	// 删除产品分类
+	// 获取产品分类列表
+	// 分页获取产品分类列表
+	// 查询单条产品分类
+
+	// 创建区域
+	// 编辑区域
+	// 删除区域
+	// 获取区域列表
+	// 分页获取区域列表
+	// 查询单条区域
+
+	// 创建产品详情
+	// 编辑产品详情
+	// 删除产品详情
+	// 获取产品详情列表
+	// 分页获取产品详情列表
+	// 获取单挑产品详情
+
+	// 添加产品终端
+	// 编辑产品终端
+	// 删除产品终端
+	// 获取产品终端列表
+	// 分页获取产品终端列表
+	// 获取单挑产品终端
+
+
+}
+
+message CreateTerminalReq {
+	// 终端名称
+	string name = 1 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 关键字
+	string keywords = 2 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 简介
+	string description = 3 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 图片
+	string img = 4 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 排序
+	uint64 sort = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message Terminal {
+	// 终端名称
+	string name = 1 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 关键字
+	string keywords = 2 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 简介
+	string description = 3 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 图片
+	string img = 4 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 排序
+	uint64 sort = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message EditTerminalReq {
+	// id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 终端名称
+	string name = 2 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 关键字
+	string keywords = 3 [
+		(validate.rules).string = {min_len: 1, max_len: 255}
+	];
+	// 简介
+	string description = 4 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 图片
+	string img = 5 [
+		(validate.rules).string = {min_len:1, max_len: 255}
+	];
+	// 排序
+	uint64 sort = 6 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message DelIdReq{
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ListTerminalRep{
+	repeated	Terminal list = 1;
+}
+message PageListTerminalReq{
+	// 页码
+	uint64 page = 1[
+		(validate.rules).uint64.gt = 0
+	];
+	// 页记录数
+	uint64 page_size = 2[
+		(validate.rules).uint64.gt = 0
+	];
+	// 用户名
+	string name = 3;
+}
+message PageListTerminalRep{
+	// 总记录数
+	uint64 total = 1;
+	// 列表
+	repeated Terminal list = 2;
+}
+message ProductStatus{
+	bool success = 1;
+}
+message CreateKindReq{
+	// 产品类型名称
+	string name = 1 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message EditKindReq{
+	// 产品类型名称
+	string name = 1 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message Kind {
+	// 产品类型名称
+	string name =1 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message ListKindRep{
+	repeated Kind list = 1;
+}
+message PageListKindReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListKindRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated Kind list = 2;
+}
+message CreateProductReq{
+	// 产品类型ID
+	uint64 kind_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品名称
+	string name = 2 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 关键字
+	string keyword = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 简介
+	string description = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message EditProductReq{
+	// 产品ID
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型ID
+	uint64 kind_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 关键字
+	string keywords = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 简介
+	string description = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message ProductInfo{
+	// 逐渐
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 kind_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 关键词
+	string keywords = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 简介
+	string description = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 创建时间
+	string created_at = 6;
+	// 最后编辑时间
+	string updated_at = 7;
+	// 最后删除时间
+	string deleted_at = 8;
+}
+message ListProductRep {
+	repeated ProductInfo list = 1;
+}

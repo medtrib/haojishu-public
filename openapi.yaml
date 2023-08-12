@@ -1093,6 +1093,415 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.log.v1.GetLogListRep'
+    /product/v1/CreateProduct:
+        post:
+            tags:
+                - Product
+            description: 创建产品
+            operationId: Product_CreateProduct
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateProductReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/CreateTerminal:
+        post:
+            tags:
+                - Product
+            description: 创建终端
+            operationId: Product_CreateTerminal
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateTerminalReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelKind:
+        delete:
+            tags:
+                - Product
+            description: 删除产品类型
+            operationId: Product_DelKind
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelProduct:
+        delete:
+            tags:
+                - Product
+            description: 删除产品
+            operationId: Product_DelProduct
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelTerminal:
+        delete:
+            tags:
+                - Product
+            description: 删除终端
+            operationId: Product_DelTerminal
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditKind:
+        put:
+            tags:
+                - Product
+            description: 编辑产品类型
+            operationId: Product_EditKind
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditKindReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditProduct:
+        put:
+            tags:
+                - Product
+            description: 编辑产品
+            operationId: Product_EditProduct
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditProductReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditTerminal:
+        put:
+            tags:
+                - Product
+            description: 编辑终端
+            operationId: Product_EditTerminal
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditTerminalReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/GetKind:
+        get:
+            tags:
+                - Product
+            description: 查询单条产品类型
+            operationId: Product_GetKind
+            parameters:
+                - name: name
+                  in: query
+                  description: 产品类型名称
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.Kind'
+    /product/v1/GetTerminal:
+        get:
+            tags:
+                - Product
+            description: 查询单条终端信息
+            operationId: Product_GetTerminal
+            parameters:
+                - name: name
+                  in: query
+                  description: 终端名称
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 关键字
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 简介
+                  schema:
+                    type: string
+                - name: img
+                  in: query
+                  description: 图片
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.Terminal'
+        post:
+            tags:
+                - Product
+            description: 创建产品类型
+            operationId: Product_CreateKind
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateKindReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/ListKind:
+        get:
+            tags:
+                - Product
+            description: 获取产品类型列表
+            operationId: Product_ListKind
+            parameters:
+                - name: name
+                  in: query
+                  description: 产品类型名称
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListKindRep'
+    /product/v1/ListProduct:
+        get:
+            tags:
+                - Product
+            description: 获取产品类型列表
+            operationId: Product_ListProduct
+            parameters:
+                - name: id
+                  in: query
+                  description: 逐渐
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: kindId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 产品名称
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 关键词
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 简介
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListProductRep'
+    /product/v1/ListTerminal:
+        get:
+            tags:
+                - Product
+            description: 获取终端列表
+            operationId: Product_ListTerminal
+            parameters:
+                - name: name
+                  in: query
+                  description: 终端名称
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 关键字
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 简介
+                  schema:
+                    type: string
+                - name: img
+                  in: query
+                  description: 图片
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListTerminalRep'
+    /product/v1/PageListKind:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品类型列表
+            operationId: Product_PageListKind
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 总数
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListKindRep'
+    /product/v1/PageListTerminal:
+        get:
+            tags:
+                - Product
+            description: 分页获取终端列表
+            operationId: Product_PageListTerminal
+            parameters:
+                - name: page
+                  in: query
+                  description: 页码
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 页记录数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 用户名
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListTerminalRep'
 components:
     schemas:
         api.admin.v1.AdminInfoRep:
@@ -1827,9 +2236,204 @@ components:
                 success:
                     type: boolean
             description: 角色状态
+        api.product.v1.CreateKindReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 产品类型名称
+        api.product.v1.CreateProductReq:
+            type: object
+            properties:
+                kindId:
+                    type: integer
+                    description: 产品类型ID
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品名称
+                keyword:
+                    type: string
+                    description: 关键字
+                description:
+                    type: string
+                    description: 简介
+        api.product.v1.CreateTerminalReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 终端名称
+                keywords:
+                    type: string
+                    description: 关键字
+                description:
+                    type: string
+                    description: 简介
+                img:
+                    type: string
+                    description: 图片
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
+        api.product.v1.EditKindReq:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 产品类型名称
+        api.product.v1.EditProductReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品ID
+                    format: uint64
+                kindId:
+                    type: integer
+                    description: 产品类型ID
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品名称
+                keywords:
+                    type: string
+                    description: 关键字
+                description:
+                    type: string
+                    description: 简介
+        api.product.v1.EditTerminalReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: id
+                    format: uint64
+                name:
+                    type: string
+                    description: 终端名称
+                keywords:
+                    type: string
+                    description: 关键字
+                description:
+                    type: string
+                    description: 简介
+                img:
+                    type: string
+                    description: 图片
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
+        api.product.v1.Kind:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 产品类型名称
+        api.product.v1.ListKindRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Kind'
+        api.product.v1.ListProductRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.ProductInfo'
+        api.product.v1.ListTerminalRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Terminal'
+        api.product.v1.PageListKindRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Kind'
+                    description: 列表
+        api.product.v1.PageListTerminalRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总记录数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Terminal'
+                    description: 列表
+        api.product.v1.ProductInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 逐渐
+                    format: uint64
+                kindId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品名称
+                keywords:
+                    type: string
+                    description: 关键词
+                description:
+                    type: string
+                    description: 简介
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
+        api.product.v1.ProductStatus:
+            type: object
+            properties:
+                success:
+                    type: boolean
+        api.product.v1.Terminal:
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 终端名称
+                keywords:
+                    type: string
+                    description: 关键字
+                description:
+                    type: string
+                    description: 简介
+                img:
+                    type: string
+                    description: 图片
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
 tags:
     - name: Admin
     - name: Auth
       description: 权限认证服务
     - name: Common
     - name: Log
+    - name: Product
