@@ -19,56 +19,134 @@ var _ = binding.EncodeURL
 
 const _ = http.SupportPackageIsVersion1
 
+const OperationProductCreateCategory = "/api.product.v1.Product/CreateCategory"
 const OperationProductCreateKind = "/api.product.v1.Product/CreateKind"
 const OperationProductCreateProduct = "/api.product.v1.Product/CreateProduct"
+const OperationProductCreateProductInfo = "/api.product.v1.Product/CreateProductInfo"
+const OperationProductCreateProductTerminal = "/api.product.v1.Product/CreateProductTerminal"
+const OperationProductCreateRegion = "/api.product.v1.Product/CreateRegion"
 const OperationProductCreateTerminal = "/api.product.v1.Product/CreateTerminal"
+const OperationProductDelCategory = "/api.product.v1.Product/DelCategory"
 const OperationProductDelKind = "/api.product.v1.Product/DelKind"
 const OperationProductDelProduct = "/api.product.v1.Product/DelProduct"
+const OperationProductDelProductInfo = "/api.product.v1.Product/DelProductInfo"
+const OperationProductDelProductTerminal = "/api.product.v1.Product/DelProductTerminal"
+const OperationProductDelRegion = "/api.product.v1.Product/DelRegion"
 const OperationProductDelTerminal = "/api.product.v1.Product/DelTerminal"
+const OperationProductEditCategory = "/api.product.v1.Product/EditCategory"
 const OperationProductEditKind = "/api.product.v1.Product/EditKind"
 const OperationProductEditProduct = "/api.product.v1.Product/EditProduct"
+const OperationProductEditProductInfo = "/api.product.v1.Product/EditProductInfo"
+const OperationProductEditProductTerminal = "/api.product.v1.Product/EditProductTerminal"
+const OperationProductEditRegion = "/api.product.v1.Product/EditRegion"
 const OperationProductEditTerminal = "/api.product.v1.Product/EditTerminal"
+const OperationProductGetCategory = "/api.product.v1.Product/GetCategory"
 const OperationProductGetKind = "/api.product.v1.Product/GetKind"
+const OperationProductGetProduct = "/api.product.v1.Product/GetProduct"
+const OperationProductGetProductInfo = "/api.product.v1.Product/GetProductInfo"
+const OperationProductGetProductTerminalInfo = "/api.product.v1.Product/GetProductTerminalInfo"
+const OperationProductGetRegion = "/api.product.v1.Product/GetRegion"
 const OperationProductGetTerminal = "/api.product.v1.Product/GetTerminal"
+const OperationProductListCategory = "/api.product.v1.Product/ListCategory"
 const OperationProductListKind = "/api.product.v1.Product/ListKind"
 const OperationProductListProduct = "/api.product.v1.Product/ListProduct"
+const OperationProductListProductInfo = "/api.product.v1.Product/ListProductInfo"
+const OperationProductListProductTerminal = "/api.product.v1.Product/ListProductTerminal"
+const OperationProductListRegion = "/api.product.v1.Product/ListRegion"
 const OperationProductListTerminal = "/api.product.v1.Product/ListTerminal"
+const OperationProductPageListCategory = "/api.product.v1.Product/PageListCategory"
 const OperationProductPageListKind = "/api.product.v1.Product/PageListKind"
+const OperationProductPageListProduct = "/api.product.v1.Product/PageListProduct"
+const OperationProductPageListProductInfo = "/api.product.v1.Product/PageListProductInfo"
+const OperationProductPageListRegion = "/api.product.v1.Product/PageListRegion"
 const OperationProductPageListTerminal = "/api.product.v1.Product/PageListTerminal"
+const OperationProductPageProductTerminal = "/api.product.v1.Product/PageProductTerminal"
 
 type ProductHTTPServer interface {
+	// CreateCategory 创建产品分类
+	CreateCategory(context.Context, *CreateCategoryReq) (*ProductStatus, error)
 	// CreateKind 创建产品类型
 	CreateKind(context.Context, *CreateKindReq) (*ProductStatus, error)
 	// CreateProduct 创建产品
 	CreateProduct(context.Context, *CreateProductReq) (*ProductStatus, error)
+	// CreateProductInfo 创建产品详情
+	CreateProductInfo(context.Context, *CreateProductInfoReq) (*ProductStatus, error)
+	// CreateProductTerminal 添加产品终端
+	CreateProductTerminal(context.Context, *CreateProductTerminalReq) (*ProductStatus, error)
+	// CreateRegion 创建区域
+	CreateRegion(context.Context, *CreateRegionReq) (*ProductStatus, error)
 	// CreateTerminal 创建终端
 	CreateTerminal(context.Context, *CreateTerminalReq) (*ProductStatus, error)
+	// DelCategory 删除产品分类
+	DelCategory(context.Context, *DelIdReq) (*ProductStatus, error)
 	// DelKind 删除产品类型
 	DelKind(context.Context, *DelIdReq) (*ProductStatus, error)
 	// DelProduct 删除产品
 	DelProduct(context.Context, *DelIdReq) (*ProductStatus, error)
+	// DelProductInfo 删除产品详情
+	DelProductInfo(context.Context, *DelIdReq) (*ProductStatus, error)
+	// DelProductTerminal 删除产品终端
+	DelProductTerminal(context.Context, *DelIdReq) (*ProductStatus, error)
+	// DelRegion 删除区域
+	DelRegion(context.Context, *DelIdReq) (*ProductStatus, error)
 	// DelTerminal 删除终端
 	DelTerminal(context.Context, *DelIdReq) (*ProductStatus, error)
+	// EditCategory 编辑产品分类
+	EditCategory(context.Context, *EditCategoryReq) (*ProductStatus, error)
 	// EditKind 编辑产品类型
 	EditKind(context.Context, *EditKindReq) (*ProductStatus, error)
 	// EditProduct 编辑产品
 	EditProduct(context.Context, *EditProductReq) (*ProductStatus, error)
+	// EditProductInfo 编辑产品详情
+	EditProductInfo(context.Context, *EditProductInfoReq) (*ProductStatus, error)
+	// EditProductTerminal 编辑产品终端
+	EditProductTerminal(context.Context, *EditProductTerminalReq) (*ProductStatus, error)
+	// EditRegion 编辑区域
+	EditRegion(context.Context, *EditRegionReq) (*ProductStatus, error)
 	// EditTerminal 编辑终端
 	EditTerminal(context.Context, *EditTerminalReq) (*ProductStatus, error)
+	// GetCategory 查询单条产品分类
+	GetCategory(context.Context, *CategoryInfo) (*CategoryInfo, error)
 	// GetKind 查询单条产品类型
 	GetKind(context.Context, *Kind) (*Kind, error)
+	// GetProduct 查询单条产品类型
+	GetProduct(context.Context, *ProductInfo) (*ProductInfo, error)
+	// GetProductInfo 获取单挑产品详情
+	GetProductInfo(context.Context, *ProductInfoInfo) (*ProductInfoInfo, error)
+	// GetProductTerminalInfo 获取单挑产品终端
+	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error)
+	// GetRegion 查询单条区域
+	GetRegion(context.Context, *RegionInfo) (*RegionInfo, error)
 	// GetTerminal 查询单条终端信息
 	GetTerminal(context.Context, *Terminal) (*Terminal, error)
+	// ListCategory 获取产品分类列表
+	ListCategory(context.Context, *CategoryInfo) (*ListCategoryRep, error)
 	// ListKind 获取产品类型列表
 	ListKind(context.Context, *Kind) (*ListKindRep, error)
 	// ListProduct 获取产品类型列表
 	ListProduct(context.Context, *ProductInfo) (*ListProductRep, error)
+	// ListProductInfo 获取产品详情列表
+	ListProductInfo(context.Context, *ProductInfoInfo) (*ListProductInfoRep, error)
+	// ListProductTerminal 获取产品终端列表
+	ListProductTerminal(context.Context, *ProductTerminalInfo) (*ListProductTerminalInfoRep, error)
+	// ListRegion 获取区域列表
+	ListRegion(context.Context, *RegionInfo) (*ListRegionRep, error)
 	// ListTerminal 获取终端列表
 	ListTerminal(context.Context, *Terminal) (*ListTerminalRep, error)
+	// PageListCategory 分页获取产品分类列表
+	PageListCategory(context.Context, *PageListCategoryReq) (*PageListCategoryRep, error)
 	// PageListKind 分页获取产品类型列表
 	PageListKind(context.Context, *PageListKindReq) (*PageListKindRep, error)
+	// PageListProduct 分页获取产品类型列表
+	PageListProduct(context.Context, *PageListProductReq) (*PageListProductRep, error)
+	// PageListProductInfo 分页获取产品详情列表
+	PageListProductInfo(context.Context, *PageListProductInfoReq) (*PageListProductInfoRep, error)
+	// PageListRegion 分页获取区域列表
+	PageListRegion(context.Context, *PageListRegionReq) (*PageListRegionRep, error)
 	// PageListTerminal 分页获取终端列表
 	PageListTerminal(context.Context, *PageListTerminalReq) (*PageListTerminalRep, error)
+	// PageProductTerminal 分页获取产品终端列表
+	PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error)
 }
 
 func RegisterProductHTTPServer(s *http.Server, srv ProductHTTPServer) {
@@ -89,6 +167,32 @@ func RegisterProductHTTPServer(s *http.Server, srv ProductHTTPServer) {
 	r.PUT("/product/v1/EditProduct", _Product_EditProduct0_HTTP_Handler(srv))
 	r.DELETE("/product/v1/DelProduct", _Product_DelProduct0_HTTP_Handler(srv))
 	r.GET("/product/v1/ListProduct", _Product_ListProduct0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageListProduct", _Product_PageListProduct0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetProduct", _Product_GetProduct0_HTTP_Handler(srv))
+	r.POST("/product/v1/CreateCategory", _Product_CreateCategory0_HTTP_Handler(srv))
+	r.PUT("/product/v1/EditCategory", _Product_EditCategory0_HTTP_Handler(srv))
+	r.DELETE("/product/v1/DelCategory", _Product_DelCategory0_HTTP_Handler(srv))
+	r.GET("/product/v1/ListCategory", _Product_ListCategory0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageListCategory", _Product_PageListCategory0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetCategory", _Product_GetCategory0_HTTP_Handler(srv))
+	r.POST("/product/v1/CreateRegion", _Product_CreateRegion0_HTTP_Handler(srv))
+	r.PUT("/product/v1/EditRegion", _Product_EditRegion0_HTTP_Handler(srv))
+	r.DELETE("/product/v1/DelRegion", _Product_DelRegion0_HTTP_Handler(srv))
+	r.GET("/product/v1/ListRegion", _Product_ListRegion0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageListRegion", _Product_PageListRegion0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetRegion", _Product_GetRegion0_HTTP_Handler(srv))
+	r.POST("/product/v1/CreateProductInfo", _Product_CreateProductInfo0_HTTP_Handler(srv))
+	r.PUT("/product/v1/EditProductInfo", _Product_EditProductInfo0_HTTP_Handler(srv))
+	r.DELETE("/product/v1/DelProductInfo", _Product_DelProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/ListRegion", _Product_ListProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageListRegion", _Product_PageListProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetRegion", _Product_GetProductInfo0_HTTP_Handler(srv))
+	r.POST("/product/v1/CreateProductTerminal", _Product_CreateProductTerminal0_HTTP_Handler(srv))
+	r.PUT("/product/v1/EditProductTerminal", _Product_EditProductTerminal0_HTTP_Handler(srv))
+	r.DELETE("/product/v1/DelProductTerminal", _Product_DelProductTerminal0_HTTP_Handler(srv))
+	r.GET("/product/v1/ListProductTerminal", _Product_ListProductTerminal0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageProductTerminal", _Product_PageProductTerminal0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetProductTerminalInfo", _Product_GetProductTerminalInfo0_HTTP_Handler(srv))
 }
 
 func _Product_CreateTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
@@ -395,23 +499,543 @@ func _Product_ListProduct0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Con
 	}
 }
 
+func _Product_PageListProduct0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListProductReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductPageListProduct)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListProduct(ctx, req.(*PageListProductReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListProductRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_GetProduct0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ProductInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductGetProduct)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetProduct(ctx, req.(*ProductInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductInfo)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_CreateCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateCategoryReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductCreateCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateCategory(ctx, req.(*CreateCategoryReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_EditCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EditCategoryReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductEditCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.EditCategory(ctx, req.(*EditCategoryReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_DelCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DelIdReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductDelCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DelCategory(ctx, req.(*DelIdReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_ListCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CategoryInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductListCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListCategory(ctx, req.(*CategoryInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListCategoryRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_PageListCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListCategoryReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductPageListCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListCategory(ctx, req.(*PageListCategoryReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListCategoryRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_GetCategory0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CategoryInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductGetCategory)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetCategory(ctx, req.(*CategoryInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*CategoryInfo)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_CreateRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateRegionReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductCreateRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateRegion(ctx, req.(*CreateRegionReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_EditRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EditRegionReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductEditRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.EditRegion(ctx, req.(*EditRegionReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_DelRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DelIdReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductDelRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DelRegion(ctx, req.(*DelIdReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_ListRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RegionInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductListRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListRegion(ctx, req.(*RegionInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListRegionRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_PageListRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListRegionReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductPageListRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListRegion(ctx, req.(*PageListRegionReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListRegionRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_GetRegion0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in RegionInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductGetRegion)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetRegion(ctx, req.(*RegionInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*RegionInfo)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_CreateProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateProductInfoReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductCreateProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateProductInfo(ctx, req.(*CreateProductInfoReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_EditProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EditProductInfoReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductEditProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.EditProductInfo(ctx, req.(*EditProductInfoReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_DelProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DelIdReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductDelProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DelProductInfo(ctx, req.(*DelIdReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_ListProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ProductInfoInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductListProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListProductInfo(ctx, req.(*ProductInfoInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListProductInfoRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_PageListProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListProductInfoReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductPageListProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageListProductInfo(ctx, req.(*PageListProductInfoReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListProductInfoRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_GetProductInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ProductInfoInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductGetProductInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetProductInfo(ctx, req.(*ProductInfoInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductInfoInfo)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_CreateProductTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in CreateProductTerminalReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductCreateProductTerminal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.CreateProductTerminal(ctx, req.(*CreateProductTerminalReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_EditProductTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in EditProductTerminalReq
+		if err := ctx.Bind(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductEditProductTerminal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.EditProductTerminal(ctx, req.(*EditProductTerminalReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_DelProductTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in DelIdReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductDelProductTerminal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.DelProductTerminal(ctx, req.(*DelIdReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductStatus)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_ListProductTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ProductTerminalInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductListProductTerminal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.ListProductTerminal(ctx, req.(*ProductTerminalInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ListProductTerminalInfoRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_PageProductTerminal0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in PageListProductTerminalReq
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductPageProductTerminal)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.PageProductTerminal(ctx, req.(*PageListProductTerminalReq))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*PageListProductTerminalRep)
+		return ctx.Result(200, reply)
+	}
+}
+
+func _Product_GetProductTerminalInfo0_HTTP_Handler(srv ProductHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in ProductTerminalInfo
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationProductGetProductTerminalInfo)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetProductTerminalInfo(ctx, req.(*ProductTerminalInfo))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*ProductInfoInfo)
+		return ctx.Result(200, reply)
+	}
+}
+
 type ProductHTTPClient interface {
+	CreateCategory(ctx context.Context, req *CreateCategoryReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	CreateKind(ctx context.Context, req *CreateKindReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	CreateProduct(ctx context.Context, req *CreateProductReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	CreateProductInfo(ctx context.Context, req *CreateProductInfoReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	CreateProductTerminal(ctx context.Context, req *CreateProductTerminalReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	CreateRegion(ctx context.Context, req *CreateRegionReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	CreateTerminal(ctx context.Context, req *CreateTerminalReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	DelCategory(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	DelKind(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	DelProduct(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	DelProductInfo(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	DelProductTerminal(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	DelRegion(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	DelTerminal(ctx context.Context, req *DelIdReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	EditCategory(ctx context.Context, req *EditCategoryReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	EditKind(ctx context.Context, req *EditKindReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	EditProduct(ctx context.Context, req *EditProductReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	EditProductInfo(ctx context.Context, req *EditProductInfoReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	EditProductTerminal(ctx context.Context, req *EditProductTerminalReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	EditRegion(ctx context.Context, req *EditRegionReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
 	EditTerminal(ctx context.Context, req *EditTerminalReq, opts ...http.CallOption) (rsp *ProductStatus, err error)
+	GetCategory(ctx context.Context, req *CategoryInfo, opts ...http.CallOption) (rsp *CategoryInfo, err error)
 	GetKind(ctx context.Context, req *Kind, opts ...http.CallOption) (rsp *Kind, err error)
+	GetProduct(ctx context.Context, req *ProductInfo, opts ...http.CallOption) (rsp *ProductInfo, err error)
+	GetProductInfo(ctx context.Context, req *ProductInfoInfo, opts ...http.CallOption) (rsp *ProductInfoInfo, err error)
+	GetProductTerminalInfo(ctx context.Context, req *ProductTerminalInfo, opts ...http.CallOption) (rsp *ProductInfoInfo, err error)
+	GetRegion(ctx context.Context, req *RegionInfo, opts ...http.CallOption) (rsp *RegionInfo, err error)
 	GetTerminal(ctx context.Context, req *Terminal, opts ...http.CallOption) (rsp *Terminal, err error)
+	ListCategory(ctx context.Context, req *CategoryInfo, opts ...http.CallOption) (rsp *ListCategoryRep, err error)
 	ListKind(ctx context.Context, req *Kind, opts ...http.CallOption) (rsp *ListKindRep, err error)
 	ListProduct(ctx context.Context, req *ProductInfo, opts ...http.CallOption) (rsp *ListProductRep, err error)
+	ListProductInfo(ctx context.Context, req *ProductInfoInfo, opts ...http.CallOption) (rsp *ListProductInfoRep, err error)
+	ListProductTerminal(ctx context.Context, req *ProductTerminalInfo, opts ...http.CallOption) (rsp *ListProductTerminalInfoRep, err error)
+	ListRegion(ctx context.Context, req *RegionInfo, opts ...http.CallOption) (rsp *ListRegionRep, err error)
 	ListTerminal(ctx context.Context, req *Terminal, opts ...http.CallOption) (rsp *ListTerminalRep, err error)
+	PageListCategory(ctx context.Context, req *PageListCategoryReq, opts ...http.CallOption) (rsp *PageListCategoryRep, err error)
 	PageListKind(ctx context.Context, req *PageListKindReq, opts ...http.CallOption) (rsp *PageListKindRep, err error)
+	PageListProduct(ctx context.Context, req *PageListProductReq, opts ...http.CallOption) (rsp *PageListProductRep, err error)
+	PageListProductInfo(ctx context.Context, req *PageListProductInfoReq, opts ...http.CallOption) (rsp *PageListProductInfoRep, err error)
+	PageListRegion(ctx context.Context, req *PageListRegionReq, opts ...http.CallOption) (rsp *PageListRegionRep, err error)
 	PageListTerminal(ctx context.Context, req *PageListTerminalReq, opts ...http.CallOption) (rsp *PageListTerminalRep, err error)
+	PageProductTerminal(ctx context.Context, req *PageListProductTerminalReq, opts ...http.CallOption) (rsp *PageListProductTerminalRep, err error)
 }
 
 type ProductHTTPClientImpl struct {
@@ -420,6 +1044,19 @@ type ProductHTTPClientImpl struct {
 
 func NewProductHTTPClient(client *http.Client) ProductHTTPClient {
 	return &ProductHTTPClientImpl{client}
+}
+
+func (c *ProductHTTPClientImpl) CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/CreateCategory"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductCreateCategory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
 }
 
 func (c *ProductHTTPClientImpl) CreateKind(ctx context.Context, in *CreateKindReq, opts ...http.CallOption) (*ProductStatus, error) {
@@ -448,6 +1085,45 @@ func (c *ProductHTTPClientImpl) CreateProduct(ctx context.Context, in *CreatePro
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) CreateProductInfo(ctx context.Context, in *CreateProductInfoReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/CreateProductInfo"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductCreateProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) CreateProductTerminal(ctx context.Context, in *CreateProductTerminalReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/CreateProductTerminal"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductCreateProductTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) CreateRegion(ctx context.Context, in *CreateRegionReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/CreateRegion"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductCreateRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) CreateTerminal(ctx context.Context, in *CreateTerminalReq, opts ...http.CallOption) (*ProductStatus, error) {
 	var out ProductStatus
 	pattern := "/product/v1/CreateTerminal"
@@ -455,6 +1131,19 @@ func (c *ProductHTTPClientImpl) CreateTerminal(ctx context.Context, in *CreateTe
 	opts = append(opts, http.Operation(OperationProductCreateTerminal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) DelCategory(ctx context.Context, in *DelIdReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/DelCategory"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductDelCategory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -487,6 +1176,45 @@ func (c *ProductHTTPClientImpl) DelProduct(ctx context.Context, in *DelIdReq, op
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) DelProductInfo(ctx context.Context, in *DelIdReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/DelProductInfo"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductDelProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) DelProductTerminal(ctx context.Context, in *DelIdReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/DelProductTerminal"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductDelProductTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) DelRegion(ctx context.Context, in *DelIdReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/DelRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductDelRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) DelTerminal(ctx context.Context, in *DelIdReq, opts ...http.CallOption) (*ProductStatus, error) {
 	var out ProductStatus
 	pattern := "/product/v1/DelTerminal"
@@ -494,6 +1222,19 @@ func (c *ProductHTTPClientImpl) DelTerminal(ctx context.Context, in *DelIdReq, o
 	opts = append(opts, http.Operation(OperationProductDelTerminal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "DELETE", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) EditCategory(ctx context.Context, in *EditCategoryReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/EditCategory"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductEditCategory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -526,6 +1267,45 @@ func (c *ProductHTTPClientImpl) EditProduct(ctx context.Context, in *EditProduct
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) EditProductInfo(ctx context.Context, in *EditProductInfoReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/EditProductInfo"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductEditProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) EditProductTerminal(ctx context.Context, in *EditProductTerminalReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/EditProductTerminal"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductEditProductTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) EditRegion(ctx context.Context, in *EditRegionReq, opts ...http.CallOption) (*ProductStatus, error) {
+	var out ProductStatus
+	pattern := "/product/v1/EditRegion"
+	path := binding.EncodeURL(pattern, in, false)
+	opts = append(opts, http.Operation(OperationProductEditRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) EditTerminal(ctx context.Context, in *EditTerminalReq, opts ...http.CallOption) (*ProductStatus, error) {
 	var out ProductStatus
 	pattern := "/product/v1/EditTerminal"
@@ -533,6 +1313,19 @@ func (c *ProductHTTPClientImpl) EditTerminal(ctx context.Context, in *EditTermin
 	opts = append(opts, http.Operation(OperationProductEditTerminal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "PUT", path, in, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) GetCategory(ctx context.Context, in *CategoryInfo, opts ...http.CallOption) (*CategoryInfo, error) {
+	var out CategoryInfo
+	pattern := "/product/v1/GetCategory"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductGetCategory))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -552,11 +1345,76 @@ func (c *ProductHTTPClientImpl) GetKind(ctx context.Context, in *Kind, opts ...h
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) GetProduct(ctx context.Context, in *ProductInfo, opts ...http.CallOption) (*ProductInfo, error) {
+	var out ProductInfo
+	pattern := "/product/v1/GetProduct"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductGetProduct))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) GetProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...http.CallOption) (*ProductInfoInfo, error) {
+	var out ProductInfoInfo
+	pattern := "/product/v1/GetRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductGetProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...http.CallOption) (*ProductInfoInfo, error) {
+	var out ProductInfoInfo
+	pattern := "/product/v1/GetProductTerminalInfo"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductGetProductTerminalInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) GetRegion(ctx context.Context, in *RegionInfo, opts ...http.CallOption) (*RegionInfo, error) {
+	var out RegionInfo
+	pattern := "/product/v1/GetRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductGetRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) GetTerminal(ctx context.Context, in *Terminal, opts ...http.CallOption) (*Terminal, error) {
 	var out Terminal
 	pattern := "/product/v1/GetTerminal"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductGetTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) ListCategory(ctx context.Context, in *CategoryInfo, opts ...http.CallOption) (*ListCategoryRep, error) {
+	var out ListCategoryRep
+	pattern := "/product/v1/ListCategory"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductListCategory))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -591,11 +1449,63 @@ func (c *ProductHTTPClientImpl) ListProduct(ctx context.Context, in *ProductInfo
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) ListProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...http.CallOption) (*ListProductInfoRep, error) {
+	var out ListProductInfoRep
+	pattern := "/product/v1/ListRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductListProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) ListProductTerminal(ctx context.Context, in *ProductTerminalInfo, opts ...http.CallOption) (*ListProductTerminalInfoRep, error) {
+	var out ListProductTerminalInfoRep
+	pattern := "/product/v1/ListProductTerminal"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductListProductTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) ListRegion(ctx context.Context, in *RegionInfo, opts ...http.CallOption) (*ListRegionRep, error) {
+	var out ListRegionRep
+	pattern := "/product/v1/ListRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductListRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) ListTerminal(ctx context.Context, in *Terminal, opts ...http.CallOption) (*ListTerminalRep, error) {
 	var out ListTerminalRep
 	pattern := "/product/v1/ListTerminal"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductListTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) PageListCategory(ctx context.Context, in *PageListCategoryReq, opts ...http.CallOption) (*PageListCategoryRep, error) {
+	var out PageListCategoryRep
+	pattern := "/product/v1/PageListCategory"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductPageListCategory))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {
@@ -617,11 +1527,63 @@ func (c *ProductHTTPClientImpl) PageListKind(ctx context.Context, in *PageListKi
 	return &out, err
 }
 
+func (c *ProductHTTPClientImpl) PageListProduct(ctx context.Context, in *PageListProductReq, opts ...http.CallOption) (*PageListProductRep, error) {
+	var out PageListProductRep
+	pattern := "/product/v1/PageListProduct"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductPageListProduct))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) PageListProductInfo(ctx context.Context, in *PageListProductInfoReq, opts ...http.CallOption) (*PageListProductInfoRep, error) {
+	var out PageListProductInfoRep
+	pattern := "/product/v1/PageListRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductPageListProductInfo))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) PageListRegion(ctx context.Context, in *PageListRegionReq, opts ...http.CallOption) (*PageListRegionRep, error) {
+	var out PageListRegionRep
+	pattern := "/product/v1/PageListRegion"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductPageListRegion))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
 func (c *ProductHTTPClientImpl) PageListTerminal(ctx context.Context, in *PageListTerminalReq, opts ...http.CallOption) (*PageListTerminalRep, error) {
 	var out PageListTerminalRep
 	pattern := "/product/v1/PageListTerminal"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductPageListTerminal))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, err
+}
+
+func (c *ProductHTTPClientImpl) PageProductTerminal(ctx context.Context, in *PageListProductTerminalReq, opts ...http.CallOption) (*PageListProductTerminalRep, error) {
+	var out PageListProductTerminalRep
+	pattern := "/product/v1/PageProductTerminal"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationProductPageProductTerminal))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

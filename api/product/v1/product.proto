@@ -114,37 +114,172 @@ service Product {
 		};
 	}
 	// 分页获取产品类型列表
+	rpc PageListProduct(PageListProductReq) returns (PageListProductRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListProduct"
+		};
+	}
 	// 查询单条产品类型
-
+	rpc GetProduct(ProductInfo) returns (ProductInfo){
+		option (google.api.http) = {
+			get:"/product/v1/GetProduct"
+		};
+	}
 	// 创建产品分类
+	rpc CreateCategory(CreateCategoryReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateCategory",
+			body:"*"
+		};
+	}
 	// 编辑产品分类
+	rpc EditCategory(EditCategoryReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditCategory",
+			body:"*"
+		};
+	}
 	// 删除产品分类
+	rpc DelCategory(DelIdReq) returns (ProductStatus){
+		option(google.api.http) = {
+			delete:"/product/v1/DelCategory"
+		};
+	}
 	// 获取产品分类列表
+	rpc ListCategory(CategoryInfo) returns (ListCategoryRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListCategory"
+		};
+	}
 	// 分页获取产品分类列表
+	rpc PageListCategory(PageListCategoryReq) returns (PageListCategoryRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListCategory"
+		};
+	}
 	// 查询单条产品分类
+	rpc GetCategory(CategoryInfo) returns (CategoryInfo){
+		option (google.api.http) = {
+			get:"/product/v1/GetCategory"
+		};
+	}
 
 	// 创建区域
+	rpc CreateRegion(CreateRegionReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateRegion",
+			body:"*"
+		};
+	}
 	// 编辑区域
+	rpc EditRegion(EditRegionReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditRegion",
+			body:"*"
+		};
+	}
 	// 删除区域
+	rpc DelRegion(DelIdReq) returns (ProductStatus){
+		option(google.api.http) = {
+			delete:"/product/v1/DelRegion"
+		};
+	}
 	// 获取区域列表
+	rpc ListRegion(RegionInfo) returns (ListRegionRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListRegion"
+		};
+	}
 	// 分页获取区域列表
+	rpc PageListRegion(PageListRegionReq) returns (PageListRegionRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListRegion"
+		};
+	}
 	// 查询单条区域
+	rpc GetRegion(RegionInfo) returns (RegionInfo){
+		option (google.api.http) = {
+			get:"/product/v1/GetRegion"
+		};
+	}
 
 	// 创建产品详情
+	rpc CreateProductInfo(CreateProductInfoReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateProductInfo",
+			body:"*"
+		};
+	}
 	// 编辑产品详情
+	rpc EditProductInfo(EditProductInfoReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditProductInfo",
+			body:"*"
+		};
+	}
 	// 删除产品详情
+	rpc DelProductInfo(DelIdReq) returns (ProductStatus){
+		option(google.api.http) = {
+			delete:"/product/v1/DelProductInfo"
+		};
+	}
 	// 获取产品详情列表
+	rpc ListProductInfo(ProductInfoInfo) returns (ListProductInfoRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListRegion"
+		};
+	}
 	// 分页获取产品详情列表
+	rpc PageListProductInfo(PageListProductInfoReq) returns (PageListProductInfoRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListRegion"
+		};
+	}
 	// 获取单挑产品详情
+	rpc GetProductInfo(ProductInfoInfo) returns (ProductInfoInfo){
+		option (google.api.http) = {
+			get:"/product/v1/GetRegion"
+		};
+	}
 
 	// 添加产品终端
+	rpc CreateProductTerminal(CreateProductTerminalReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateProductTerminal",
+			body:"*"
+		};
+	}
 	// 编辑产品终端
+	rpc EditProductTerminal(EditProductTerminalReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditProductTerminal",
+			body:"*"
+		};
+	}
 	// 删除产品终端
+	rpc DelProductTerminal(DelIdReq) returns (ProductStatus){
+		option(google.api.http) = {
+			delete:"/product/v1/DelProductTerminal"
+		};
+	}
 	// 获取产品终端列表
+	rpc ListProductTerminal(ProductTerminalInfo) returns (ListProductTerminalInfoRep){
+		option (google.api.http) = {
+			get:"/product/v1/ListProductTerminal"
+		};
+	}
 	// 分页获取产品终端列表
+	rpc PageProductTerminal(PageListProductTerminalReq) returns (PageListProductTerminalRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageProductTerminal"
+		};
+	}
 	// 获取单挑产品终端
-
-
+	rpc GetProductTerminalInfo(ProductTerminalInfo) returns (ProductInfoInfo){
+		option (google.api.http) = {
+			get:"/product/v1/GetProductTerminalInfo"
+		};
+	}
 }
 
 message CreateTerminalReq {
@@ -360,4 +495,484 @@ message ProductInfo{
 }
 message ListProductRep {
 	repeated ProductInfo list = 1;
+}
+message PageListProductReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListProductRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated ProductInfo list = 2;
+}
+message CreateCategoryReq{
+	// 产品Id
+	uint64 product_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 分类名称
+	string name = 2 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单位
+	string unit = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 6 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message EditCategoryReq{
+	// 分类Id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 分类名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单位
+	string unit = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 7 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message CategoryInfo {
+	// 产品Id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 分类名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单位
+	string unit = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 7 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ListCategoryRep{
+	// 列表
+	repeated CategoryInfo list = 1;
+}
+message PageListCategoryReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListCategoryRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated CategoryInfo list = 2;
+}
+message CreateRegionReq{
+	// 产品Id
+	uint64 product_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域名称
+	string name = 2 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 国家代码
+	string country = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 6 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message EditRegionReq{
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	string country = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 7 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message RegionInfo{
+	// 区域Id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 国家编码
+	string country = 4 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 单价
+	uint64 price = 5 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 阶梯价格
+	string step = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 排序
+	uint64 sort = 7 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ListRegionRep{
+	// 列表
+	repeated RegionInfo list = 1;
+}
+message PageListRegionReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListRegionRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated RegionInfo list = 2;
+}
+message CreateProductInfoReq{
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型
+	uint64 kind_id =3 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品分类
+	uint64 category_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品图片
+	string img = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品关键字
+	string keywords = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品简介
+	string description = 7 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 自定义Url路径
+	string path = 8 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品数量
+	uint64 num = 9 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 控制类型
+	uint64 control = 10 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 排序
+	uint64 sort = 11 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message EditProductInfoReq{
+	// 产品详情ID
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型
+	uint64 kind_id =3 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品分类
+	uint64 category_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品图片
+	string img = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品关键字
+	string keywords = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品简介
+	string description = 7 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 自定义Url路径
+	string path = 8 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品数量
+	uint64 num = 9 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 控制类型
+	uint64 control = 10 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 排序
+	uint64 sort = 11 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ProductInfoInfo{
+	// 产品详情ID
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型
+	uint64 kind_id =3 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品分类
+	uint64 category_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品图片
+	string img = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品关键字
+	string keywords = 6 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品简介
+	string description = 7 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 自定义Url路径
+	string path = 8 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品数量
+	uint64 num = 9 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 控制类型
+	uint64 control = 10 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 排序
+	uint64 sort = 11 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ListProductInfoRep{
+	// 列表
+	repeated ProductInfoInfo list = 1;
+}
+message PageListProductInfoReq {
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListProductInfoRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated RegionInfo list = 2;
+}
+message CreateProductTerminalReq{
+	// 产品Id
+	uint64 product_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域Id
+	uint64 region_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 终端Id
+	uint64 terminal_id = 3 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message EditProductTerminalReq{
+	// 产品终端Id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域Id
+	uint64 region_id = 3 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 终端Id
+	uint64 terminal_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ProductTerminalInfo{
+	// 产品终端Id
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 区域Id
+	uint64 region_id = 3 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 终端ID
+	uint64 terminal_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message ListProductTerminalInfoRep{
+	// 列表
+	repeated ProductTerminalInfo list = 1;
+}
+message PageListProductTerminalReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 总数
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+}
+message PageListProductTerminalRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated ProductTerminalInfo list = 2;
 }

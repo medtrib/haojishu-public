@@ -1093,6 +1093,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.log.v1.GetLogListRep'
+    /product/v1/CreateCategory:
+        post:
+            tags:
+                - Product
+            description: 创建产品分类
+            operationId: Product_CreateCategory
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateCategoryReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/CreateProduct:
         post:
             tags:
@@ -1104,6 +1123,63 @@ paths:
                     application/json:
                         schema:
                             $ref: '#/components/schemas/api.product.v1.CreateProductReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/CreateProductInfo:
+        post:
+            tags:
+                - Product
+            description: 创建产品详情
+            operationId: Product_CreateProductInfo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateProductInfoReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/CreateProductTerminal:
+        post:
+            tags:
+                - Product
+            description: 添加产品终端
+            operationId: Product_CreateProductTerminal
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateProductTerminalReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/CreateRegion:
+        post:
+            tags:
+                - Product
+            description: 创建区域
+            operationId: Product_CreateRegion
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateRegionReq'
                 required: true
             responses:
                 "200":
@@ -1124,6 +1200,26 @@ paths:
                         schema:
                             $ref: '#/components/schemas/api.product.v1.CreateTerminalReq'
                 required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelCategory:
+        delete:
+            tags:
+                - Product
+            description: 删除产品分类
+            operationId: Product_DelCategory
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
             responses:
                 "200":
                     description: OK
@@ -1171,6 +1267,66 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelProductInfo:
+        delete:
+            tags:
+                - Product
+            description: 删除产品详情
+            operationId: Product_DelProductInfo
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelProductTerminal:
+        delete:
+            tags:
+                - Product
+            description: 删除产品终端
+            operationId: Product_DelProductTerminal
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelRegion:
+        delete:
+            tags:
+                - Product
+            description: 删除区域
+            operationId: Product_DelRegion
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/DelTerminal:
         delete:
             tags:
@@ -1184,6 +1340,25 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditCategory:
+        put:
+            tags:
+                - Product
+            description: 编辑产品分类
+            operationId: Product_EditCategory
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditCategoryReq'
+                required: true
             responses:
                 "200":
                     description: OK
@@ -1229,6 +1404,63 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditProductInfo:
+        put:
+            tags:
+                - Product
+            description: 编辑产品详情
+            operationId: Product_EditProductInfo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditProductInfoReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditProductTerminal:
+        put:
+            tags:
+                - Product
+            description: 编辑产品终端
+            operationId: Product_EditProductTerminal
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditProductTerminalReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditRegion:
+        put:
+            tags:
+                - Product
+            description: 编辑区域
+            operationId: Product_EditRegion
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditRegionReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/EditTerminal:
         put:
             tags:
@@ -1248,6 +1480,59 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/GetCategory:
+        get:
+            tags:
+                - Product
+            description: 查询单条产品分类
+            operationId: Product_GetCategory
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 分类名称
+                  schema:
+                    type: string
+                - name: unit
+                  in: query
+                  description: 单位
+                  schema:
+                    type: string
+                - name: price
+                  in: query
+                  description: 单价
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: step
+                  in: query
+                  description: 阶梯价格
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.CategoryInfo'
     /product/v1/GetKind:
         get:
             tags:
@@ -1267,6 +1552,176 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.Kind'
+    /product/v1/GetProduct:
+        get:
+            tags:
+                - Product
+            description: 查询单条产品类型
+            operationId: Product_GetProduct
+            parameters:
+                - name: id
+                  in: query
+                  description: 逐渐
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: kindId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 产品名称
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 关键词
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 简介
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductInfo'
+    /product/v1/GetProductTerminalInfo:
+        get:
+            tags:
+                - Product
+            description: 获取单挑产品终端
+            operationId: Product_GetProductTerminalInfo
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品终端Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: regionId
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: terminalId
+                  in: query
+                  description: 终端ID
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
+    /product/v1/GetRegion:
+        get:
+            tags:
+                - Product
+            description: 获取单挑产品详情
+            operationId: Product_GetProductInfo
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品详情ID
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: kindId
+                  in: query
+                  description: 产品类型
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: categoryId
+                  in: query
+                  description: 产品分类
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: img
+                  in: query
+                  description: 产品图片
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 产品关键字
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 产品简介
+                  schema:
+                    type: string
+                - name: path
+                  in: query
+                  description: 自定义Url路径
+                  schema:
+                    type: string
+                - name: num
+                  in: query
+                  description: 产品数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: control
+                  in: query
+                  description: 控制类型
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
     /product/v1/GetTerminal:
         get:
             tags:
@@ -1325,6 +1780,59 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/ListCategory:
+        get:
+            tags:
+                - Product
+            description: 获取产品分类列表
+            operationId: Product_ListCategory
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 分类名称
+                  schema:
+                    type: string
+                - name: unit
+                  in: query
+                  description: 单位
+                  schema:
+                    type: string
+                - name: price
+                  in: query
+                  description: 单价
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: step
+                  in: query
+                  description: 阶梯价格
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListCategoryRep'
     /product/v1/ListKind:
         get:
             tags:
@@ -1400,6 +1908,120 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ListProductRep'
+    /product/v1/ListProductTerminal:
+        get:
+            tags:
+                - Product
+            description: 获取产品终端列表
+            operationId: Product_ListProductTerminal
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品终端Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: regionId
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: terminalId
+                  in: query
+                  description: 终端ID
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListProductTerminalInfoRep'
+    /product/v1/ListRegion:
+        get:
+            tags:
+                - Product
+            description: 获取产品详情列表
+            operationId: Product_ListProductInfo
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品详情ID
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: kindId
+                  in: query
+                  description: 产品类型
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: categoryId
+                  in: query
+                  description: 产品分类
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: img
+                  in: query
+                  description: 产品图片
+                  schema:
+                    type: string
+                - name: keywords
+                  in: query
+                  description: 产品关键字
+                  schema:
+                    type: string
+                - name: description
+                  in: query
+                  description: 产品简介
+                  schema:
+                    type: string
+                - name: path
+                  in: query
+                  description: 自定义Url路径
+                  schema:
+                    type: string
+                - name: num
+                  in: query
+                  description: 产品数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: control
+                  in: query
+                  description: 控制类型
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListProductInfoRep'
     /product/v1/ListTerminal:
         get:
             tags:
@@ -1440,6 +2062,37 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ListTerminalRep'
+    /product/v1/PageListCategory:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品分类列表
+            operationId: Product_PageListCategory
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 总数
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListCategoryRep'
     /product/v1/PageListKind:
         get:
             tags:
@@ -1471,6 +2124,68 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.PageListKindRep'
+    /product/v1/PageListProduct:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品类型列表
+            operationId: Product_PageListProduct
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 总数
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListProductRep'
+    /product/v1/PageListRegion:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品详情列表
+            operationId: Product_PageListProductInfo
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 总数
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListProductInfoRep'
     /product/v1/PageListTerminal:
         get:
             tags:
@@ -1502,6 +2217,37 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.PageListTerminalRep'
+    /product/v1/PageProductTerminal:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品终端列表
+            operationId: Product_PageProductTerminal
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 总数
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListProductTerminalRep'
 components:
     schemas:
         api.admin.v1.AdminInfoRep:
@@ -2236,12 +2982,103 @@ components:
                 success:
                     type: boolean
             description: 角色状态
+        api.product.v1.CategoryInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 分类名称
+                unit:
+                    type: string
+                    description: 单位
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
+        api.product.v1.CreateCategoryReq:
+            type: object
+            properties:
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 分类名称
+                unit:
+                    type: string
+                    description: 单位
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.CreateKindReq:
             type: object
             properties:
                 name:
                     type: string
                     description: 产品类型名称
+        api.product.v1.CreateProductInfoReq:
+            type: object
+            properties:
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                kindId:
+                    type: integer
+                    description: 产品类型
+                    format: uint64
+                categoryId:
+                    type: integer
+                    description: 产品分类
+                    format: uint64
+                img:
+                    type: string
+                    description: 产品图片
+                keywords:
+                    type: string
+                    description: 产品关键字
+                description:
+                    type: string
+                    description: 产品简介
+                path:
+                    type: string
+                    description: 自定义Url路径
+                num:
+                    type: integer
+                    description: 产品数量
+                    format: uint64
+                control:
+                    type: integer
+                    description: 控制类型
+                    format: uint64
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.CreateProductReq:
             type: object
             properties:
@@ -2258,6 +3095,45 @@ components:
                 description:
                     type: string
                     description: 简介
+        api.product.v1.CreateProductTerminalReq:
+            type: object
+            properties:
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                regionId:
+                    type: integer
+                    description: 区域Id
+                    format: uint64
+                terminalId:
+                    type: integer
+                    description: 终端Id
+                    format: uint64
+        api.product.v1.CreateRegionReq:
+            type: object
+            properties:
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 区域名称
+                country:
+                    type: string
+                    description: 国家代码
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.CreateTerminalReq:
             type: object
             properties:
@@ -2277,12 +3153,83 @@ components:
                     type: integer
                     description: 排序
                     format: uint64
+        api.product.v1.EditCategoryReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 分类Id
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 分类名称
+                unit:
+                    type: string
+                    description: 单位
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.EditKindReq:
             type: object
             properties:
                 name:
                     type: string
                     description: 产品类型名称
+        api.product.v1.EditProductInfoReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品详情ID
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                kindId:
+                    type: integer
+                    description: 产品类型
+                    format: uint64
+                categoryId:
+                    type: integer
+                    description: 产品分类
+                    format: uint64
+                img:
+                    type: string
+                    description: 产品图片
+                keywords:
+                    type: string
+                    description: 产品关键字
+                description:
+                    type: string
+                    description: 产品简介
+                path:
+                    type: string
+                    description: 自定义Url路径
+                num:
+                    type: integer
+                    description: 产品数量
+                    format: uint64
+                control:
+                    type: integer
+                    description: 控制类型
+                    format: uint64
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.EditProductReq:
             type: object
             properties:
@@ -2303,6 +3250,51 @@ components:
                 description:
                     type: string
                     description: 简介
+        api.product.v1.EditProductTerminalReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品终端Id
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                regionId:
+                    type: integer
+                    description: 区域Id
+                    format: uint64
+                terminalId:
+                    type: integer
+                    description: 终端Id
+                    format: uint64
+        api.product.v1.EditRegionReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 区域名称
+                country:
+                    type: string
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.EditTerminalReq:
             type: object
             properties:
@@ -2332,6 +3324,14 @@ components:
                 name:
                     type: string
                     description: 产品类型名称
+        api.product.v1.ListCategoryRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.CategoryInfo'
+                    description: 列表
         api.product.v1.ListKindRep:
             type: object
             properties:
@@ -2339,6 +3339,14 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.product.v1.Kind'
+        api.product.v1.ListProductInfoRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
+                    description: 列表
         api.product.v1.ListProductRep:
             type: object
             properties:
@@ -2346,6 +3354,22 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.product.v1.ProductInfo'
+        api.product.v1.ListProductTerminalInfoRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.ProductTerminalInfo'
+                    description: 列表
+        api.product.v1.ListRegionRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.RegionInfo'
+                    description: 列表
         api.product.v1.ListTerminalRep:
             type: object
             properties:
@@ -2353,6 +3377,18 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.product.v1.Terminal'
+        api.product.v1.PageListCategoryRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.CategoryInfo'
+                    description: 列表
         api.product.v1.PageListKindRep:
             type: object
             properties:
@@ -2364,6 +3400,54 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.product.v1.Kind'
+                    description: 列表
+        api.product.v1.PageListProductInfoRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.RegionInfo'
+                    description: 列表
+        api.product.v1.PageListProductRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.ProductInfo'
+                    description: 列表
+        api.product.v1.PageListProductTerminalRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.ProductTerminalInfo'
+                    description: 列表
+        api.product.v1.PageListRegionRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.RegionInfo'
                     description: 列表
         api.product.v1.PageListTerminalRep:
             type: object
@@ -2406,11 +3490,101 @@ components:
                 deletedAt:
                     type: string
                     description: 最后删除时间
+        api.product.v1.ProductInfoInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品详情ID
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                kindId:
+                    type: integer
+                    description: 产品类型
+                    format: uint64
+                categoryId:
+                    type: integer
+                    description: 产品分类
+                    format: uint64
+                img:
+                    type: string
+                    description: 产品图片
+                keywords:
+                    type: string
+                    description: 产品关键字
+                description:
+                    type: string
+                    description: 产品简介
+                path:
+                    type: string
+                    description: 自定义Url路径
+                num:
+                    type: integer
+                    description: 产品数量
+                    format: uint64
+                control:
+                    type: integer
+                    description: 控制类型
+                    format: uint64
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.ProductStatus:
             type: object
             properties:
                 success:
                     type: boolean
+        api.product.v1.ProductTerminalInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 产品终端Id
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                regionId:
+                    type: integer
+                    description: 区域Id
+                    format: uint64
+                terminalId:
+                    type: integer
+                    description: 终端ID
+                    format: uint64
+        api.product.v1.RegionInfo:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 区域Id
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 区域名称
+                country:
+                    type: string
+                    description: 国家编码
+                price:
+                    type: integer
+                    description: 单价
+                    format: uint64
+                step:
+                    type: string
+                    description: 阶梯价格
+                sort:
+                    type: integer
+                    description: 排序
+                    format: uint64
         api.product.v1.Terminal:
             type: object
             properties:

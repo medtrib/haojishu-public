@@ -19,22 +19,48 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Product_CreateTerminal_FullMethodName   = "/api.product.v1.Product/CreateTerminal"
-	Product_EditTerminal_FullMethodName     = "/api.product.v1.Product/EditTerminal"
-	Product_DelTerminal_FullMethodName      = "/api.product.v1.Product/DelTerminal"
-	Product_ListTerminal_FullMethodName     = "/api.product.v1.Product/ListTerminal"
-	Product_PageListTerminal_FullMethodName = "/api.product.v1.Product/PageListTerminal"
-	Product_GetTerminal_FullMethodName      = "/api.product.v1.Product/GetTerminal"
-	Product_CreateKind_FullMethodName       = "/api.product.v1.Product/CreateKind"
-	Product_EditKind_FullMethodName         = "/api.product.v1.Product/EditKind"
-	Product_DelKind_FullMethodName          = "/api.product.v1.Product/DelKind"
-	Product_ListKind_FullMethodName         = "/api.product.v1.Product/ListKind"
-	Product_PageListKind_FullMethodName     = "/api.product.v1.Product/PageListKind"
-	Product_GetKind_FullMethodName          = "/api.product.v1.Product/GetKind"
-	Product_CreateProduct_FullMethodName    = "/api.product.v1.Product/CreateProduct"
-	Product_EditProduct_FullMethodName      = "/api.product.v1.Product/EditProduct"
-	Product_DelProduct_FullMethodName       = "/api.product.v1.Product/DelProduct"
-	Product_ListProduct_FullMethodName      = "/api.product.v1.Product/ListProduct"
+	Product_CreateTerminal_FullMethodName         = "/api.product.v1.Product/CreateTerminal"
+	Product_EditTerminal_FullMethodName           = "/api.product.v1.Product/EditTerminal"
+	Product_DelTerminal_FullMethodName            = "/api.product.v1.Product/DelTerminal"
+	Product_ListTerminal_FullMethodName           = "/api.product.v1.Product/ListTerminal"
+	Product_PageListTerminal_FullMethodName       = "/api.product.v1.Product/PageListTerminal"
+	Product_GetTerminal_FullMethodName            = "/api.product.v1.Product/GetTerminal"
+	Product_CreateKind_FullMethodName             = "/api.product.v1.Product/CreateKind"
+	Product_EditKind_FullMethodName               = "/api.product.v1.Product/EditKind"
+	Product_DelKind_FullMethodName                = "/api.product.v1.Product/DelKind"
+	Product_ListKind_FullMethodName               = "/api.product.v1.Product/ListKind"
+	Product_PageListKind_FullMethodName           = "/api.product.v1.Product/PageListKind"
+	Product_GetKind_FullMethodName                = "/api.product.v1.Product/GetKind"
+	Product_CreateProduct_FullMethodName          = "/api.product.v1.Product/CreateProduct"
+	Product_EditProduct_FullMethodName            = "/api.product.v1.Product/EditProduct"
+	Product_DelProduct_FullMethodName             = "/api.product.v1.Product/DelProduct"
+	Product_ListProduct_FullMethodName            = "/api.product.v1.Product/ListProduct"
+	Product_PageListProduct_FullMethodName        = "/api.product.v1.Product/PageListProduct"
+	Product_GetProduct_FullMethodName             = "/api.product.v1.Product/GetProduct"
+	Product_CreateCategory_FullMethodName         = "/api.product.v1.Product/CreateCategory"
+	Product_EditCategory_FullMethodName           = "/api.product.v1.Product/EditCategory"
+	Product_DelCategory_FullMethodName            = "/api.product.v1.Product/DelCategory"
+	Product_ListCategory_FullMethodName           = "/api.product.v1.Product/ListCategory"
+	Product_PageListCategory_FullMethodName       = "/api.product.v1.Product/PageListCategory"
+	Product_GetCategory_FullMethodName            = "/api.product.v1.Product/GetCategory"
+	Product_CreateRegion_FullMethodName           = "/api.product.v1.Product/CreateRegion"
+	Product_EditRegion_FullMethodName             = "/api.product.v1.Product/EditRegion"
+	Product_DelRegion_FullMethodName              = "/api.product.v1.Product/DelRegion"
+	Product_ListRegion_FullMethodName             = "/api.product.v1.Product/ListRegion"
+	Product_PageListRegion_FullMethodName         = "/api.product.v1.Product/PageListRegion"
+	Product_GetRegion_FullMethodName              = "/api.product.v1.Product/GetRegion"
+	Product_CreateProductInfo_FullMethodName      = "/api.product.v1.Product/CreateProductInfo"
+	Product_EditProductInfo_FullMethodName        = "/api.product.v1.Product/EditProductInfo"
+	Product_DelProductInfo_FullMethodName         = "/api.product.v1.Product/DelProductInfo"
+	Product_ListProductInfo_FullMethodName        = "/api.product.v1.Product/ListProductInfo"
+	Product_PageListProductInfo_FullMethodName    = "/api.product.v1.Product/PageListProductInfo"
+	Product_GetProductInfo_FullMethodName         = "/api.product.v1.Product/GetProductInfo"
+	Product_CreateProductTerminal_FullMethodName  = "/api.product.v1.Product/CreateProductTerminal"
+	Product_EditProductTerminal_FullMethodName    = "/api.product.v1.Product/EditProductTerminal"
+	Product_DelProductTerminal_FullMethodName     = "/api.product.v1.Product/DelProductTerminal"
+	Product_ListProductTerminal_FullMethodName    = "/api.product.v1.Product/ListProductTerminal"
+	Product_PageProductTerminal_FullMethodName    = "/api.product.v1.Product/PageProductTerminal"
+	Product_GetProductTerminalInfo_FullMethodName = "/api.product.v1.Product/GetProductTerminalInfo"
 )
 
 // ProductClient is the client API for Product service.
@@ -73,6 +99,58 @@ type ProductClient interface {
 	DelProduct(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
 	// 获取产品类型列表
 	ListProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*ListProductRep, error)
+	// 分页获取产品类型列表
+	PageListProduct(ctx context.Context, in *PageListProductReq, opts ...grpc.CallOption) (*PageListProductRep, error)
+	// 查询单条产品类型
+	GetProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*ProductInfo, error)
+	// 创建产品分类
+	CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 编辑产品分类
+	EditCategory(ctx context.Context, in *EditCategoryReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 删除产品分类
+	DelCategory(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 获取产品分类列表
+	ListCategory(ctx context.Context, in *CategoryInfo, opts ...grpc.CallOption) (*ListCategoryRep, error)
+	// 分页获取产品分类列表
+	PageListCategory(ctx context.Context, in *PageListCategoryReq, opts ...grpc.CallOption) (*PageListCategoryRep, error)
+	// 查询单条产品分类
+	GetCategory(ctx context.Context, in *CategoryInfo, opts ...grpc.CallOption) (*CategoryInfo, error)
+	// 创建区域
+	CreateRegion(ctx context.Context, in *CreateRegionReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 编辑区域
+	EditRegion(ctx context.Context, in *EditRegionReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 删除区域
+	DelRegion(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 获取区域列表
+	ListRegion(ctx context.Context, in *RegionInfo, opts ...grpc.CallOption) (*ListRegionRep, error)
+	// 分页获取区域列表
+	PageListRegion(ctx context.Context, in *PageListRegionReq, opts ...grpc.CallOption) (*PageListRegionRep, error)
+	// 查询单条区域
+	GetRegion(ctx context.Context, in *RegionInfo, opts ...grpc.CallOption) (*RegionInfo, error)
+	// 创建产品详情
+	CreateProductInfo(ctx context.Context, in *CreateProductInfoReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 编辑产品详情
+	EditProductInfo(ctx context.Context, in *EditProductInfoReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 删除产品详情
+	DelProductInfo(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 获取产品详情列表
+	ListProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...grpc.CallOption) (*ListProductInfoRep, error)
+	// 分页获取产品详情列表
+	PageListProductInfo(ctx context.Context, in *PageListProductInfoReq, opts ...grpc.CallOption) (*PageListProductInfoRep, error)
+	// 获取单挑产品详情
+	GetProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error)
+	// 添加产品终端
+	CreateProductTerminal(ctx context.Context, in *CreateProductTerminalReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 编辑产品终端
+	EditProductTerminal(ctx context.Context, in *EditProductTerminalReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 删除产品终端
+	DelProductTerminal(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 获取产品终端列表
+	ListProductTerminal(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ListProductTerminalInfoRep, error)
+	// 分页获取产品终端列表
+	PageProductTerminal(ctx context.Context, in *PageListProductTerminalReq, opts ...grpc.CallOption) (*PageListProductTerminalRep, error)
+	// 获取单挑产品终端
+	GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error)
 }
 
 type productClient struct {
@@ -227,6 +305,240 @@ func (c *productClient) ListProduct(ctx context.Context, in *ProductInfo, opts .
 	return out, nil
 }
 
+func (c *productClient) PageListProduct(ctx context.Context, in *PageListProductReq, opts ...grpc.CallOption) (*PageListProductRep, error) {
+	out := new(PageListProductRep)
+	err := c.cc.Invoke(ctx, Product_PageListProduct_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetProduct(ctx context.Context, in *ProductInfo, opts ...grpc.CallOption) (*ProductInfo, error) {
+	out := new(ProductInfo)
+	err := c.cc.Invoke(ctx, Product_GetProduct_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) CreateCategory(ctx context.Context, in *CreateCategoryReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_CreateCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) EditCategory(ctx context.Context, in *EditCategoryReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_EditCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) DelCategory(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_DelCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) ListCategory(ctx context.Context, in *CategoryInfo, opts ...grpc.CallOption) (*ListCategoryRep, error) {
+	out := new(ListCategoryRep)
+	err := c.cc.Invoke(ctx, Product_ListCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) PageListCategory(ctx context.Context, in *PageListCategoryReq, opts ...grpc.CallOption) (*PageListCategoryRep, error) {
+	out := new(PageListCategoryRep)
+	err := c.cc.Invoke(ctx, Product_PageListCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetCategory(ctx context.Context, in *CategoryInfo, opts ...grpc.CallOption) (*CategoryInfo, error) {
+	out := new(CategoryInfo)
+	err := c.cc.Invoke(ctx, Product_GetCategory_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) CreateRegion(ctx context.Context, in *CreateRegionReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_CreateRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) EditRegion(ctx context.Context, in *EditRegionReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_EditRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) DelRegion(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_DelRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) ListRegion(ctx context.Context, in *RegionInfo, opts ...grpc.CallOption) (*ListRegionRep, error) {
+	out := new(ListRegionRep)
+	err := c.cc.Invoke(ctx, Product_ListRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) PageListRegion(ctx context.Context, in *PageListRegionReq, opts ...grpc.CallOption) (*PageListRegionRep, error) {
+	out := new(PageListRegionRep)
+	err := c.cc.Invoke(ctx, Product_PageListRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetRegion(ctx context.Context, in *RegionInfo, opts ...grpc.CallOption) (*RegionInfo, error) {
+	out := new(RegionInfo)
+	err := c.cc.Invoke(ctx, Product_GetRegion_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) CreateProductInfo(ctx context.Context, in *CreateProductInfoReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_CreateProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) EditProductInfo(ctx context.Context, in *EditProductInfoReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_EditProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) DelProductInfo(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_DelProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) ListProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...grpc.CallOption) (*ListProductInfoRep, error) {
+	out := new(ListProductInfoRep)
+	err := c.cc.Invoke(ctx, Product_ListProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) PageListProductInfo(ctx context.Context, in *PageListProductInfoReq, opts ...grpc.CallOption) (*PageListProductInfoRep, error) {
+	out := new(PageListProductInfoRep)
+	err := c.cc.Invoke(ctx, Product_PageListProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error) {
+	out := new(ProductInfoInfo)
+	err := c.cc.Invoke(ctx, Product_GetProductInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) CreateProductTerminal(ctx context.Context, in *CreateProductTerminalReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_CreateProductTerminal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) EditProductTerminal(ctx context.Context, in *EditProductTerminalReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_EditProductTerminal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) DelProductTerminal(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_DelProductTerminal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) ListProductTerminal(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ListProductTerminalInfoRep, error) {
+	out := new(ListProductTerminalInfoRep)
+	err := c.cc.Invoke(ctx, Product_ListProductTerminal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) PageProductTerminal(ctx context.Context, in *PageListProductTerminalReq, opts ...grpc.CallOption) (*PageListProductTerminalRep, error) {
+	out := new(PageListProductTerminalRep)
+	err := c.cc.Invoke(ctx, Product_PageProductTerminal_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error) {
+	out := new(ProductInfoInfo)
+	err := c.cc.Invoke(ctx, Product_GetProductTerminalInfo_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServer is the server API for Product service.
 // All implementations must embed UnimplementedProductServer
 // for forward compatibility
@@ -263,6 +575,58 @@ type ProductServer interface {
 	DelProduct(context.Context, *DelIdReq) (*ProductStatus, error)
 	// 获取产品类型列表
 	ListProduct(context.Context, *ProductInfo) (*ListProductRep, error)
+	// 分页获取产品类型列表
+	PageListProduct(context.Context, *PageListProductReq) (*PageListProductRep, error)
+	// 查询单条产品类型
+	GetProduct(context.Context, *ProductInfo) (*ProductInfo, error)
+	// 创建产品分类
+	CreateCategory(context.Context, *CreateCategoryReq) (*ProductStatus, error)
+	// 编辑产品分类
+	EditCategory(context.Context, *EditCategoryReq) (*ProductStatus, error)
+	// 删除产品分类
+	DelCategory(context.Context, *DelIdReq) (*ProductStatus, error)
+	// 获取产品分类列表
+	ListCategory(context.Context, *CategoryInfo) (*ListCategoryRep, error)
+	// 分页获取产品分类列表
+	PageListCategory(context.Context, *PageListCategoryReq) (*PageListCategoryRep, error)
+	// 查询单条产品分类
+	GetCategory(context.Context, *CategoryInfo) (*CategoryInfo, error)
+	// 创建区域
+	CreateRegion(context.Context, *CreateRegionReq) (*ProductStatus, error)
+	// 编辑区域
+	EditRegion(context.Context, *EditRegionReq) (*ProductStatus, error)
+	// 删除区域
+	DelRegion(context.Context, *DelIdReq) (*ProductStatus, error)
+	// 获取区域列表
+	ListRegion(context.Context, *RegionInfo) (*ListRegionRep, error)
+	// 分页获取区域列表
+	PageListRegion(context.Context, *PageListRegionReq) (*PageListRegionRep, error)
+	// 查询单条区域
+	GetRegion(context.Context, *RegionInfo) (*RegionInfo, error)
+	// 创建产品详情
+	CreateProductInfo(context.Context, *CreateProductInfoReq) (*ProductStatus, error)
+	// 编辑产品详情
+	EditProductInfo(context.Context, *EditProductInfoReq) (*ProductStatus, error)
+	// 删除产品详情
+	DelProductInfo(context.Context, *DelIdReq) (*ProductStatus, error)
+	// 获取产品详情列表
+	ListProductInfo(context.Context, *ProductInfoInfo) (*ListProductInfoRep, error)
+	// 分页获取产品详情列表
+	PageListProductInfo(context.Context, *PageListProductInfoReq) (*PageListProductInfoRep, error)
+	// 获取单挑产品详情
+	GetProductInfo(context.Context, *ProductInfoInfo) (*ProductInfoInfo, error)
+	// 添加产品终端
+	CreateProductTerminal(context.Context, *CreateProductTerminalReq) (*ProductStatus, error)
+	// 编辑产品终端
+	EditProductTerminal(context.Context, *EditProductTerminalReq) (*ProductStatus, error)
+	// 删除产品终端
+	DelProductTerminal(context.Context, *DelIdReq) (*ProductStatus, error)
+	// 获取产品终端列表
+	ListProductTerminal(context.Context, *ProductTerminalInfo) (*ListProductTerminalInfoRep, error)
+	// 分页获取产品终端列表
+	PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error)
+	// 获取单挑产品终端
+	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error)
 	mustEmbedUnimplementedProductServer()
 }
 
@@ -317,6 +681,84 @@ func (UnimplementedProductServer) DelProduct(context.Context, *DelIdReq) (*Produ
 }
 func (UnimplementedProductServer) ListProduct(context.Context, *ProductInfo) (*ListProductRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListProduct not implemented")
+}
+func (UnimplementedProductServer) PageListProduct(context.Context, *PageListProductReq) (*PageListProductRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListProduct not implemented")
+}
+func (UnimplementedProductServer) GetProduct(context.Context, *ProductInfo) (*ProductInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProduct not implemented")
+}
+func (UnimplementedProductServer) CreateCategory(context.Context, *CreateCategoryReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
+}
+func (UnimplementedProductServer) EditCategory(context.Context, *EditCategoryReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditCategory not implemented")
+}
+func (UnimplementedProductServer) DelCategory(context.Context, *DelIdReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelCategory not implemented")
+}
+func (UnimplementedProductServer) ListCategory(context.Context, *CategoryInfo) (*ListCategoryRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCategory not implemented")
+}
+func (UnimplementedProductServer) PageListCategory(context.Context, *PageListCategoryReq) (*PageListCategoryRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListCategory not implemented")
+}
+func (UnimplementedProductServer) GetCategory(context.Context, *CategoryInfo) (*CategoryInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategory not implemented")
+}
+func (UnimplementedProductServer) CreateRegion(context.Context, *CreateRegionReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRegion not implemented")
+}
+func (UnimplementedProductServer) EditRegion(context.Context, *EditRegionReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditRegion not implemented")
+}
+func (UnimplementedProductServer) DelRegion(context.Context, *DelIdReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelRegion not implemented")
+}
+func (UnimplementedProductServer) ListRegion(context.Context, *RegionInfo) (*ListRegionRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListRegion not implemented")
+}
+func (UnimplementedProductServer) PageListRegion(context.Context, *PageListRegionReq) (*PageListRegionRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListRegion not implemented")
+}
+func (UnimplementedProductServer) GetRegion(context.Context, *RegionInfo) (*RegionInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRegion not implemented")
+}
+func (UnimplementedProductServer) CreateProductInfo(context.Context, *CreateProductInfoReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProductInfo not implemented")
+}
+func (UnimplementedProductServer) EditProductInfo(context.Context, *EditProductInfoReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditProductInfo not implemented")
+}
+func (UnimplementedProductServer) DelProductInfo(context.Context, *DelIdReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelProductInfo not implemented")
+}
+func (UnimplementedProductServer) ListProductInfo(context.Context, *ProductInfoInfo) (*ListProductInfoRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProductInfo not implemented")
+}
+func (UnimplementedProductServer) PageListProductInfo(context.Context, *PageListProductInfoReq) (*PageListProductInfoRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListProductInfo not implemented")
+}
+func (UnimplementedProductServer) GetProductInfo(context.Context, *ProductInfoInfo) (*ProductInfoInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProductInfo not implemented")
+}
+func (UnimplementedProductServer) CreateProductTerminal(context.Context, *CreateProductTerminalReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProductTerminal not implemented")
+}
+func (UnimplementedProductServer) EditProductTerminal(context.Context, *EditProductTerminalReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditProductTerminal not implemented")
+}
+func (UnimplementedProductServer) DelProductTerminal(context.Context, *DelIdReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelProductTerminal not implemented")
+}
+func (UnimplementedProductServer) ListProductTerminal(context.Context, *ProductTerminalInfo) (*ListProductTerminalInfoRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListProductTerminal not implemented")
+}
+func (UnimplementedProductServer) PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageProductTerminal not implemented")
+}
+func (UnimplementedProductServer) GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProductTerminalInfo not implemented")
 }
 func (UnimplementedProductServer) mustEmbedUnimplementedProductServer() {}
 
@@ -619,6 +1061,474 @@ func _Product_ListProduct_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Product_PageListProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListProductReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageListProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageListProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageListProduct(ctx, req.(*PageListProductReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetProduct(ctx, req.(*ProductInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_CreateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).CreateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_CreateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).CreateCategory(ctx, req.(*CreateCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_EditCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).EditCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_EditCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).EditCategory(ctx, req.(*EditCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_DelCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).DelCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_DelCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).DelCategory(ctx, req.(*DelIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_ListCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).ListCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_ListCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).ListCategory(ctx, req.(*CategoryInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_PageListCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListCategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageListCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageListCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageListCategory(ctx, req.(*PageListCategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetCategory(ctx, req.(*CategoryInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_CreateRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateRegionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).CreateRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_CreateRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).CreateRegion(ctx, req.(*CreateRegionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_EditRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditRegionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).EditRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_EditRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).EditRegion(ctx, req.(*EditRegionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_DelRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).DelRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_DelRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).DelRegion(ctx, req.(*DelIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_ListRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegionInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).ListRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_ListRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).ListRegion(ctx, req.(*RegionInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_PageListRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListRegionReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageListRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageListRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageListRegion(ctx, req.(*PageListRegionReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetRegion_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RegionInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetRegion(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetRegion_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetRegion(ctx, req.(*RegionInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_CreateProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProductInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).CreateProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_CreateProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).CreateProductInfo(ctx, req.(*CreateProductInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_EditProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditProductInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).EditProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_EditProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).EditProductInfo(ctx, req.(*EditProductInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_DelProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).DelProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_DelProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).DelProductInfo(ctx, req.(*DelIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_ListProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductInfoInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).ListProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_ListProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).ListProductInfo(ctx, req.(*ProductInfoInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_PageListProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListProductInfoReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageListProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageListProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageListProductInfo(ctx, req.(*PageListProductInfoReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetProductInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductInfoInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetProductInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetProductInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetProductInfo(ctx, req.(*ProductInfoInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_CreateProductTerminal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProductTerminalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).CreateProductTerminal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_CreateProductTerminal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).CreateProductTerminal(ctx, req.(*CreateProductTerminalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_EditProductTerminal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditProductTerminalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).EditProductTerminal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_EditProductTerminal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).EditProductTerminal(ctx, req.(*EditProductTerminalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_DelProductTerminal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).DelProductTerminal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_DelProductTerminal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).DelProductTerminal(ctx, req.(*DelIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_ListProductTerminal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductTerminalInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).ListProductTerminal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_ListProductTerminal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).ListProductTerminal(ctx, req.(*ProductTerminalInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_PageProductTerminal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListProductTerminalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageProductTerminal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageProductTerminal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageProductTerminal(ctx, req.(*PageListProductTerminalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetProductTerminalInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ProductTerminalInfo)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetProductTerminalInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetProductTerminalInfo_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetProductTerminalInfo(ctx, req.(*ProductTerminalInfo))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Product_ServiceDesc is the grpc.ServiceDesc for Product service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -689,6 +1599,110 @@ var Product_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListProduct",
 			Handler:    _Product_ListProduct_Handler,
+		},
+		{
+			MethodName: "PageListProduct",
+			Handler:    _Product_PageListProduct_Handler,
+		},
+		{
+			MethodName: "GetProduct",
+			Handler:    _Product_GetProduct_Handler,
+		},
+		{
+			MethodName: "CreateCategory",
+			Handler:    _Product_CreateCategory_Handler,
+		},
+		{
+			MethodName: "EditCategory",
+			Handler:    _Product_EditCategory_Handler,
+		},
+		{
+			MethodName: "DelCategory",
+			Handler:    _Product_DelCategory_Handler,
+		},
+		{
+			MethodName: "ListCategory",
+			Handler:    _Product_ListCategory_Handler,
+		},
+		{
+			MethodName: "PageListCategory",
+			Handler:    _Product_PageListCategory_Handler,
+		},
+		{
+			MethodName: "GetCategory",
+			Handler:    _Product_GetCategory_Handler,
+		},
+		{
+			MethodName: "CreateRegion",
+			Handler:    _Product_CreateRegion_Handler,
+		},
+		{
+			MethodName: "EditRegion",
+			Handler:    _Product_EditRegion_Handler,
+		},
+		{
+			MethodName: "DelRegion",
+			Handler:    _Product_DelRegion_Handler,
+		},
+		{
+			MethodName: "ListRegion",
+			Handler:    _Product_ListRegion_Handler,
+		},
+		{
+			MethodName: "PageListRegion",
+			Handler:    _Product_PageListRegion_Handler,
+		},
+		{
+			MethodName: "GetRegion",
+			Handler:    _Product_GetRegion_Handler,
+		},
+		{
+			MethodName: "CreateProductInfo",
+			Handler:    _Product_CreateProductInfo_Handler,
+		},
+		{
+			MethodName: "EditProductInfo",
+			Handler:    _Product_EditProductInfo_Handler,
+		},
+		{
+			MethodName: "DelProductInfo",
+			Handler:    _Product_DelProductInfo_Handler,
+		},
+		{
+			MethodName: "ListProductInfo",
+			Handler:    _Product_ListProductInfo_Handler,
+		},
+		{
+			MethodName: "PageListProductInfo",
+			Handler:    _Product_PageListProductInfo_Handler,
+		},
+		{
+			MethodName: "GetProductInfo",
+			Handler:    _Product_GetProductInfo_Handler,
+		},
+		{
+			MethodName: "CreateProductTerminal",
+			Handler:    _Product_CreateProductTerminal_Handler,
+		},
+		{
+			MethodName: "EditProductTerminal",
+			Handler:    _Product_EditProductTerminal_Handler,
+		},
+		{
+			MethodName: "DelProductTerminal",
+			Handler:    _Product_DelProductTerminal_Handler,
+		},
+		{
+			MethodName: "ListProductTerminal",
+			Handler:    _Product_ListProductTerminal_Handler,
+		},
+		{
+			MethodName: "PageProductTerminal",
+			Handler:    _Product_PageProductTerminal_Handler,
+		},
+		{
+			MethodName: "GetProductTerminalInfo",
+			Handler:    _Product_GetProductTerminalInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
