@@ -3184,6 +3184,10 @@ components:
         api.product.v1.EditKindReq:
             type: object
             properties:
+                id:
+                    type: integer
+                    description: 主键
+                    format: uint64
                 name:
                     type: string
                     description: 产品类型名称
