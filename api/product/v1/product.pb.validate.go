@@ -1375,6 +1375,17 @@ func (m *Kind) validate(all bool) error {
 
 	var errors []error
 
+	if m.GetId() <= 0 {
+		err := KindValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
 		err := KindValidationError{
 			field:  "Name",

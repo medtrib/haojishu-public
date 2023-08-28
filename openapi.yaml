@@ -1540,6 +1540,12 @@ paths:
             description: 查询单条产品类型
             operationId: Product_GetKind
             parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
                 - name: name
                   in: query
                   description: 产品类型名称
@@ -1840,6 +1846,12 @@ paths:
             description: 获取产品类型列表
             operationId: Product_ListKind
             parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
                 - name: name
                   in: query
                   description: 产品类型名称
@@ -3325,6 +3337,10 @@ components:
         api.product.v1.Kind:
             type: object
             properties:
+                id:
+                    type: integer
+                    description: 主键
+                    format: uint64
                 name:
                     type: string
                     description: 产品类型名称
