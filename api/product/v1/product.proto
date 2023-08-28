@@ -51,7 +51,7 @@ service Product {
 	// 创建产品类型
 	rpc CreateKind(CreateKindReq) returns (ProductStatus){
 		option (google.api.http) = {
-			post:"/product/v1/GetTerminal",
+			post:"/product/v1/CreateKind",
 			body:"*"
 		};
 	}

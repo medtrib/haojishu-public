@@ -1112,6 +1112,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/CreateKind:
+        post:
+            tags:
+                - Product
+            description: 创建产品类型
+            operationId: Product_CreateKind
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateKindReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/CreateProduct:
         post:
             tags:
@@ -1768,24 +1787,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.Terminal'
-        post:
-            tags:
-                - Product
-            description: 创建产品类型
-            operationId: Product_CreateKind
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.product.v1.CreateKindReq'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/ListCategory:
         get:
             tags:

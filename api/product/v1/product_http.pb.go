@@ -157,7 +157,7 @@ func RegisterProductHTTPServer(s *http.Server, srv ProductHTTPServer) {
 	r.GET("/product/v1/ListTerminal", _Product_ListTerminal0_HTTP_Handler(srv))
 	r.GET("/product/v1/PageListTerminal", _Product_PageListTerminal0_HTTP_Handler(srv))
 	r.GET("/product/v1/GetTerminal", _Product_GetTerminal0_HTTP_Handler(srv))
-	r.POST("/product/v1/GetTerminal", _Product_CreateKind0_HTTP_Handler(srv))
+	r.POST("/product/v1/CreateKind", _Product_CreateKind0_HTTP_Handler(srv))
 	r.PUT("/product/v1/EditKind", _Product_EditKind0_HTTP_Handler(srv))
 	r.DELETE("/product/v1/DelKind", _Product_DelKind0_HTTP_Handler(srv))
 	r.GET("/product/v1/ListKind", _Product_ListKind0_HTTP_Handler(srv))
@@ -1061,7 +1061,7 @@ func (c *ProductHTTPClientImpl) CreateCategory(ctx context.Context, in *CreateCa
 
 func (c *ProductHTTPClientImpl) CreateKind(ctx context.Context, in *CreateKindReq, opts ...http.CallOption) (*ProductStatus, error) {
 	var out ProductStatus
-	pattern := "/product/v1/GetTerminal"
+	pattern := "/product/v1/CreateKind"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationProductCreateKind))
 	opts = append(opts, http.PathTemplate(pattern))
