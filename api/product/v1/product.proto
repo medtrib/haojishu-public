@@ -389,8 +389,12 @@ message CreateKindReq{
 	];
 }
 message EditKindReq{
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
 	// 产品类型名称
-	string name = 1 [
+	string name = 2 [
 		(validate.rules).string = {min_len:1, max_len:255}
 	];
 }
