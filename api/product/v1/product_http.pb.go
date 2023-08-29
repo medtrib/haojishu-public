@@ -114,7 +114,7 @@ type ProductHTTPServer interface {
 	// GetProductInfo 获取单挑产品详情
 	GetProductInfo(context.Context, *ProductInfoInfo) (*ProductInfoInfo, error)
 	// GetProductTerminalInfo 获取单挑产品终端
-	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error)
+	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductTerminalInfo, error)
 	// GetRegion 查询单条区域
 	GetRegion(context.Context, *RegionInfo) (*RegionInfo, error)
 	// GetTerminal 查询单条终端信息
@@ -988,7 +988,7 @@ func _Product_GetProductTerminalInfo0_HTTP_Handler(srv ProductHTTPServer) func(c
 		if err != nil {
 			return err
 		}
-		reply := out.(*ProductInfoInfo)
+		reply := out.(*ProductTerminalInfo)
 		return ctx.Result(200, reply)
 	}
 }
@@ -1019,7 +1019,7 @@ type ProductHTTPClient interface {
 	GetKind(ctx context.Context, req *Kind, opts ...http.CallOption) (rsp *Kind, err error)
 	GetProduct(ctx context.Context, req *ProductInfo, opts ...http.CallOption) (rsp *ProductInfo, err error)
 	GetProductInfo(ctx context.Context, req *ProductInfoInfo, opts ...http.CallOption) (rsp *ProductInfoInfo, err error)
-	GetProductTerminalInfo(ctx context.Context, req *ProductTerminalInfo, opts ...http.CallOption) (rsp *ProductInfoInfo, err error)
+	GetProductTerminalInfo(ctx context.Context, req *ProductTerminalInfo, opts ...http.CallOption) (rsp *ProductTerminalInfo, err error)
 	GetRegion(ctx context.Context, req *RegionInfo, opts ...http.CallOption) (rsp *RegionInfo, err error)
 	GetTerminal(ctx context.Context, req *Terminal, opts ...http.CallOption) (rsp *Terminal, err error)
 	ListCategory(ctx context.Context, req *CategoryInfo, opts ...http.CallOption) (rsp *ListCategoryRep, err error)
@@ -1371,8 +1371,8 @@ func (c *ProductHTTPClientImpl) GetProductInfo(ctx context.Context, in *ProductI
 	return &out, err
 }
 
-func (c *ProductHTTPClientImpl) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...http.CallOption) (*ProductInfoInfo, error) {
-	var out ProductInfoInfo
+func (c *ProductHTTPClientImpl) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...http.CallOption) (*ProductTerminalInfo, error) {
+	var out ProductTerminalInfo
 	pattern := "/product/v1/GetProductTerminalInfo"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductGetProductTerminalInfo))

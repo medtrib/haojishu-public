@@ -276,7 +276,7 @@ service Product {
 		};
 	}
 	// 获取单挑产品终端
-	rpc GetProductTerminalInfo(ProductTerminalInfo) returns (ProductInfoInfo){
+	rpc GetProductTerminalInfo(ProductTerminalInfo) returns (ProductTerminalInfo){
 		option (google.api.http) = {
 			get:"/product/v1/GetProductTerminalInfo"
 		};

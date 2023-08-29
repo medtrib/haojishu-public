@@ -1670,7 +1670,7 @@ paths:
                     content:
                         application/json:
                             schema:
-                                $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
+                                $ref: '#/components/schemas/api.product.v1.ProductTerminalInfo'
     /product/v1/GetRegion:
         get:
             tags:

@@ -150,7 +150,7 @@ type ProductClient interface {
 	// 分页获取产品终端列表
 	PageProductTerminal(ctx context.Context, in *PageListProductTerminalReq, opts ...grpc.CallOption) (*PageListProductTerminalRep, error)
 	// 获取单挑产品终端
-	GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error)
+	GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductTerminalInfo, error)
 }
 
 type productClient struct {
@@ -530,8 +530,8 @@ func (c *productClient) PageProductTerminal(ctx context.Context, in *PageListPro
 	return out, nil
 }
 
-func (c *productClient) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductInfoInfo, error) {
-	out := new(ProductInfoInfo)
+func (c *productClient) GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductTerminalInfo, error) {
+	out := new(ProductTerminalInfo)
 	err := c.cc.Invoke(ctx, Product_GetProductTerminalInfo_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -626,7 +626,7 @@ type ProductServer interface {
 	// 分页获取产品终端列表
 	PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error)
 	// 获取单挑产品终端
-	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error)
+	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductTerminalInfo, error)
 	mustEmbedUnimplementedProductServer()
 }
 
@@ -757,7 +757,7 @@ func (UnimplementedProductServer) ListProductTerminal(context.Context, *ProductT
 func (UnimplementedProductServer) PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PageProductTerminal not implemented")
 }
-func (UnimplementedProductServer) GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductInfoInfo, error) {
+func (UnimplementedProductServer) GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductTerminalInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProductTerminalInfo not implemented")
 }
 func (UnimplementedProductServer) mustEmbedUnimplementedProductServer() {}
