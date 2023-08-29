@@ -125,6 +125,7 @@ service Product {
 			get:"/product/v1/GetProduct"
 		};
 	}
+	
 	// 创建产品分类
 	rpc CreateCategory(CreateCategoryReq) returns (ProductStatus){
 		option (google.api.http) = {
@@ -420,7 +421,7 @@ message PageListKindReq{
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 总数
+	// 类型名称
 	string name = 3 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
@@ -513,7 +514,7 @@ message PageListProductReq{
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 总数
+	// 产品名称
 	string name = 3 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
@@ -625,7 +626,7 @@ message PageListCategoryReq{
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 总数
+	// 分类名称
 	string name = 3 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
@@ -735,7 +736,7 @@ message PageListRegionReq{
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 总数
+	// 区域名称
 	string name = 3 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
@@ -895,10 +896,6 @@ message PageListProductInfoReq {
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 总数
-	string name = 3 [
-		(validate.rules).string = {min_len:1,max_len:255}
-	];
 }
 message PageListProductInfoRep{
 	// 总条数
@@ -970,10 +967,6 @@ message PageListProductTerminalReq{
 	// 每页数量
 	uint64 page_size = 2 [
 		(validate.rules).uint64.gt = 0
-	];
-	// 总数
-	string name = 3 [
-		(validate.rules).string = {min_len:1,max_len:255}
 	];
 }
 message PageListProductTerminalRep{
