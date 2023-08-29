@@ -1951,6 +1951,17 @@ func (m *CreateProductReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := CreateProductReqValidationError{
+			field:  "Path",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
 		return CreateProductReqMultiError(errors)
 	}
@@ -2098,6 +2109,17 @@ func (m *EditProductReq) validate(all bool) error {
 	if l := utf8.RuneCountInString(m.GetDescription()); l < 1 || l > 255 {
 		err := EditProductReqValidationError{
 			field:  "Description",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPath()); l < 1 || l > 255 {
+		err := EditProductReqValidationError{
+			field:  "Path",
 			reason: "value length must be between 1 and 255 runes, inclusive",
 		}
 		if !all {

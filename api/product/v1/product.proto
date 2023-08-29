@@ -451,6 +451,10 @@ message CreateProductReq{
 	string description = 4 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
+	// 简介
+	string path = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
 }
 message EditProductReq{
 	// 产品ID
@@ -471,6 +475,10 @@ message EditProductReq{
 	];
 	// 简介
 	string description = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 简介
+	string path = 6 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 }

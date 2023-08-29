@@ -3098,6 +3098,9 @@ components:
                 description:
                     type: string
                     description: 简介
+                path:
+                    type: string
+                    description: 简介
         api.product.v1.CreateProductTerminalReq:
             type: object
             properties:
@@ -3255,6 +3258,9 @@ components:
                     type: string
                     description: 关键字
                 description:
+                    type: string
+                    description: 简介
+                path:
                     type: string
                     description: 简介
         api.product.v1.EditProductTerminalReq:
