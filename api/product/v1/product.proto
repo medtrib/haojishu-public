@@ -281,6 +281,45 @@ service Product {
 			get:"/product/v1/GetProductTerminalInfo"
 		};
 	}
+
+	// 创建产品属性
+	rpc CreateAttribute(CreateAttributeReq) returns (ProductStatus){
+		option (google.api.http) = {
+			post:"/product/v1/CreateAttribute",
+			body:"*"
+		};
+	}
+	// 编辑产品属性
+	rpc EditAttribute(EditAttributeReq) returns (ProductStatus){
+		option (google.api.http) = {
+			put:"/product/v1/EditAttribute",
+			body:"*"
+		};
+	}
+	// 删除产品属性
+	rpc DelAttribute(DelIdReq) returns (ProductStatus){
+		option (google.api.http) = {
+			delete:"/product/v1/DelAttribute"
+		};
+	}
+	// 获取产品属性列表
+	rpc ListAttribute(Attribute) returns (ListAttributeRep) {
+		option (google.api.http) = {
+			get:"/product/v1/ListAttribute"
+		};
+	}
+	// 分页获取产品属性列表
+	rpc PageListAttribute(PageListAttributeReq) returns (PageListAttributeRep){
+		option (google.api.http) = {
+			get:"/product/v1/PageListAttribute"
+		};
+	}
+	// 查询单条产品属性
+	rpc GetAttribute(Attribute) returns (Attribute){
+		option (google.api.http) = {
+			get:"/product/v1/GetAttribute"
+		};
+	}
 }
 
 message CreateTerminalReq {
@@ -1014,4 +1053,77 @@ message PageListProductTerminalRep{
 	];
 	// 列表
 	repeated ProductTerminalInfo list = 2;
+}
+message CreateAttributeReq{
+	// 产品Id
+	uint64 product_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型名称
+	string name = 2 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message EditAttributeReq{
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message Attribute {
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品Id
+	uint64 product_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品类型名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 创建时间
+	string created_at = 4;
+	// 最后编辑时间
+	string updated_at = 5;
+	// 最后删除时间
+	string deleted_at = 6;
+}
+message ListAttributeRep{
+	repeated Attribute list = 1;
+}
+message PageListAttributeReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 类型名称
+	string name = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品Id
+	uint64 product_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message PageListAttributeRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated Attribute list = 2;
 }

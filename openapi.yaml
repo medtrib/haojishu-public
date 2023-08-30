@@ -1093,6 +1093,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.log.v1.GetLogListRep'
+    /product/v1/CreateAttribute:
+        post:
+            tags:
+                - Product
+            description: 创建产品属性
+            operationId: Product_CreateAttribute
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.CreateAttributeReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/CreateCategory:
         post:
             tags:
@@ -1219,6 +1238,26 @@ paths:
                         schema:
                             $ref: '#/components/schemas/api.product.v1.CreateTerminalReq'
                 required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/DelAttribute:
+        delete:
+            tags:
+                - Product
+            description: 删除产品属性
+            operationId: Product_DelAttribute
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
             responses:
                 "200":
                     description: OK
@@ -1366,6 +1405,25 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/EditAttribute:
+        put:
+            tags:
+                - Product
+            description: 编辑产品属性
+            operationId: Product_EditAttribute
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.product.v1.EditAttributeReq'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductStatus'
     /product/v1/EditCategory:
         put:
             tags:
@@ -1499,6 +1557,52 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductStatus'
+    /product/v1/GetAttribute:
+        get:
+            tags:
+                - Product
+            description: 查询单条产品属性
+            operationId: Product_GetAttribute
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 产品类型名称
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.Attribute'
     /product/v1/GetCategory:
         get:
             tags:
@@ -1915,6 +2019,52 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.Terminal'
+    /product/v1/ListAttribute:
+        get:
+            tags:
+                - Product
+            description: 获取产品属性列表
+            operationId: Product_ListAttribute
+            parameters:
+                - name: id
+                  in: query
+                  description: 主键
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 产品类型名称
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListAttributeRep'
     /product/v1/ListCategory:
         get:
             tags:
@@ -2331,6 +2481,43 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ListTerminalRep'
+    /product/v1/PageListAttribute:
+        get:
+            tags:
+                - Product
+            description: 分页获取产品属性列表
+            operationId: Product_PageListAttribute
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 类型名称
+                  schema:
+                    type: string
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListAttributeRep'
     /product/v1/PageListCategory:
         get:
             tags:
@@ -3272,6 +3459,29 @@ components:
                 success:
                     type: boolean
             description: 角色状态
+        api.product.v1.Attribute:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 主键
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品类型名称
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
         api.product.v1.CategoryInfo:
             type: object
             properties:
@@ -3309,6 +3519,16 @@ components:
                 deletedAt:
                     type: string
                     description: 最后删除时间
+        api.product.v1.CreateAttributeReq:
+            type: object
+            properties:
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品类型名称
         api.product.v1.CreateCategoryReq:
             type: object
             properties:
@@ -3455,6 +3675,20 @@ components:
                     type: integer
                     description: 排序
                     format: uint64
+        api.product.v1.EditAttributeReq:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    description: 主键
+                    format: uint64
+                productId:
+                    type: integer
+                    description: 产品Id
+                    format: uint64
+                name:
+                    type: string
+                    description: 产品类型名称
         api.product.v1.EditCategoryReq:
             type: object
             properties:
@@ -3646,6 +3880,13 @@ components:
                 deletedAt:
                     type: string
                     description: 最后删除时间
+        api.product.v1.ListAttributeRep:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Attribute'
         api.product.v1.ListCategoryRep:
             type: object
             properties:
@@ -3699,6 +3940,18 @@ components:
                     type: array
                     items:
                         $ref: '#/components/schemas/api.product.v1.Terminal'
+        api.product.v1.PageListAttributeRep:
+            type: object
+            properties:
+                total:
+                    type: integer
+                    description: 总条数
+                    format: uint64
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.product.v1.Attribute'
+                    description: 列表
         api.product.v1.PageListCategoryRep:
             type: object
             properties:

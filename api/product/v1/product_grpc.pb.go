@@ -61,6 +61,12 @@ const (
 	Product_ListProductTerminal_FullMethodName    = "/api.product.v1.Product/ListProductTerminal"
 	Product_PageProductTerminal_FullMethodName    = "/api.product.v1.Product/PageProductTerminal"
 	Product_GetProductTerminalInfo_FullMethodName = "/api.product.v1.Product/GetProductTerminalInfo"
+	Product_CreateAttribute_FullMethodName        = "/api.product.v1.Product/CreateAttribute"
+	Product_EditAttribute_FullMethodName          = "/api.product.v1.Product/EditAttribute"
+	Product_DelAttribute_FullMethodName           = "/api.product.v1.Product/DelAttribute"
+	Product_ListAttribute_FullMethodName          = "/api.product.v1.Product/ListAttribute"
+	Product_PageListAttribute_FullMethodName      = "/api.product.v1.Product/PageListAttribute"
+	Product_GetAttribute_FullMethodName           = "/api.product.v1.Product/GetAttribute"
 )
 
 // ProductClient is the client API for Product service.
@@ -151,6 +157,18 @@ type ProductClient interface {
 	PageProductTerminal(ctx context.Context, in *PageListProductTerminalReq, opts ...grpc.CallOption) (*PageListProductTerminalRep, error)
 	// 获取单挑产品终端
 	GetProductTerminalInfo(ctx context.Context, in *ProductTerminalInfo, opts ...grpc.CallOption) (*ProductTerminalInfo, error)
+	// 创建产品属性
+	CreateAttribute(ctx context.Context, in *CreateAttributeReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 编辑产品属性
+	EditAttribute(ctx context.Context, in *EditAttributeReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 删除产品属性
+	DelAttribute(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error)
+	// 获取产品属性列表
+	ListAttribute(ctx context.Context, in *Attribute, opts ...grpc.CallOption) (*ListAttributeRep, error)
+	// 分页获取产品属性列表
+	PageListAttribute(ctx context.Context, in *PageListAttributeReq, opts ...grpc.CallOption) (*PageListAttributeRep, error)
+	// 查询单条产品属性
+	GetAttribute(ctx context.Context, in *Attribute, opts ...grpc.CallOption) (*Attribute, error)
 }
 
 type productClient struct {
@@ -539,6 +557,60 @@ func (c *productClient) GetProductTerminalInfo(ctx context.Context, in *ProductT
 	return out, nil
 }
 
+func (c *productClient) CreateAttribute(ctx context.Context, in *CreateAttributeReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_CreateAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) EditAttribute(ctx context.Context, in *EditAttributeReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_EditAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) DelAttribute(ctx context.Context, in *DelIdReq, opts ...grpc.CallOption) (*ProductStatus, error) {
+	out := new(ProductStatus)
+	err := c.cc.Invoke(ctx, Product_DelAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) ListAttribute(ctx context.Context, in *Attribute, opts ...grpc.CallOption) (*ListAttributeRep, error) {
+	out := new(ListAttributeRep)
+	err := c.cc.Invoke(ctx, Product_ListAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) PageListAttribute(ctx context.Context, in *PageListAttributeReq, opts ...grpc.CallOption) (*PageListAttributeRep, error) {
+	out := new(PageListAttributeRep)
+	err := c.cc.Invoke(ctx, Product_PageListAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *productClient) GetAttribute(ctx context.Context, in *Attribute, opts ...grpc.CallOption) (*Attribute, error) {
+	out := new(Attribute)
+	err := c.cc.Invoke(ctx, Product_GetAttribute_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductServer is the server API for Product service.
 // All implementations must embed UnimplementedProductServer
 // for forward compatibility
@@ -627,6 +699,18 @@ type ProductServer interface {
 	PageProductTerminal(context.Context, *PageListProductTerminalReq) (*PageListProductTerminalRep, error)
 	// 获取单挑产品终端
 	GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductTerminalInfo, error)
+	// 创建产品属性
+	CreateAttribute(context.Context, *CreateAttributeReq) (*ProductStatus, error)
+	// 编辑产品属性
+	EditAttribute(context.Context, *EditAttributeReq) (*ProductStatus, error)
+	// 删除产品属性
+	DelAttribute(context.Context, *DelIdReq) (*ProductStatus, error)
+	// 获取产品属性列表
+	ListAttribute(context.Context, *Attribute) (*ListAttributeRep, error)
+	// 分页获取产品属性列表
+	PageListAttribute(context.Context, *PageListAttributeReq) (*PageListAttributeRep, error)
+	// 查询单条产品属性
+	GetAttribute(context.Context, *Attribute) (*Attribute, error)
 	mustEmbedUnimplementedProductServer()
 }
 
@@ -759,6 +843,24 @@ func (UnimplementedProductServer) PageProductTerminal(context.Context, *PageList
 }
 func (UnimplementedProductServer) GetProductTerminalInfo(context.Context, *ProductTerminalInfo) (*ProductTerminalInfo, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProductTerminalInfo not implemented")
+}
+func (UnimplementedProductServer) CreateAttribute(context.Context, *CreateAttributeReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAttribute not implemented")
+}
+func (UnimplementedProductServer) EditAttribute(context.Context, *EditAttributeReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method EditAttribute not implemented")
+}
+func (UnimplementedProductServer) DelAttribute(context.Context, *DelIdReq) (*ProductStatus, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DelAttribute not implemented")
+}
+func (UnimplementedProductServer) ListAttribute(context.Context, *Attribute) (*ListAttributeRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAttribute not implemented")
+}
+func (UnimplementedProductServer) PageListAttribute(context.Context, *PageListAttributeReq) (*PageListAttributeRep, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PageListAttribute not implemented")
+}
+func (UnimplementedProductServer) GetAttribute(context.Context, *Attribute) (*Attribute, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAttribute not implemented")
 }
 func (UnimplementedProductServer) mustEmbedUnimplementedProductServer() {}
 
@@ -1529,6 +1631,114 @@ func _Product_GetProductTerminalInfo_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Product_CreateAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAttributeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).CreateAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_CreateAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).CreateAttribute(ctx, req.(*CreateAttributeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_EditAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EditAttributeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).EditAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_EditAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).EditAttribute(ctx, req.(*EditAttributeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_DelAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DelIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).DelAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_DelAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).DelAttribute(ctx, req.(*DelIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_ListAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Attribute)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).ListAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_ListAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).ListAttribute(ctx, req.(*Attribute))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_PageListAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PageListAttributeReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).PageListAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_PageListAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).PageListAttribute(ctx, req.(*PageListAttributeReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Product_GetAttribute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Attribute)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductServer).GetAttribute(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Product_GetAttribute_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductServer).GetAttribute(ctx, req.(*Attribute))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Product_ServiceDesc is the grpc.ServiceDesc for Product service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1703,6 +1913,30 @@ var Product_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductTerminalInfo",
 			Handler:    _Product_GetProductTerminalInfo_Handler,
+		},
+		{
+			MethodName: "CreateAttribute",
+			Handler:    _Product_CreateAttribute_Handler,
+		},
+		{
+			MethodName: "EditAttribute",
+			Handler:    _Product_EditAttribute_Handler,
+		},
+		{
+			MethodName: "DelAttribute",
+			Handler:    _Product_DelAttribute_Handler,
+		},
+		{
+			MethodName: "ListAttribute",
+			Handler:    _Product_ListAttribute_Handler,
+		},
+		{
+			MethodName: "PageListAttribute",
+			Handler:    _Product_PageListAttribute_Handler,
+		},
+		{
+			MethodName: "GetAttribute",
+			Handler:    _Product_GetAttribute_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
