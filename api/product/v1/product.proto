@@ -227,19 +227,19 @@ service Product {
 	// 获取产品详情列表
 	rpc ListProductInfo(ProductInfoInfo) returns (ListProductInfoRep){
 		option (google.api.http) = {
-			get:"/product/v1/ListRegion"
+			get:"/product/v1/ListProductInfo"
 		};
 	}
 	// 分页获取产品详情列表
 	rpc PageListProductInfo(PageListProductInfoReq) returns (PageListProductInfoRep){
 		option (google.api.http) = {
-			get:"/product/v1/PageListRegion"
+			get:"/product/v1/PageListProductInfo"
 		};
 	}
 	// 获取单挑产品详情
 	rpc GetProductInfo(ProductInfoInfo) returns (ProductInfoInfo){
 		option (google.api.http) = {
-			get:"/product/v1/GetRegion"
+			get:"/product/v1/GetProductInfo"
 		};
 	}
 

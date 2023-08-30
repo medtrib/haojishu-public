@@ -1663,60 +1663,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductInfo'
-    /product/v1/GetProductTerminalInfo:
-        get:
-            tags:
-                - Product
-            description: 获取单挑产品终端
-            operationId: Product_GetProductTerminalInfo
-            parameters:
-                - name: id
-                  in: query
-                  description: 产品终端Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: productId
-                  in: query
-                  description: 产品Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: regionId
-                  in: query
-                  description: 区域Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: terminalId
-                  in: query
-                  description: 终端ID
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: createdAt
-                  in: query
-                  description: 创建时间
-                  schema:
-                    type: string
-                - name: updatedAt
-                  in: query
-                  description: 最后编辑时间
-                  schema:
-                    type: string
-                - name: deletedAt
-                  in: query
-                  description: 最后删除时间
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.product.v1.ProductTerminalInfo'
-    /product/v1/GetRegion:
+    /product/v1/GetProductInfo:
         get:
             tags:
                 - Product
@@ -1792,6 +1739,127 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
+    /product/v1/GetProductTerminalInfo:
+        get:
+            tags:
+                - Product
+            description: 获取单挑产品终端
+            operationId: Product_GetProductTerminalInfo
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品终端Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: regionId
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: terminalId
+                  in: query
+                  description: 终端ID
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ProductTerminalInfo'
+    /product/v1/GetRegion:
+        get:
+            tags:
+                - Product
+            description: 查询单条区域
+            operationId: Product_GetRegion
+            parameters:
+                - name: id
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 区域名称
+                  schema:
+                    type: string
+                - name: country
+                  in: query
+                  description: 国家编码
+                  schema:
+                    type: string
+                - name: price
+                  in: query
+                  description: 单价
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: step
+                  in: query
+                  description: 阶梯价格
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.RegionInfo'
     /product/v1/GetTerminal:
         get:
             tags:
@@ -2011,60 +2079,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ListProductRep'
-    /product/v1/ListProductTerminal:
-        get:
-            tags:
-                - Product
-            description: 获取产品终端列表
-            operationId: Product_ListProductTerminal
-            parameters:
-                - name: id
-                  in: query
-                  description: 产品终端Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: productId
-                  in: query
-                  description: 产品Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: regionId
-                  in: query
-                  description: 区域Id
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: terminalId
-                  in: query
-                  description: 终端ID
-                  schema:
-                    type: integer
-                    format: uint64
-                - name: createdAt
-                  in: query
-                  description: 创建时间
-                  schema:
-                    type: string
-                - name: updatedAt
-                  in: query
-                  description: 最后编辑时间
-                  schema:
-                    type: string
-                - name: deletedAt
-                  in: query
-                  description: 最后删除时间
-                  schema:
-                    type: string
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.product.v1.ListProductTerminalInfoRep'
-    /product/v1/ListRegion:
+    /product/v1/ListProductInfo:
         get:
             tags:
                 - Product
@@ -2140,6 +2155,127 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.ListProductInfoRep'
+    /product/v1/ListProductTerminal:
+        get:
+            tags:
+                - Product
+            description: 获取产品终端列表
+            operationId: Product_ListProductTerminal
+            parameters:
+                - name: id
+                  in: query
+                  description: 产品终端Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: regionId
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: terminalId
+                  in: query
+                  description: 终端ID
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListProductTerminalInfoRep'
+    /product/v1/ListRegion:
+        get:
+            tags:
+                - Product
+            description: 获取区域列表
+            operationId: Product_ListRegion
+            parameters:
+                - name: id
+                  in: query
+                  description: 区域Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: productId
+                  in: query
+                  description: 产品Id
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 区域名称
+                  schema:
+                    type: string
+                - name: country
+                  in: query
+                  description: 国家编码
+                  schema:
+                    type: string
+                - name: price
+                  in: query
+                  description: 单价
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: step
+                  in: query
+                  description: 阶梯价格
+                  schema:
+                    type: string
+                - name: sort
+                  in: query
+                  description: 排序
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.ListRegionRep'
     /product/v1/ListTerminal:
         get:
             tags:
@@ -2288,7 +2424,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.PageListProductRep'
-    /product/v1/PageListRegion:
+    /product/v1/PageListProductInfo:
         get:
             tags:
                 - Product
@@ -2314,6 +2450,37 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.product.v1.PageListProductInfoRep'
+    /product/v1/PageListRegion:
+        get:
+            tags:
+                - Product
+            description: 分页获取区域列表
+            operationId: Product_PageListRegion
+            parameters:
+                - name: page
+                  in: query
+                  description: 页数
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: pageSize
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: integer
+                    format: uint64
+                - name: name
+                  in: query
+                  description: 区域名称
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.product.v1.PageListRegionRep'
     /product/v1/PageListTerminal:
         get:
             tags:

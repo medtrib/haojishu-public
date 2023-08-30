@@ -184,9 +184,9 @@ func RegisterProductHTTPServer(s *http.Server, srv ProductHTTPServer) {
 	r.POST("/product/v1/CreateProductInfo", _Product_CreateProductInfo0_HTTP_Handler(srv))
 	r.PUT("/product/v1/EditProductInfo", _Product_EditProductInfo0_HTTP_Handler(srv))
 	r.DELETE("/product/v1/DelProductInfo", _Product_DelProductInfo0_HTTP_Handler(srv))
-	r.GET("/product/v1/ListRegion", _Product_ListProductInfo0_HTTP_Handler(srv))
-	r.GET("/product/v1/PageListRegion", _Product_PageListProductInfo0_HTTP_Handler(srv))
-	r.GET("/product/v1/GetRegion", _Product_GetProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/ListProductInfo", _Product_ListProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/PageListProductInfo", _Product_PageListProductInfo0_HTTP_Handler(srv))
+	r.GET("/product/v1/GetProductInfo", _Product_GetProductInfo0_HTTP_Handler(srv))
 	r.POST("/product/v1/CreateProductTerminal", _Product_CreateProductTerminal0_HTTP_Handler(srv))
 	r.PUT("/product/v1/EditProductTerminal", _Product_EditProductTerminal0_HTTP_Handler(srv))
 	r.DELETE("/product/v1/DelProductTerminal", _Product_DelProductTerminal0_HTTP_Handler(srv))
@@ -1360,7 +1360,7 @@ func (c *ProductHTTPClientImpl) GetProduct(ctx context.Context, in *ProductInfo,
 
 func (c *ProductHTTPClientImpl) GetProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...http.CallOption) (*ProductInfoInfo, error) {
 	var out ProductInfoInfo
-	pattern := "/product/v1/GetRegion"
+	pattern := "/product/v1/GetProductInfo"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductGetProductInfo))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1451,7 +1451,7 @@ func (c *ProductHTTPClientImpl) ListProduct(ctx context.Context, in *ProductInfo
 
 func (c *ProductHTTPClientImpl) ListProductInfo(ctx context.Context, in *ProductInfoInfo, opts ...http.CallOption) (*ListProductInfoRep, error) {
 	var out ListProductInfoRep
-	pattern := "/product/v1/ListRegion"
+	pattern := "/product/v1/ListProductInfo"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductListProductInfo))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -1542,7 +1542,7 @@ func (c *ProductHTTPClientImpl) PageListProduct(ctx context.Context, in *PageLis
 
 func (c *ProductHTTPClientImpl) PageListProductInfo(ctx context.Context, in *PageListProductInfoReq, opts ...http.CallOption) (*PageListProductInfoRep, error) {
 	var out PageListProductInfoRep
-	pattern := "/product/v1/PageListRegion"
+	pattern := "/product/v1/PageListProductInfo"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationProductPageListProductInfo))
 	opts = append(opts, http.PathTemplate(pattern))
