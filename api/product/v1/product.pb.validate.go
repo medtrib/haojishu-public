@@ -6603,9 +6603,9 @@ func (m *CreateAttributeReq) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetProductInfoId() <= 0 {
+	if m.GetProductId() <= 0 {
 		err := CreateAttributeReqValidationError{
-			field:  "ProductInfoId",
+			field:  "ProductId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -6738,9 +6738,9 @@ func (m *EditAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductInfoId() <= 0 {
+	if m.GetProductId() <= 0 {
 		err := EditAttributeReqValidationError{
-			field:  "ProductInfoId",
+			field:  "ProductId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -6871,9 +6871,9 @@ func (m *Attribute) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductInfoId() <= 0 {
+	if m.GetProductId() <= 0 {
 		err := AttributeValidationError{
-			field:  "ProductInfoId",
+			field:  "ProductId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -7165,9 +7165,9 @@ func (m *PageListAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductInfoId() <= 0 {
+	if m.GetProductId() <= 0 {
 		err := PageListAttributeReqValidationError{
-			field:  "ProductInfoId",
+			field:  "ProductId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -7402,3 +7402,830 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = PageListAttributeRepValidationError{}
+
+// Validate checks the field values on CreateInfoAttributeReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *CreateInfoAttributeReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on CreateInfoAttributeReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// CreateInfoAttributeReqMultiError, or nil if none found.
+func (m *CreateInfoAttributeReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *CreateInfoAttributeReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetProductInfoId() <= 0 {
+		err := CreateInfoAttributeReqValidationError{
+			field:  "ProductInfoId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+		err := CreateInfoAttributeReqValidationError{
+			field:  "AttributeId",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return CreateInfoAttributeReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// CreateInfoAttributeReqMultiError is an error wrapping multiple validation
+// errors returned by CreateInfoAttributeReq.ValidateAll() if the designated
+// constraints aren't met.
+type CreateInfoAttributeReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m CreateInfoAttributeReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m CreateInfoAttributeReqMultiError) AllErrors() []error { return m }
+
+// CreateInfoAttributeReqValidationError is the validation error returned by
+// CreateInfoAttributeReq.Validate if the designated constraints aren't met.
+type CreateInfoAttributeReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e CreateInfoAttributeReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e CreateInfoAttributeReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e CreateInfoAttributeReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e CreateInfoAttributeReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e CreateInfoAttributeReqValidationError) ErrorName() string {
+	return "CreateInfoAttributeReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e CreateInfoAttributeReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sCreateInfoAttributeReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = CreateInfoAttributeReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = CreateInfoAttributeReqValidationError{}
+
+// Validate checks the field values on EditInfoAttributeReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *EditInfoAttributeReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on EditInfoAttributeReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// EditInfoAttributeReqMultiError, or nil if none found.
+func (m *EditInfoAttributeReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *EditInfoAttributeReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() <= 0 {
+		err := EditInfoAttributeReqValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetProductInfoId() <= 0 {
+		err := EditInfoAttributeReqValidationError{
+			field:  "ProductInfoId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+		err := EditInfoAttributeReqValidationError{
+			field:  "AttributeId",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return EditInfoAttributeReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// EditInfoAttributeReqMultiError is an error wrapping multiple validation
+// errors returned by EditInfoAttributeReq.ValidateAll() if the designated
+// constraints aren't met.
+type EditInfoAttributeReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m EditInfoAttributeReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m EditInfoAttributeReqMultiError) AllErrors() []error { return m }
+
+// EditInfoAttributeReqValidationError is the validation error returned by
+// EditInfoAttributeReq.Validate if the designated constraints aren't met.
+type EditInfoAttributeReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e EditInfoAttributeReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e EditInfoAttributeReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e EditInfoAttributeReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e EditInfoAttributeReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e EditInfoAttributeReqValidationError) ErrorName() string {
+	return "EditInfoAttributeReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e EditInfoAttributeReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sEditInfoAttributeReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = EditInfoAttributeReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = EditInfoAttributeReqValidationError{}
+
+// Validate checks the field values on InfoAttribute with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *InfoAttribute) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on InfoAttribute with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in InfoAttributeMultiError, or
+// nil if none found.
+func (m *InfoAttribute) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *InfoAttribute) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetId() <= 0 {
+		err := InfoAttributeValidationError{
+			field:  "Id",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetProductInfoId() <= 0 {
+		err := InfoAttributeValidationError{
+			field:  "ProductInfoId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+		err := InfoAttributeValidationError{
+			field:  "AttributeId",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
+
+	if len(errors) > 0 {
+		return InfoAttributeMultiError(errors)
+	}
+
+	return nil
+}
+
+// InfoAttributeMultiError is an error wrapping multiple validation errors
+// returned by InfoAttribute.ValidateAll() if the designated constraints
+// aren't met.
+type InfoAttributeMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m InfoAttributeMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m InfoAttributeMultiError) AllErrors() []error { return m }
+
+// InfoAttributeValidationError is the validation error returned by
+// InfoAttribute.Validate if the designated constraints aren't met.
+type InfoAttributeValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e InfoAttributeValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e InfoAttributeValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e InfoAttributeValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e InfoAttributeValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e InfoAttributeValidationError) ErrorName() string { return "InfoAttributeValidationError" }
+
+// Error satisfies the builtin error interface
+func (e InfoAttributeValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sInfoAttribute.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = InfoAttributeValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = InfoAttributeValidationError{}
+
+// Validate checks the field values on ListInfoAttributeRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ListInfoAttributeRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ListInfoAttributeRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ListInfoAttributeRepMultiError, or nil if none found.
+func (m *ListInfoAttributeRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ListInfoAttributeRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ListInfoAttributeRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ListInfoAttributeRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ListInfoAttributeRepValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ListInfoAttributeRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// ListInfoAttributeRepMultiError is an error wrapping multiple validation
+// errors returned by ListInfoAttributeRep.ValidateAll() if the designated
+// constraints aren't met.
+type ListInfoAttributeRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ListInfoAttributeRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ListInfoAttributeRepMultiError) AllErrors() []error { return m }
+
+// ListInfoAttributeRepValidationError is the validation error returned by
+// ListInfoAttributeRep.Validate if the designated constraints aren't met.
+type ListInfoAttributeRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ListInfoAttributeRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ListInfoAttributeRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ListInfoAttributeRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ListInfoAttributeRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ListInfoAttributeRepValidationError) ErrorName() string {
+	return "ListInfoAttributeRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ListInfoAttributeRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sListInfoAttributeRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ListInfoAttributeRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ListInfoAttributeRepValidationError{}
+
+// Validate checks the field values on PageListInfoAttributeReq with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PageListInfoAttributeReq) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PageListInfoAttributeReq with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PageListInfoAttributeReqMultiError, or nil if none found.
+func (m *PageListInfoAttributeReq) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PageListInfoAttributeReq) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetPage() <= 0 {
+		err := PageListInfoAttributeReqValidationError{
+			field:  "Page",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetPageSize() <= 0 {
+		err := PageListInfoAttributeReqValidationError{
+			field:  "PageSize",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+		err := PageListInfoAttributeReqValidationError{
+			field:  "AttributeId",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetProductInfoId() <= 0 {
+		err := PageListInfoAttributeReqValidationError{
+			field:  "ProductInfoId",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return PageListInfoAttributeReqMultiError(errors)
+	}
+
+	return nil
+}
+
+// PageListInfoAttributeReqMultiError is an error wrapping multiple validation
+// errors returned by PageListInfoAttributeReq.ValidateAll() if the designated
+// constraints aren't met.
+type PageListInfoAttributeReqMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PageListInfoAttributeReqMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PageListInfoAttributeReqMultiError) AllErrors() []error { return m }
+
+// PageListInfoAttributeReqValidationError is the validation error returned by
+// PageListInfoAttributeReq.Validate if the designated constraints aren't met.
+type PageListInfoAttributeReqValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageListInfoAttributeReqValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageListInfoAttributeReqValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageListInfoAttributeReqValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageListInfoAttributeReqValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageListInfoAttributeReqValidationError) ErrorName() string {
+	return "PageListInfoAttributeReqValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PageListInfoAttributeReqValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPageListInfoAttributeReq.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageListInfoAttributeReqValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageListInfoAttributeReqValidationError{}
+
+// Validate checks the field values on PageListInfoAttributeRep with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *PageListInfoAttributeRep) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PageListInfoAttributeRep with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PageListInfoAttributeRepMultiError, or nil if none found.
+func (m *PageListInfoAttributeRep) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PageListInfoAttributeRep) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetTotal() <= 0 {
+		err := PageListInfoAttributeRepValidationError{
+			field:  "Total",
+			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetList() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, PageListInfoAttributeRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, PageListInfoAttributeRepValidationError{
+						field:  fmt.Sprintf("List[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return PageListInfoAttributeRepValidationError{
+					field:  fmt.Sprintf("List[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return PageListInfoAttributeRepMultiError(errors)
+	}
+
+	return nil
+}
+
+// PageListInfoAttributeRepMultiError is an error wrapping multiple validation
+// errors returned by PageListInfoAttributeRep.ValidateAll() if the designated
+// constraints aren't met.
+type PageListInfoAttributeRepMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PageListInfoAttributeRepMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PageListInfoAttributeRepMultiError) AllErrors() []error { return m }
+
+// PageListInfoAttributeRepValidationError is the validation error returned by
+// PageListInfoAttributeRep.Validate if the designated constraints aren't met.
+type PageListInfoAttributeRepValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PageListInfoAttributeRepValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PageListInfoAttributeRepValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PageListInfoAttributeRepValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PageListInfoAttributeRepValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PageListInfoAttributeRepValidationError) ErrorName() string {
+	return "PageListInfoAttributeRepValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e PageListInfoAttributeRepValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPageListInfoAttributeRep.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PageListInfoAttributeRepValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PageListInfoAttributeRepValidationError{}

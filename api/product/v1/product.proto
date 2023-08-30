@@ -1055,8 +1055,8 @@ message PageListProductTerminalRep{
 	repeated ProductTerminalInfo list = 2;
 }
 message CreateAttributeReq{
-	// 产品详情Id
-	uint64 product_info_id = 1 [
+	// 产品Id
+	uint64 product_id = 1 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品类型名称
@@ -1069,8 +1069,8 @@ message EditAttributeReq{
 	uint64 id = 1 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 产品详情Id
-	uint64 product_info_id = 2 [
+	// 产品Id
+	uint64 product_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品类型名称
@@ -1084,7 +1084,7 @@ message Attribute {
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品详情Id
-	uint64 product_info_id = 2 [
+	uint64 product_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品类型名称
@@ -1114,8 +1114,8 @@ message PageListAttributeReq{
 	string name = 3 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
-	// 产品详情Id
-	uint64 product_info_id = 4 [
+	// 产品Id
+	uint64 product_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
 }
@@ -1126,4 +1126,77 @@ message PageListAttributeRep{
 	];
 	// 列表
 	repeated Attribute list = 2;
+}
+message CreateInfoAttributeReq{
+	// 产品详情Id
+	uint64 product_info_id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品属性ID
+	string attribute_id  = 2 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message EditInfoAttributeReq{
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品详情Id
+	uint64 product_info_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品属性ID
+	string attribute_id = 3 [
+		(validate.rules).string = {min_len:1, max_len:255}
+	];
+}
+message InfoAttribute {
+	// 主键
+	uint64 id = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品详情Id
+	uint64 product_info_id = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品属性ID
+	string attribute_id = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 创建时间
+	string created_at = 4;
+	// 最后编辑时间
+	string updated_at = 5;
+	// 最后删除时间
+	string deleted_at = 6;
+}
+message ListInfoAttributeRep{
+	repeated InfoAttribute list = 1;
+}
+message PageListInfoAttributeReq{
+	// 页数
+	uint64 page = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 每页数量
+	uint64 page_size = 2 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 产品属性ID
+	string attribute_id = 3 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
+	// 产品详情Id
+	uint64 product_info_id = 4 [
+		(validate.rules).uint64.gt = 0
+	];
+}
+message PageListInfoAttributeRep{
+	// 总条数
+	uint64 total = 1 [
+		(validate.rules).uint64.gt = 0
+	];
+	// 列表
+	repeated InfoAttribute list = 2;
 }

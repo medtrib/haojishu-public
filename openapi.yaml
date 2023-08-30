@@ -1570,7 +1570,7 @@ paths:
                   schema:
                     type: integer
                     format: uint64
-                - name: productInfoId
+                - name: productId
                   in: query
                   description: 产品详情Id
                   schema:
@@ -2032,7 +2032,7 @@ paths:
                   schema:
                     type: integer
                     format: uint64
-                - name: productInfoId
+                - name: productId
                   in: query
                   description: 产品详情Id
                   schema:
@@ -2505,9 +2505,9 @@ paths:
                   description: 类型名称
                   schema:
                     type: string
-                - name: productInfoId
+                - name: productId
                   in: query
-                  description: 产品详情Id
+                  description: 产品Id
                   schema:
                     type: integer
                     format: uint64
@@ -3466,7 +3466,7 @@ components:
                     type: integer
                     description: 主键
                     format: uint64
-                productInfoId:
+                productId:
                     type: integer
                     description: 产品详情Id
                     format: uint64
@@ -3522,9 +3522,9 @@ components:
         api.product.v1.CreateAttributeReq:
             type: object
             properties:
-                productInfoId:
+                productId:
                     type: integer
-                    description: 产品详情Id
+                    description: 产品Id
                     format: uint64
                 name:
                     type: string
@@ -3682,9 +3682,9 @@ components:
                     type: integer
                     description: 主键
                     format: uint64
-                productInfoId:
+                productId:
                     type: integer
-                    description: 产品详情Id
+                    description: 产品Id
                     format: uint64
                 name:
                     type: string
