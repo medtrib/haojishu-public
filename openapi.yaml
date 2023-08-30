@@ -3566,7 +3566,7 @@ components:
                 list:
                     type: array
                     items:
-                        $ref: '#/components/schemas/api.product.v1.RegionInfo'
+                        $ref: '#/components/schemas/api.product.v1.ProductInfoInfo'
                     description: 列表
         api.product.v1.PageListProductRep:
             type: object

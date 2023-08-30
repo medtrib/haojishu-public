@@ -935,7 +935,7 @@ message PageListProductInfoRep{
 		(validate.rules).uint64.gt = 0
 	];
 	// 列表
-	repeated RegionInfo list = 2;
+	repeated ProductInfoInfo list = 2;
 }
 message CreateProductTerminalReq{
 	// 产品Id
