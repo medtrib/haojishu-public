@@ -6603,9 +6603,9 @@ func (m *CreateAttributeReq) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetProductId() <= 0 {
+	if m.GetProductInfoId() <= 0 {
 		err := CreateAttributeReqValidationError{
-			field:  "ProductId",
+			field:  "ProductInfoId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -6738,9 +6738,9 @@ func (m *EditAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductId() <= 0 {
+	if m.GetProductInfoId() <= 0 {
 		err := EditAttributeReqValidationError{
-			field:  "ProductId",
+			field:  "ProductInfoId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -6871,9 +6871,9 @@ func (m *Attribute) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductId() <= 0 {
+	if m.GetProductInfoId() <= 0 {
 		err := AttributeValidationError{
-			field:  "ProductId",
+			field:  "ProductInfoId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
@@ -6898,35 +6898,6 @@ func (m *Attribute) validate(all bool) error {
 	// no validation rules for UpdatedAt
 
 	// no validation rules for DeletedAt
-
-	if all {
-		switch v := interface{}(m.GetConditions()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, AttributeValidationError{
-					field:  "Conditions",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, AttributeValidationError{
-					field:  "Conditions",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetConditions()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return AttributeValidationError{
-				field:  "Conditions",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
 
 	if len(errors) > 0 {
 		return AttributeMultiError(errors)
@@ -7194,44 +7165,15 @@ func (m *PageListAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if m.GetProductId() <= 0 {
+	if m.GetProductInfoId() <= 0 {
 		err := PageListAttributeReqValidationError{
-			field:  "ProductId",
+			field:  "ProductInfoId",
 			reason: "value must be greater than 0",
 		}
 		if !all {
 			return err
 		}
 		errors = append(errors, err)
-	}
-
-	if all {
-		switch v := interface{}(m.GetConditions()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, PageListAttributeReqValidationError{
-					field:  "Conditions",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, PageListAttributeReqValidationError{
-					field:  "Conditions",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetConditions()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return PageListAttributeReqValidationError{
-				field:  "Conditions",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
 	}
 
 	if len(errors) > 0 {

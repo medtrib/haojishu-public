@@ -1570,9 +1570,9 @@ paths:
                   schema:
                     type: integer
                     format: uint64
-                - name: productId
+                - name: productInfoId
                   in: query
-                  description: 产品Id
+                  description: 产品详情Id
                   schema:
                     type: integer
                     format: uint64
@@ -2032,9 +2032,9 @@ paths:
                   schema:
                     type: integer
                     format: uint64
-                - name: productId
+                - name: productInfoId
                   in: query
-                  description: 产品Id
+                  description: 产品详情Id
                   schema:
                     type: integer
                     format: uint64
@@ -2505,9 +2505,9 @@ paths:
                   description: 类型名称
                   schema:
                     type: string
-                - name: productId
+                - name: productInfoId
                   in: query
-                  description: 产品Id
+                  description: 产品详情Id
                   schema:
                     type: integer
                     format: uint64
@@ -3466,9 +3466,9 @@ components:
                     type: integer
                     description: 主键
                     format: uint64
-                productId:
+                productInfoId:
                     type: integer
-                    description: 产品Id
+                    description: 产品详情Id
                     format: uint64
                 name:
                     type: string
@@ -3482,8 +3482,6 @@ components:
                 deletedAt:
                     type: string
                     description: 最后删除时间
-                conditions:
-                    type: object
         api.product.v1.CategoryInfo:
             type: object
             properties:
@@ -3524,9 +3522,9 @@ components:
         api.product.v1.CreateAttributeReq:
             type: object
             properties:
-                productId:
+                productInfoId:
                     type: integer
-                    description: 产品Id
+                    description: 产品详情Id
                     format: uint64
                 name:
                     type: string
@@ -3684,9 +3682,9 @@ components:
                     type: integer
                     description: 主键
                     format: uint64
-                productId:
+                productInfoId:
                     type: integer
-                    description: 产品Id
+                    description: 产品详情Id
                     format: uint64
                 name:
                     type: string
