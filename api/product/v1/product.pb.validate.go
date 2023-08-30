@@ -6899,6 +6899,35 @@ func (m *Attribute) validate(all bool) error {
 
 	// no validation rules for DeletedAt
 
+	if all {
+		switch v := interface{}(m.GetConditions()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, AttributeValidationError{
+					field:  "Conditions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, AttributeValidationError{
+					field:  "Conditions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConditions()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return AttributeValidationError{
+				field:  "Conditions",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
 	if len(errors) > 0 {
 		return AttributeMultiError(errors)
 	}
@@ -7174,6 +7203,35 @@ func (m *PageListAttributeReq) validate(all bool) error {
 			return err
 		}
 		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetConditions()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PageListAttributeReqValidationError{
+					field:  "Conditions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PageListAttributeReqValidationError{
+					field:  "Conditions",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetConditions()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PageListAttributeReqValidationError{
+				field:  "Conditions",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
 	}
 
 	if len(errors) > 0 {

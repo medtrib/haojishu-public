@@ -4,6 +4,7 @@ package api.product.v1;
 
 import "google/api/annotations.proto";
 import "validate/validate.proto";
+import "google/protobuf/struct.proto";
 option go_package = "github.com/medtrib/haojishu-public/api/product/v1;v1";
 option java_multiple_files = true;
 option java_package = "api.product.v1";
@@ -1097,6 +1098,7 @@ message Attribute {
 	string updated_at = 5;
 	// 最后删除时间
 	string deleted_at = 6;
+	google.protobuf.Struct conditions = 7;
 }
 message ListAttributeRep{
 	repeated Attribute list = 1;
@@ -1118,6 +1120,7 @@ message PageListAttributeReq{
 	uint64 product_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
+	google.protobuf.Struct conditions = 5;
 }
 message PageListAttributeRep{
 	// 总条数

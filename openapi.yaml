@@ -3482,6 +3482,8 @@ components:
                 deletedAt:
                     type: string
                     description: 最后删除时间
+                conditions:
+                    type: object
         api.product.v1.CategoryInfo:
             type: object
             properties:
