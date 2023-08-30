@@ -1145,8 +1145,8 @@ message CreateInfoAttributeReq{
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品属性ID
-	string attribute_id  = 2 [
-		(validate.rules).string = {min_len:1, max_len:255}
+	uint64 attribute_id  = 2 [
+		(validate.rules).uint64.gt = 0
 	];
 }
 message EditInfoAttributeReq{
@@ -1159,8 +1159,8 @@ message EditInfoAttributeReq{
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品属性ID
-	string attribute_id = 3 [
-		(validate.rules).string = {min_len:1, max_len:255}
+	uint64 attribute_id = 3 [
+		(validate.rules).uint64.gt = 0
 	];
 }
 message InfoAttribute {
@@ -1173,8 +1173,8 @@ message InfoAttribute {
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品属性ID
-	string attribute_id = 3 [
-		(validate.rules).string = {min_len:1,max_len:255}
+	uint64 attribute_id = 3 [
+		(validate.rules).uint64.gt = 0
 	];
 	// 创建时间
 	string created_at = 4;
@@ -1196,8 +1196,8 @@ message PageListInfoAttributeReq{
 		(validate.rules).uint64.gt = 0
 	];
 	// 产品属性ID
-	string attribute_id = 3 [
-		(validate.rules).string = {min_len:1,max_len:255}
+	uint64 attribute_id = 3 [
+		(validate.rules).uint64.gt = 0
 	];
 	// 产品详情Id
 	uint64 product_info_id = 4 [

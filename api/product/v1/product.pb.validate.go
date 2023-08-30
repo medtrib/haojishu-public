@@ -7469,10 +7469,10 @@ func (m *CreateInfoAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+	if m.GetAttributeId() <= 0 {
 		err := CreateInfoAttributeReqValidationError{
 			field:  "AttributeId",
-			reason: "value length must be between 1 and 255 runes, inclusive",
+			reason: "value must be greater than 0",
 		}
 		if !all {
 			return err
@@ -7604,10 +7604,10 @@ func (m *EditInfoAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+	if m.GetAttributeId() <= 0 {
 		err := EditInfoAttributeReqValidationError{
 			field:  "AttributeId",
-			reason: "value length must be between 1 and 255 runes, inclusive",
+			reason: "value must be greater than 0",
 		}
 		if !all {
 			return err
@@ -7739,10 +7739,10 @@ func (m *InfoAttribute) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+	if m.GetAttributeId() <= 0 {
 		err := InfoAttributeValidationError{
 			field:  "AttributeId",
-			reason: "value length must be between 1 and 255 runes, inclusive",
+			reason: "value must be greater than 0",
 		}
 		if !all {
 			return err
@@ -8014,10 +8014,10 @@ func (m *PageListInfoAttributeReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetAttributeId()); l < 1 || l > 255 {
+	if m.GetAttributeId() <= 0 {
 		err := PageListInfoAttributeReqValidationError{
 			field:  "AttributeId",
-			reason: "value length must be between 1 and 255 runes, inclusive",
+			reason: "value must be greater than 0",
 		}
 		if !all {
 			return err
