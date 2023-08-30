@@ -833,32 +833,36 @@ message CreateProductInfoReq{
 	uint64 category_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 产品名称
+	string name = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
 	// 产品图片
-	string img = 5 [
+	string img = 6 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品关键字
-	string keywords = 6 [
+	string keywords = 7 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品简介
-	string description = 7 [
+	string description = 8 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 自定义Url路径
-	string path = 8 [
+	string path = 9 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品数量
-	uint64 num = 9 [
+	uint64 num = 10 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 控制类型
-	uint64 control = 10 [
+	uint64 control = 11 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 排序
-	uint64 sort = 11 [
+	uint64 sort = 12 [
 		(validate.rules).uint64.gt = 0
 	];
 }
@@ -879,32 +883,36 @@ message EditProductInfoReq{
 	uint64 category_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 产品名称
+	string name = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
 	// 产品图片
-	string img = 5 [
+	string img = 6 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品关键字
-	string keywords = 6 [
+	string keywords = 7 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品简介
-	string description = 7 [
+	string description = 8 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 自定义Url路径
-	string path = 8 [
+	string path = 9 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品数量
-	uint64 num = 9 [
+	uint64 num = 10 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 控制类型
-	uint64 control = 10 [
+	uint64 control = 11 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 排序
-	uint64 sort = 11 [
+	uint64 sort = 12 [
 		(validate.rules).uint64.gt = 0
 	];
 }
@@ -925,32 +933,36 @@ message ProductInfoInfo{
 	uint64 category_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 产品名称
+	string name = 5 [
+		(validate.rules).string = {min_len:1,max_len:255}
+	];
 	// 产品图片
-	string img = 5 [
+	string img = 6 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品关键字
-	string keywords = 6 [
+	string keywords = 7 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品简介
-	string description = 7 [
+	string description = 8 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 自定义Url路径
-	string path = 8 [
+	string path = 9 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
 	// 产品数量
-	uint64 num = 9 [
+	uint64 num = 10 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 控制类型
-	uint64 control = 10 [
+	uint64 control = 11 [
 		(validate.rules).uint64.gt = 0
 	];
 	// 排序
-	uint64 sort = 11 [
+	uint64 sort = 12 [
 		(validate.rules).uint64.gt = 0
 	];
 }

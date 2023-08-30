@@ -1798,6 +1798,11 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: name
+                  in: query
+                  description: 产品名称
+                  schema:
+                    type: string
                 - name: img
                   in: query
                   description: 产品图片
@@ -2260,6 +2265,11 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: name
+                  in: query
+                  description: 产品名称
+                  schema:
+                    type: string
                 - name: img
                   in: query
                   description: 产品图片
@@ -3574,6 +3584,9 @@ components:
                     type: integer
                     description: 产品分类
                     format: uint64
+                name:
+                    type: string
+                    description: 产品名称
                 img:
                     type: string
                     description: 产品图片
@@ -3746,6 +3759,9 @@ components:
                     type: integer
                     description: 产品分类
                     format: uint64
+                name:
+                    type: string
+                    description: 产品名称
                 img:
                     type: string
                     description: 产品图片
@@ -4084,6 +4100,9 @@ components:
                     type: integer
                     description: 产品分类
                     format: uint64
+                name:
+                    type: string
+                    description: 产品名称
                 img:
                     type: string
                     description: 产品图片

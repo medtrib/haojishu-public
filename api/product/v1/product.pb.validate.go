@@ -4733,6 +4733,17 @@ func (m *CreateProductInfoReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := CreateProductInfoReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if l := utf8.RuneCountInString(m.GetImg()); l < 1 || l > 255 {
 		err := CreateProductInfoReqValidationError{
 			field:  "Img",
@@ -4956,6 +4967,17 @@ func (m *EditProductInfoReq) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := EditProductInfoReqValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if l := utf8.RuneCountInString(m.GetImg()); l < 1 || l > 255 {
 		err := EditProductInfoReqValidationError{
 			field:  "Img",
@@ -5172,6 +5194,17 @@ func (m *ProductInfoInfo) validate(all bool) error {
 		err := ProductInfoInfoValidationError{
 			field:  "CategoryId",
 			reason: "value must be greater than 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetName()); l < 1 || l > 255 {
+		err := ProductInfoInfoValidationError{
+			field:  "Name",
+			reason: "value length must be between 1 and 255 runes, inclusive",
 		}
 		if !all {
 			return err
