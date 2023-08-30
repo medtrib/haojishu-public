@@ -1118,7 +1118,7 @@ type ProductInfo struct {
 
 	// 逐渐
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	// 产品Id
+	// 产品类型Id
 	KindId uint64 `protobuf:"varint,2,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
 	// 产品名称
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
@@ -2387,7 +2387,7 @@ type CreateProductInfoReq struct {
 
 	// 产品Id
 	ProductId uint64 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	// 产品类型
+	// 产品类型id
 	KindId uint64 `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
 	// 产品分类
 	CategoryId uint64 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
@@ -2518,7 +2518,7 @@ type EditProductInfoReq struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	// 产品Id
 	ProductId uint64 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	// 产品类型
+	// 产品类型ID
 	KindId uint64 `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
 	// 产品分类
 	CategoryId uint64 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`
@@ -2656,7 +2656,7 @@ type ProductInfoInfo struct {
 	Id uint64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	// 产品Id
 	ProductId uint64 `protobuf:"varint,2,opt,name=product_id,json=productId,proto3" json:"product_id,omitempty"`
-	// 产品类型
+	// 产品类型ID
 	KindId uint64 `protobuf:"varint,3,opt,name=kind_id,json=kindId,proto3" json:"kind_id,omitempty"`
 	// 产品分类
 	CategoryId uint64 `protobuf:"varint,4,opt,name=category_id,json=categoryId,proto3" json:"category_id,omitempty"`

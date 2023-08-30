@@ -499,7 +499,7 @@ message ProductInfo{
 	uint64 id = 1 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 产品Id
+	// 产品类型Id
 	uint64 kind_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
@@ -786,7 +786,7 @@ message CreateProductInfoReq{
 	uint64 product_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 产品类型
+	// 产品类型id
 	uint64 kind_id =3 [
 		(validate.rules).uint64.gt = 0
 	];
@@ -832,7 +832,7 @@ message EditProductInfoReq{
 	uint64 product_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 产品类型
+	// 产品类型ID
 	uint64 kind_id =3 [
 		(validate.rules).uint64.gt = 0
 	];
@@ -878,7 +878,7 @@ message ProductInfoInfo{
 	uint64 product_id = 2 [
 		(validate.rules).uint64.gt = 0
 	];
-	// 产品类型
+	// 产品类型ID
 	uint64 kind_id =3 [
 		(validate.rules).uint64.gt = 0
 	];
