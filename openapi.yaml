@@ -1545,6 +1545,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -1568,6 +1583,21 @@ paths:
                 - name: name
                   in: query
                   description: 产品类型名称
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
                   schema:
                     type: string
             responses:
@@ -1664,6 +1694,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -1780,6 +1825,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -1833,6 +1893,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -1856,6 +1931,21 @@ paths:
                 - name: name
                   in: query
                   description: 产品类型名称
+                  schema:
+                    type: string
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
                   schema:
                     type: string
             responses:
@@ -1952,6 +2042,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -2068,6 +2173,21 @@ paths:
                   schema:
                     type: integer
                     format: uint64
+                - name: createdAt
+                  in: query
+                  description: 创建时间
+                  schema:
+                    type: string
+                - name: updatedAt
+                  in: query
+                  description: 最后编辑时间
+                  schema:
+                    type: string
+                - name: deletedAt
+                  in: query
+                  description: 最后删除时间
+                  schema:
+                    type: string
             responses:
                 "200":
                     description: OK
@@ -3013,6 +3133,15 @@ components:
                     type: integer
                     description: 排序
                     format: uint64
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
         api.product.v1.CreateCategoryReq:
             type: object
             properties:
@@ -3341,6 +3470,15 @@ components:
                 name:
                     type: string
                     description: 产品类型名称
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
         api.product.v1.ListCategoryRep:
             type: object
             properties:
@@ -3574,6 +3712,15 @@ components:
                     type: integer
                     description: 终端ID
                     format: uint64
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
         api.product.v1.RegionInfo:
             type: object
             properties:
@@ -3602,6 +3749,15 @@ components:
                     type: integer
                     description: 排序
                     format: uint64
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
         api.product.v1.Terminal:
             type: object
             properties:
@@ -3621,6 +3777,15 @@ components:
                     type: integer
                     description: 排序
                     format: uint64
+                createdAt:
+                    type: string
+                    description: 创建时间
+                updatedAt:
+                    type: string
+                    description: 最后编辑时间
+                deletedAt:
+                    type: string
+                    description: 最后删除时间
 tags:
     - name: Admin
     - name: Auth

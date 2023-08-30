@@ -269,6 +269,12 @@ func (m *Terminal) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
+
 	if len(errors) > 0 {
 		return TerminalMultiError(errors)
 	}
@@ -1396,6 +1402,12 @@ func (m *Kind) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
 
 	if len(errors) > 0 {
 		return KindMultiError(errors)
@@ -3226,6 +3238,12 @@ func (m *CategoryInfo) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
+
 	if len(errors) > 0 {
 		return CategoryInfoMultiError(errors)
 	}
@@ -4160,6 +4178,12 @@ func (m *RegionInfo) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
 
 	if len(errors) > 0 {
 		return RegionInfoMultiError(errors)
@@ -6063,6 +6087,12 @@ func (m *ProductTerminalInfo) validate(all bool) error {
 		}
 		errors = append(errors, err)
 	}
+
+	// no validation rules for CreatedAt
+
+	// no validation rules for UpdatedAt
+
+	// no validation rules for DeletedAt
 
 	if len(errors) > 0 {
 		return ProductTerminalInfoMultiError(errors)

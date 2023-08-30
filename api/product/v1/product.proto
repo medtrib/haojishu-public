@@ -326,6 +326,12 @@ message Terminal {
 	uint64 sort = 5 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 创建时间
+	string created_at = 6;
+	// 最后编辑时间
+	string updated_at = 7;
+	// 最后删除时间
+	string deleted_at = 8;
 }
 message EditTerminalReq {
 	// id
@@ -408,6 +414,12 @@ message Kind {
 	string name = 2 [
 		(validate.rules).string = {min_len:1,max_len:255}
 	];
+	// 创建时间
+	string created_at = 6;
+	// 最后编辑时间
+	string updated_at = 7;
+	// 最后删除时间
+	string deleted_at = 8;
 }
 message ListKindRep{
 	repeated Kind list = 1;
@@ -620,6 +632,12 @@ message CategoryInfo {
 	uint64 sort = 7 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 创建时间
+	string created_at = 8;
+	// 最后编辑时间
+	string updated_at = 9;
+	// 最后删除时间
+	string deleted_at = 10;
 }
 message ListCategoryRep{
 	// 列表
@@ -730,6 +748,12 @@ message RegionInfo{
 	uint64 sort = 7 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 创建时间
+	string created_at = 8;
+	// 最后编辑时间
+	string updated_at = 9;
+	// 最后删除时间
+	string deleted_at = 10;
 }
 message ListRegionRep{
 	// 列表
@@ -962,6 +986,12 @@ message ProductTerminalInfo{
 	uint64 terminal_id = 4 [
 		(validate.rules).uint64.gt = 0
 	];
+	// 创建时间
+	string created_at = 5;
+	// 最后编辑时间
+	string updated_at = 6;
+	// 最后删除时间
+	string deleted_at = 7;
 }
 message ListProductTerminalInfoRep{
 	// 列表
